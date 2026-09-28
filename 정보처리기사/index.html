@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>정보처리기사 실기 노트</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <style>
 :root{
   --bg:#f6f7f9; --panel:#ffffff; --ink:#1b2430; --muted:#5d6878;
@@ -68,7 +69,11 @@ b{color:var(--accent);font-weight:500}
 .note{margin:10px 0 0;padding:10px 14px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 6px 6px 0;font-size:14px}
 .note b:first-child{margin-right:6px}
 td.num{text-align:center;font:500 13px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-pre.sql{margin:8px 0 12px;padding:12px 14px;overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;font:500 13px/1.6 var(--mono);color:var(--ink);tab-size:2}
+pre.code{position:relative;margin:8px 0 12px;padding:30px 0 0;overflow:hidden;background:#282c34;border:1px solid #1e2127;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+pre.code::before{content:"";position:absolute;top:10px;left:12px;width:10px;height:10px;border-radius:50%;background:#ff5f56;box-shadow:16px 0 0 #ffbd2e,32px 0 0 #27c93f}
+pre.code::after{content:attr(data-lang);position:absolute;top:6px;right:12px;font:500 11px var(--mono);color:#7f848e;letter-spacing:.06em}
+pre.code .hljs-comment{color:#8b95a5;font-style:normal}
+pre.code code{display:block;padding:10px 14px 14px;overflow-x:auto;background:#282c34;color:#abb2bf;font:500 13px/1.6 var(--mono);tab-size:4;border-radius:0}
 code{font:500 13px var(--mono);background:var(--accent-soft);padding:1px 5px;border-radius:4px}
 .gscroll{overflow-x:auto;margin:10px 0}
 .gantt{min-width:480px;padding-bottom:4px}
@@ -856,28 +861,28 @@ ol.steps{margin:8px 0 12px;padding-left:22px;font-size:14px;display:grid;gap:4px
 
       <h3>DDL (데이터 정의어)</h3>
       <h4>CREATE: 테이블 생성</h4>
-<pre class="sql">CREATE TABLE 학생 (
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE TABLE 학생 (
   학번  INT         NOT NULL,
   이름  VARCHAR(10) NOT NULL,
   학과  VARCHAR(20),
   PRIMARY KEY (학번)
-);</pre>
+);</code></pre>
 
       <h4>DROP · TRUNCATE: 삭제</h4>
-<pre class="sql">DROP TABLE 학생;            -- 테이블 구조와 데이터를 모두 삭제
+<pre class="code" data-lang="SQL"><code class="language-sql">DROP TABLE 학생;            -- 테이블 구조와 데이터를 모두 삭제
 DROP TABLE 학생 CASCADE;    -- 학생을 참조하는 다른 개체까지 함께 삭제
 DROP TABLE 학생 RESTRICT;   -- 다른 개체가 참조하고 있으면 삭제를 취소
-TRUNCATE TABLE 학생;        -- 구조는 남기고 데이터만 모두 삭제</pre>
+TRUNCATE TABLE 학생;        -- 구조는 남기고 데이터만 모두 삭제</code></pre>
 
       <h4>ALTER: 테이블 수정</h4>
-<pre class="sql">ALTER TABLE EMP ADD (EMAIL VARCHAR2(15));        -- 컬럼 추가
+<pre class="code" data-lang="SQL"><code class="language-sql">ALTER TABLE EMP ADD (EMAIL VARCHAR2(15));        -- 컬럼 추가
 ALTER TABLE EMP MODIFY (EMAIL VARCHAR2(20));     -- 컬럼 타입 변경
 ALTER TABLE EMP RENAME COLUMN EMAIL TO MAIL;     -- 컬럼 이름 변경
-ALTER TABLE EMP DROP COLUMN MAIL;                -- 컬럼 삭제</pre>
+ALTER TABLE EMP DROP COLUMN MAIL;                -- 컬럼 삭제</code></pre>
       <p class="todo">MODIFY, VARCHAR2는 Oracle 문법이다. 표준 SQL에서는 <code>ALTER TABLE 테이블명 ALTER 컬럼명 SET DEFAULT 값;</code>처럼 ALTER를 쓴다.</p>
 
       <h4>제약 조건</h4>
-<pre class="sql">CREATE TABLE 수강 (
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE TABLE 수강 (
   학번     INT,
   과목코드 CHAR(4),
   성적     INT DEFAULT 0 CHECK (성적 BETWEEN 0 AND 100),  -- 기본값, 값 범위 제한
@@ -885,7 +890,7 @@ ALTER TABLE EMP DROP COLUMN MAIL;                -- 컬럼 삭제</pre>
   FOREIGN KEY (학번) REFERENCES 학생(학번)               -- 외래키
     ON DELETE CASCADE                                  -- 학생이 삭제되면 수강도 삭제
     ON UPDATE CASCADE                                  -- 학번이 바뀌면 함께 변경
-);</pre>
+);</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>제약 조건</th><th>설명</th></tr></thead>
         <tbody>
@@ -900,7 +905,7 @@ ALTER TABLE EMP DROP COLUMN MAIL;                -- 컬럼 삭제</pre>
       <p class="note"><b>참조 옵션 (ON DELETE / ON UPDATE)</b> <b>CASCADE</b>: 함께 삭제·변경 · <b>SET NULL</b>: NULL로 변경 · <b>SET DEFAULT</b>: 기본값으로 변경 · <b>RESTRICT / NO ACTION</b>: 참조 중이면 삭제·변경을 거부</p>
       <h4>제약 조건에 이름 붙이기: CONSTRAINT</h4>
       <p class="note"><b>2026년 1회 출제</b> 이름이 있는 외래키 제약 조건을 CREATE TABLE 안에 작성하기 (빈칸: CONSTRAINT, FOREIGN, 컬럼, REFERENCES, 참조 컬럼)</p>
-<pre class="sql">CREATE TABLE 선수 (
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE TABLE 선수 (
   선수ID  CHAR(7)     NOT NULL,
   팀ID    CHAR(3)     NOT NULL,
   CONSTRAINT pk_선수 PRIMARY KEY (선수ID),
@@ -909,59 +914,59 @@ ALTER TABLE EMP DROP COLUMN MAIL;                -- 컬럼 삭제</pre>
 -- 형식: CONSTRAINT 제약조건명 FOREIGN KEY (외래키 컬럼) REFERENCES 참조테이블 (참조 컬럼)
 
 ALTER TABLE 선수 ADD CONSTRAINT fk_선수팀 FOREIGN KEY (팀ID) REFERENCES 팀 (팀코드);   -- 나중에 추가
-ALTER TABLE 선수 DROP CONSTRAINT fk_선수팀;                                             -- 삭제</pre>
+ALTER TABLE 선수 DROP CONSTRAINT fk_선수팀;                                             -- 삭제</code></pre>
       <p class="todo">제약 조건에 이름을 붙여 두면 나중에 그 이름으로 삭제하거나 수정할 수 있다. 외래키 컬럼 이름과 참조하는 컬럼 이름은 달라도 된다.</p>
 
       <h4>CREATE DOMAIN: 도메인 정의</h4>
       <p class="note"><b>2026년 2회 출제</b> 도메인을 정의하면서 입력 가능한 값을 제한하는 키워드 (빈칸: CHECK)</p>
-<pre class="sql">CREATE DOMAIN 학년 AS INT
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE DOMAIN 학년 AS INT
   DEFAULT 1
   CONSTRAINT 학년범위 CHECK (VALUE IN (1, 2, 3, 4));
 -- 형식: CREATE DOMAIN 도메인명 [AS] 데이터타입
 --         [DEFAULT 기본값]
---         [CONSTRAINT 제약조건명 CHECK (VALUE 조건)]</pre>
+--         [CONSTRAINT 제약조건명 CHECK (VALUE 조건)]</code></pre>
       <p class="todo">도메인은 속성이 가질 수 있는 값의 범위다. CHECK 안에서는 입력되는 값을 <code>VALUE</code>로 가리킨다. 만든 도메인은 <code>CREATE TABLE</code>에서 데이터 타입처럼 쓸 수 있다 (예: <code>학년 학년</code>).</p>
 
       <h4>VIEW: 뷰</h4>
       <p class="todo">하나 이상의 기본 테이블에서 유도한 <b>가상 테이블</b>. 필요한 데이터만 보여 줘서 보안과 논리적 독립성을 높인다.</p>
-<pre class="sql">CREATE VIEW 컴공학생 AS
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE VIEW 컴공학생 AS
   SELECT 학번, 이름 FROM 학생 WHERE 학과 = '컴공'
   WITH CHECK OPTION;          -- 뷰 조건(학과='컴공')을 벗어나는 수정을 막음
 
-DROP VIEW 컴공학생;           -- 뷰 삭제 (CASCADE, RESTRICT 사용 가능)</pre>
+DROP VIEW 컴공학생;           -- 뷰 삭제 (CASCADE, RESTRICT 사용 가능)</code></pre>
       <p class="todo">뷰는 <b>ALTER로 수정할 수 없어</b> 삭제 후 다시 만들어야 한다. 뷰를 지우면 그 뷰를 기반으로 만든 다른 뷰도 삭제되며, 삽입·삭제·갱신에 제약이 있다.</p>
       <h4>INDEX: 인덱스</h4>
       <p class="todo">검색 속도를 높이려고 만드는 <b>키 값과 위치(포인터)</b>의 쌍. 조회는 빨라지지만 삽입·수정·삭제가 잦으면 관리 부담이 커진다.</p>
-<pre class="sql">CREATE UNIQUE INDEX idx_학생이름 ON 학생 (이름 ASC);   -- UNIQUE: 중복 값 불가
-DROP INDEX idx_학생이름;</pre>
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE UNIQUE INDEX idx_학생이름 ON 학생 (이름 ASC);   -- UNIQUE: 중복 값 불가
+DROP INDEX idx_학생이름;</code></pre>
       <h3>DML (데이터 조작어)</h3>
       <h4>INSERT · UPDATE · DELETE</h4>
-<pre class="sql">INSERT INTO 사원 (이름, 팀명, 나이) VALUES ('홍길동', '개발팀', 30);
+<pre class="code" data-lang="SQL"><code class="language-sql">INSERT INTO 사원 (이름, 팀명, 나이) VALUES ('홍길동', '개발팀', 30);
 
 UPDATE 사원 SET 팀명 = '기획팀';                        -- WHERE가 없으면 모든 행이 바뀜
 UPDATE 사원 SET 팀명 = '기획팀' WHERE 이름 = '홍길동';   -- 조건에 맞는 행만 변경
 
 DELETE FROM 사원;                        -- 모든 행 삭제 (DELETE 뒤에 * 없음)
-DELETE FROM 사원 WHERE 이름 = '홍길동';   -- 조건에 맞는 행만 삭제</pre>
+DELETE FROM 사원 WHERE 이름 = '홍길동';   -- 조건에 맞는 행만 삭제</code></pre>
 
       <h4>INSERT INTO ... SELECT</h4>
       <p class="note"><b>2024년 2회 출제</b> VALUES로 한 행을 넣는 INSERT, 다른 테이블을 조회한 결과를 넣는 INSERT, UPDATE의 빈칸 키워드 (VALUES, SELECT, FROM, SET)</p>
-<pre class="sql">INSERT INTO 사원 (사번, 이름, 부서) VALUES (1, '김', '영업');      -- 값 직접 입력
+<pre class="code" data-lang="SQL"><code class="language-sql">INSERT INTO 사원 (사번, 이름, 부서) VALUES (1, '김', '영업');      -- 값 직접 입력
 
 INSERT INTO 백업 (사번, 이름, 나이)
 SELECT 사번, 이름, 23 FROM 사원 WHERE 이름 = '김';                 -- 조회 결과를 그대로 삽입
                                                                   -- (상수 23도 열처럼 넣을 수 있음)
-UPDATE 사원 SET 부서 = '퇴사' WHERE 사번 = 1;</pre>
+UPDATE 사원 SET 부서 = '퇴사' WHERE 사번 = 1;</code></pre>
       <p class="todo">INSERT ... SELECT에서는 VALUES를 쓰지 않는다. 넣을 열의 개수와 순서를 SELECT 결과 열과 맞춰야 한다.</p>
       <p class="todo"><b>열 목록 생략</b> 테이블의 <b>모든 열</b>에 <b>정의된 순서대로</b> 값을 넣을 때는 <code>INSERT INTO 학생 VALUES (1, '김', 3, '경영', '010-0000-0000');</code>처럼 열 이름을 생략할 수 있다. 문자열과 날짜 값은 작은따옴표로 감싼다 (2023년 2회 출제).</p>
 
       <h4>SELECT 기본 구조</h4>
-<pre class="sql">SELECT [DISTINCT] 컬럼, 집계함수   -- ⑤ 출력할 컬럼 (DISTINCT: 중복 제거)
+<pre class="code" data-lang="SQL"><code class="language-sql">SELECT [DISTINCT] 컬럼, 집계함수   -- ⑤ 출력할 컬럼 (DISTINCT: 중복 제거)
 FROM 테이블                      -- ① 대상 테이블
 WHERE 조건                       -- ② 행 조건 (집계함수 사용 불가)
 GROUP BY 컬럼                    -- ③ 그룹으로 묶기
 HAVING 그룹 조건                  -- ④ 그룹 조건 (집계함수 사용)
-ORDER BY 컬럼 [ASC | DESC];      -- ⑥ 정렬</pre>
+ORDER BY 컬럼 [ASC | DESC];      -- ⑥ 정렬</code></pre>
       <p class="todo">작성 순서는 위와 같고, 번호(①~⑥)는 실제 <b>실행 순서</b>다.</p>
 
       <h4>집계 함수</h4>
@@ -1003,13 +1008,13 @@ ORDER BY 컬럼 [ASC | DESC];      -- ⑥ 정렬</pre>
           <tr><th scope="row"></th><td class="num">5</td><td class="num">NULL</td><td>X</td></tr>
         </tbody>
       </table></div>
-<pre class="sql">SELECT COUNT(col2), COUNT(*) FROM T
+<pre class="code" data-lang="SQL"><code class="language-sql">SELECT COUNT(col2), COUNT(*) FROM T
 WHERE col1 IN (2, 3) OR col2 IN (3, 5);
 -- 통과한 행은 4개 → COUNT(*) = 4
 -- 그중 col2가 NULL인 행(2, NULL)은 빼고 셈 → COUNT(col2) = 3
 
 SELECT COUNT(*) FROM T WHERE col1 = 1 OR col1 = 2 AND col2 IS NOT NULL;
--- AND가 OR보다 먼저: col1 = 1 OR (col1 = 2 AND col2 IS NOT NULL) → 1</pre>
+-- AND가 OR보다 먼저: col1 = 1 OR (col1 = 2 AND col2 IS NOT NULL) → 1</code></pre>
       <p class="todo">먼저 WHERE로 행을 거르고, 남은 행에서 COUNT를 센다. <b>AND가 OR보다 우선</b>하므로 헷갈리면 괄호를 쳐서 읽는다.</p>
 
       <h4>WHERE 조건 연산자</h4>
@@ -1029,7 +1034,7 @@ SELECT COUNT(*) FROM T WHERE col1 = 1 OR col1 = 2 AND col2 IS NOT NULL;
       </table></div>
 
       <h4>GROUP BY · HAVING · ORDER BY</h4>
-<pre class="sql">-- 학과별 평균 성적이 90 이상인 학과를, 평균 성적 내림차순으로
+<pre class="code" data-lang="SQL"><code class="language-sql">-- 학과별 평균 성적이 90 이상인 학과를, 평균 성적 내림차순으로
 SELECT 학과, AVG(성적) AS 평균
 FROM 학생
 GROUP BY 학과
@@ -1037,13 +1042,13 @@ HAVING AVG(성적) &gt;= 90
 ORDER BY 평균 DESC;
 
 -- a는 오름차순, a가 같으면 b는 내림차순
-SELECT * FROM T ORDER BY a ASC, b DESC;</pre>
+SELECT * FROM T ORDER BY a ASC, b DESC;</code></pre>
       <p class="note"><b>WHERE vs HAVING</b> "○○별" 문제는 GROUP BY. 집계 함수(SUM, AVG, MAX 등)에 조건을 걸 때는 WHERE가 아니라 <b>HAVING</b>을 쓴다. ORDER BY의 기본값은 ASC(오름차순)다.</p>
-<pre class="sql">-- 과목별 평균이 90 이상인 과목의 이름, 최소 점수, 최대 점수 (WHERE 없이)
+<pre class="code" data-lang="SQL"><code class="language-sql">-- 과목별 평균이 90 이상인 과목의 이름, 최소 점수, 최대 점수 (WHERE 없이)
 SELECT 과목 AS 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수
 FROM 성적
 GROUP BY 과목
-HAVING AVG(점수) &gt;= 90;</pre>
+HAVING AVG(점수) &gt;= 90;</code></pre>
       <p class="todo"><b>별칭(AS)</b>은 결과의 열 이름을 바꾼다. AS는 생략할 수 있고, 별칭에 공백이 있으면 따옴표로 감싼다. 조건에 쓰는 집계 함수(AVG)가 SELECT에 없어도 HAVING에는 쓸 수 있다 (2023년 1회 출제).</p>
 
 
@@ -1066,11 +1071,11 @@ HAVING AVG(점수) &gt;= 90;</pre>
         </tbody>
       </table></div>
       <h4>JOIN</h4>
-<pre class="sql">SELECT s.이름, d.학과명
+<pre class="code" data-lang="SQL"><code class="language-sql">SELECT s.이름, d.학과명
 FROM 학생 s INNER JOIN 학과 d ON s.학과코드 = d.학과코드;
 
 -- 같은 결과 (WHERE로 조인)
-SELECT s.이름, d.학과명 FROM 학생 s, 학과 d WHERE s.학과코드 = d.학과코드;</pre>
+SELECT s.이름, d.학과명 FROM 학생 s, 학과 d WHERE s.학과코드 = d.학과코드;</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>조인</th><th>설명</th><th>결과 행 수</th></tr></thead>
         <tbody>
@@ -1095,12 +1100,12 @@ SELECT s.이름, d.학과명 FROM 학생 s, 학과 d WHERE s.학과코드 = d.�
 
       <h4>서브쿼리</h4>
       <p class="todo">SQL 문 안에 들어 있는 또 다른 SELECT 문. 괄호로 감싼다.</p>
-<pre class="sql">-- 학과명이 '컴공'인 학과의 학생 이름 → 김철수
+<pre class="code" data-lang="SQL"><code class="language-sql">-- 학과명이 '컴공'인 학과의 학생 이름 → 김철수
 SELECT 이름 FROM 학생
 WHERE 학과코드 IN (SELECT 학과코드 FROM 학과 WHERE 학과명 = '컴공');
 
 -- 평균보다 성적이 높은 학생
-SELECT 이름 FROM 성적표 WHERE 점수 > (SELECT AVG(점수) FROM 성적표);</pre>
+SELECT 이름 FROM 성적표 WHERE 점수 > (SELECT AVG(점수) FROM 성적표);</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>연산자</th><th>설명</th></tr></thead>
         <tbody>
@@ -1128,9 +1133,9 @@ SELECT 이름 FROM 성적표 WHERE 점수 > (SELECT AVG(점수) FROM 성적표);
           <tr><th scope="row"></th><td class="num">30</td><td class="num">500</td></tr>
         </tbody>
       </table></div>
-<pre class="sql">SELECT COUNT(*)
+<pre class="code" data-lang="SQL"><code class="language-sql">SELECT COUNT(*)
 FROM emp e JOIN dept d ON e.dept_id = d.dept_id
-WHERE d.budget &gt; (SELECT AVG(budget) FROM dept);</pre>
+WHERE d.budget &gt; (SELECT AVG(budget) FROM dept);</code></pre>
       <ol class="steps">
         <li><b>서브쿼리부터</b> 계산: AVG(budget) = (100 + 300 + 500) ÷ 3 = 300</li>
         <li><b>JOIN</b>으로 직원마다 부서 예산을 붙임: 1·2 → 100, 3 → 300, 4·5 → 500</li>
@@ -1140,23 +1145,23 @@ WHERE d.budget &gt; (SELECT AVG(budget) FROM dept);</pre>
 
       <h4>서브쿼리 안의 GROUP BY · HAVING</h4>
       <p class="note"><b>2024년 3회 출제</b> 서브쿼리가 여러 겹이고, 가장 안쪽에서 GROUP BY와 HAVING으로 조건에 맞는 그룹을 고르는 문제</p>
-<pre class="sql">-- emp(name, pid): (a,1) (b,1) (c,2) (d,3) (e,3) (f,3)
+<pre class="code" data-lang="SQL"><code class="language-sql">-- emp(name, pid): (a,1) (b,1) (c,2) (d,3) (e,3) (f,3)
 SELECT COUNT(*)
 FROM emp e JOIN proj p ON e.pid = p.pid
 WHERE p.pid IN (
     SELECT pid FROM emp GROUP BY pid HAVING COUNT(*) &gt;= 2   -- ① 인원 2명 이상인 pid: 1, 3
 );
--- ② pid가 1 또는 3인 직원: a, b, d, e, f → ③ COUNT(*) = 5</pre>
+-- ② pid가 1 또는 3인 직원: a, b, d, e, f → ③ COUNT(*) = 5</code></pre>
       <p class="todo">서브쿼리가 여러 겹이면 <b>가장 안쪽부터</b> 결과를 적어 두고 한 겹씩 밖으로 나온다. GROUP BY 뒤의 HAVING은 그룹마다 COUNT를 세서 거른다.</p>
 
       <h4>ALL과 ANY</h4>
       <p class="note"><b>2022년 2회 출제</b> H 회사의 모든 제품 단가보다 비싼 제품을 조회하는 서브쿼리 앞의 키워드 (빈칸: ALL)</p>
-<pre class="sql">-- 제품: H(100), H(300), S(200), S(400), L(500)
+<pre class="code" data-lang="SQL"><code class="language-sql">-- 제품: H(100), H(300), S(200), S(400), L(500)
 SELECT 제품명 FROM 제품
 WHERE 단가 &gt; ALL (SELECT 단가 FROM 제품 WHERE 제조사 = 'H');   -- 100, 300 모두보다 큼 → 400, 500
 
 SELECT 제품명 FROM 제품
-WHERE 단가 &gt; ANY (SELECT 단가 FROM 제품 WHERE 제조사 = 'H');   -- 100, 300 중 하나라도보다 큼 → 300, 200, 400, 500</pre>
+WHERE 단가 &gt; ANY (SELECT 단가 FROM 제품 WHERE 제조사 = 'H');   -- 100, 300 중 하나라도보다 큼 → 300, 200, 400, 500</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>표현</th><th>같은 뜻</th></tr></thead>
         <tbody>
@@ -1194,11 +1199,11 @@ WHERE 단가 &gt; ANY (SELECT 단가 FROM 제품 WHERE 제조사 = 'H');   -- 10
       <p class="todo"><b>집합 연산 + ORDER BY</b> ORDER BY는 맨 마지막에 한 번만 쓰고, 합쳐진 <b>전체 결과</b>를 정렬한다 (2023년 3회 출제). 예: T1 = {5, 1}, T2 = {1, 3}일 때 <code>SELECT v FROM T1 UNION SELECT v FROM T2 ORDER BY v DESC;</code> → 5, 3, 1 (중복된 1은 한 번만)</p>
 
       <h3>DCL (데이터 제어어)</h3>
-<pre class="sql">GRANT 권한 ON 테이블 TO 사용자;       -- 권한 부여
+<pre class="code" data-lang="SQL"><code class="language-sql">GRANT 권한 ON 테이블 TO 사용자;       -- 권한 부여
 REVOKE 권한 ON 테이블 FROM 사용자;    -- 권한 회수
 
 GRANT DELETE ON 학생 TO 홍길동;       -- 홍길동에게 학생 테이블 삭제 권한 부여
-REVOKE DELETE ON 학생 FROM 홍길동;    -- 홍길동의 삭제 권한 회수</pre>
+REVOKE DELETE ON 학생 FROM 홍길동;    -- 홍길동의 삭제 권한 회수</code></pre>
       <p class="todo">권한에는 SELECT, INSERT, UPDATE, DELETE 등이 있다. GRANT는 <b>TO</b>, REVOKE는 <b>FROM</b>을 쓴다.</p>
 
       <h3>TCL (트랜잭션 제어어)</h3>
@@ -1214,22 +1219,22 @@ REVOKE DELETE ON 학생 FROM 홍길동;    -- 홍길동의 삭제 권한 회수<
       <h3>트리거와 프로시저</h3>
       <h4>트리거 (Trigger)</h4>
       <p class="todo">테이블에 <b>삽입·갱신·삭제</b> 같은 이벤트가 발생하면 <b>자동으로</b> 실행되는 SQL 블록. 무결성 유지, 로그 기록 등에 쓴다.</p>
-<pre class="sql">CREATE TRIGGER 학생등록로그
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE TRIGGER 학생등록로그
 AFTER INSERT ON 학생            -- BEFORE / AFTER, INSERT / UPDATE / DELETE
 FOR EACH ROW                   -- 행마다 실행
 BEGIN
   INSERT INTO 로그 VALUES (:NEW.학번, SYSDATE);   -- NEW: 새 값, OLD: 이전 값
-END;</pre>
+END;</code></pre>
       <p class="note"><b>주의</b> 트리거 안에서는 COMMIT, ROLLBACK 같은 트랜잭션 제어 명령을 사용할 수 없다.</p>
       <h4>프로시저 (Stored Procedure)</h4>
       <p class="todo">자주 쓰는 여러 SQL 문을 하나로 묶어 DB에 <b>저장</b>해 두고, 필요할 때 <b>호출</b>해서 실행하는 프로그램</p>
-<pre class="sql">CREATE PROCEDURE 급여인상 (p_사번 IN INT)
+<pre class="code" data-lang="SQL"><code class="language-sql">CREATE PROCEDURE 급여인상 (p_사번 IN INT)
 IS
 BEGIN
   UPDATE 사원 SET 급여 = 급여 * 1.1 WHERE 사번 = p_사번;
 END;
 
-EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</pre>
+EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</code></pre>
       <p class="todo">값을 돌려주는(RETURN) 것은 <b>사용자 정의 함수</b>, 이벤트에 자동으로 반응하는 것은 <b>트리거</b>, 직접 호출해서 실행하는 것은 <b>프로시저</b>다.</p>
     </section>
 
@@ -1564,7 +1569,7 @@ EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</pre>
       <h3>Java</h3>
       <h4>상속, 생성자, 오버라이딩</h4>
       <p class="note"><b>2026년 2회 출제</b> 자식 생성자의 super() 호출, 오버라이딩한 메서드 안의 super.메서드() 호출, 접근 제어자와 출력 연산</p>
-<pre class="sql">class Parent {
+<pre class="code" data-lang="Java"><code class="language-java">class Parent {
     int x;
     Parent(int x) { this.x = x; System.out.print("P"); }
     void show() { System.out.print(x); }
@@ -1577,7 +1582,7 @@ class Child extends Parent {
 // main
 Parent p = new Child(3);   // 출력: PC   (부모 생성자 → 자식 생성자)
 p.show();                  // 출력: 6!   (실제 객체가 Child라서 Child의 show 실행)
-// 최종 출력: PC6!</pre>
+// 최종 출력: PC6!</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>개념</th><th>핵심</th></tr></thead>
         <tbody>
@@ -1603,7 +1608,7 @@ p.show();                  // 출력: 6!   (실제 객체가 Child라서 Child�
 
       <h4>오버로딩과 오버라이딩이 함께 있을 때</h4>
       <p class="note"><b>2026년 1회 출제</b> 부모 타입 변수로 호출한 메서드 안에서, 자식이 오버로딩과 오버라이딩을 모두 한 메서드를 부르는 문제</p>
-<pre class="sql">class P {
+<pre class="code" data-lang="Java"><code class="language-java">class P {
     void m(Object o) { System.out.print("P-obj "); }
 }
 class K extends P {
@@ -1615,18 +1620,18 @@ P p = new K();
 p.m("hi");      // K-obj   ① 컴파일 때 P에는 m(Object)뿐 → m(Object) 선택
                 //         ② 실행 때 실제 객체 K의 m(Object) 실행
 K k = new K();
-k.m("hi");      // K-str   K 타입에는 m(String)이 있어 더 구체적인 쪽 선택</pre>
+k.m("hi");      // K-str   K 타입에는 m(String)이 있어 더 구체적인 쪽 선택</code></pre>
       <p class="todo"><b>어떤 시그니처를 부를지</b>(오버로딩 선택)는 컴파일할 때 <b>변수의 타입</b>으로 정해지고, <b>누구의 메서드를 실행할지</b>(오버라이딩)는 실행할 때 <b>실제 객체</b>로 정해진다. 부모 클래스의 메서드 안에서 호출하는 경우도 부모 타입 기준으로 시그니처가 정해진다.</p>
 
       <h4>출력문의 + 연산</h4>
-<pre class="sql">System.out.print(1 + 2 + "a" + 1 + 2);   // 3a12  (왼쪽부터: 1+2=3 → "3a" → "3a1" → "3a12")
+<pre class="code" data-lang="Java"><code class="language-java">System.out.print(1 + 2 + "a" + 1 + 2);   // 3a12  (왼쪽부터: 1+2=3 → "3a" → "3a1" → "3a12")
 System.out.print(9 + 500);               // 509   (둘 다 숫자면 덧셈)
-System.out.print("" + 9 + 500);          // 9500  (문자열이 앞에 오면 이어 붙임)</pre>
+System.out.print("" + 9 + 500);          // 9500  (문자열이 앞에 오면 이어 붙임)</code></pre>
       <p class="todo">+는 <b>왼쪽부터</b> 계산한다. 숫자끼리는 덧셈이고, 한쪽이라도 문자열이 되는 순간부터는 문자열 연결이다.</p>
 
       <h4>인터페이스와 추상 클래스</h4>
       <p class="note"><b>2025년 3회 출제</b> 인터페이스를 구현하는 클래스 선언의 키워드 (빈칸: implements)</p>
-<pre class="sql">interface Shape {
+<pre class="code" data-lang="Java"><code class="language-java">interface Shape {
     double area();                       // 자동으로 public abstract
 }
 abstract class Base {
@@ -1636,7 +1641,7 @@ abstract class Base {
 class Circle extends Base implements Shape {   // 클래스 상속은 extends, 인터페이스 구현은 implements
     public double area() { return 3.14; }       // 인터페이스 메서드는 public으로 구현
     void draw() { System.out.print("O"); }
-}</pre>
+}</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>구분</th><th>키워드</th><th>개수</th></tr></thead>
         <tbody>
@@ -1649,7 +1654,7 @@ class Circle extends Base implements Shape {   // 클래스 상속은 extends, �
 
       <h4>enum (열거형)</h4>
       <p class="note"><b>2025년 3회 출제</b> <code>values()</code> 배열을 <code>name().length()</code>로 인덱싱해서 상수의 필드 값을 출력</p>
-<pre class="sql">enum Color {
+<pre class="code" data-lang="Java"><code class="language-java">enum Color {
     RED("R"), GREEN("G"), BLUE("B");     // 상수 목록 (선언 순서대로 0, 1, 2)
     private final String c;
     Color(String c) { this.c = c; }      // 생성자는 상수마다 한 번씩 자동 호출
@@ -1660,12 +1665,12 @@ Color.GREEN.name();          // "GREEN"             상수 이름 문자열
 Color.GREEN.ordinal();       // 1                   선언 순서 번호 (0부터)
 Color.valueOf("BLUE");       // BLUE                이름으로 상수 찾기
 
-Color.values()[Color.RED.name().length() - 1].c();   // "RED".length() = 3 → values()[2] = BLUE → "B"</pre>
+Color.values()[Color.RED.name().length() - 1].c();   // "RED".length() = 3 → values()[2] = BLUE → "B"</code></pre>
 
 
       <h4>참조 전달: 배열과 객체</h4>
       <p class="note"><b>2025년 2회 출제</b> 메서드에 배열과 문자열을 넘긴 뒤 값이 바뀌는지, 배열 안의 객체 참조를 서로 바꾼 뒤 필드를 수정하는 문제</p>
-<pre class="sql">static void change(int[] arr, int n, String s) {
+<pre class="code" data-lang="Java"><code class="language-java">static void change(int[] arr, int n, String s) {
     arr[0] = 100;     // 배열 참조를 통해 원본 배열의 칸을 수정 → 원본에 반영
     n = 100;          // 기본형은 값이 복사됨 → 원본 그대로
     s = "Z";          // 매개변수에 새 객체를 대입해도 원본 변수는 그대로
@@ -1679,12 +1684,12 @@ Box a = new Box(1), b = new Box(2);
 Box[] boxes = {a, b};
 boxes[0] = boxes[1];     // 배열 칸이 b를 가리키도록 바뀔 뿐, 변수 a는 그대로 Box(1)
 boxes[0].v = 9;          // boxes[0]은 b와 같은 객체 → b.v = 9
-System.out.print(a.v + " " + b.v);              // 1 9</pre>
+System.out.print(a.v + " " + b.v);              // 1 9</code></pre>
       <p class="todo">Java는 항상 <b>값을 복사해서</b> 넘긴다. 다만 배열·객체 변수에 들어 있는 값은 <b>주소(참조)</b>라서, 그 주소로 내용을 바꾸면 원본이 바뀌고, 변수에 다른 객체를 대입하면 원본과 끊어진다. 객체를 여러 변수가 함께 가리키고 있으면 화살표를 그려서 추적한다.</p>
 
       <h4>static 메서드와 필드는 오버라이딩되지 않음</h4>
       <p class="note"><b>2025년 2회 출제</b> 부모 타입 변수로 자식 객체의 인스턴스 메서드와 static 메서드를 각각 호출</p>
-<pre class="sql">class P {
+<pre class="code" data-lang="Java"><code class="language-java">class P {
     int x = 1;
     static String id() { return "P"; }
     String name() { return "p"; }
@@ -1698,12 +1703,12 @@ P r = new C();
 r.name();     // "c"  인스턴스 메서드: 실제 객체(C) 기준
 r.id();       // "P"  static 메서드: 변수 타입(P) 기준
 r.x;          // 1    필드: 변수 타입(P) 기준
-((C) r).x;    // 2    C 타입으로 형변환하면 C의 필드</pre>
+((C) r).x;    // 2    C 타입으로 형변환하면 C의 필드</code></pre>
       <p class="todo">실제 객체를 따라가는 것은 <b>인스턴스 메서드(오버라이딩)</b>뿐이다. <b>static 메서드와 필드</b>는 변수의 선언 타입을 따른다.</p>
 
       <h4>람다식과 예외 처리</h4>
       <p class="note"><b>2025년 2회 출제</b> 함수형 인터페이스를 람다로 구현하고, 예외를 던지면 catch에서 다른 값을 반환하는 문제</p>
-<pre class="sql">interface Op { int apply(int x) throws Exception; }   // 추상 메서드가 하나인 함수형 인터페이스
+<pre class="code" data-lang="Java"><code class="language-java">interface Op { int apply(int x) throws Exception; }   // 추상 메서드가 하나인 함수형 인터페이스
 
 static int run(Op op) {
     try {
@@ -1720,13 +1725,13 @@ Op b = x -&gt; x + 1;                     // 한 줄이면 중괄호와 return �
 System.out.print(run(a) + run(b));
 // run(a): 5 &gt; 3 → 예외 → catch에서 -1, finally가 F 출력
 // run(b): 6 반환, finally가 F 출력
-// 마지막에 -1 + 6 = 5 출력 → 전체 출력: FF5</pre>
+// 마지막에 -1 + 6 = 5 출력 → 전체 출력: FF5</code></pre>
       <p class="todo">람다식 <code>(매개변수) -&gt; { 본문 }</code>은 인터페이스의 추상 메서드 하나를 바로 구현한 것이다. try에서 예외가 발생하면 나머지 코드는 건너뛰고 catch로 가며, finally는 return이 있어도 <b>반드시</b> 실행된다.</p>
 
 
       <h4>여러 개의 catch와 예외 종류</h4>
       <p class="note"><b>2025년 1회 출제</b> 0으로 나눴을 때 여러 catch 중 어느 블록이 실행되는지, finally 출력 순서</p>
-<pre class="sql">try {
+<pre class="code" data-lang="Java"><code class="language-java">try {
     int[] a = new int[2];
     a[3] = 1;                                   // 여기서 예외 발생 → 아래 줄은 실행 안 됨
     System.out.print("A");
@@ -1739,7 +1744,7 @@ System.out.print(run(a) + run(b));
 } finally {
     System.out.print("E");
 }
-// 출력: CE</pre>
+// 출력: CE</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>예외</th><th>발생 상황</th></tr></thead>
         <tbody>
@@ -1754,7 +1759,7 @@ System.out.print(run(a) + run(b));
 
       <h4>객체 생성 순서와 부모 생성자 안의 메서드 호출</h4>
       <p class="note"><b>2025년 1회 출제</b> 부모 생성자 안에서 호출한 메서드가 자식에서 오버라이딩되어 있을 때, static 변수에 값이 쌓이는 순서</p>
-<pre class="sql">class A {
+<pre class="code" data-lang="Java"><code class="language-java">class A {
     static int log = 0;
     A() { log += 1; show(); }        // ② 부모 생성자: show()는 자식 것이 실행됨
     void show() { log += 10; }
@@ -1767,23 +1772,23 @@ class B extends A {
 }
 new B();                             // ① B() 호출 → 첫 줄에 숨어 있는 super() 로 A() 먼저
 System.out.print(A.log);
-// A(): 1 → B.show(): 101 → n = 5 → B(): 106 → B.show(): 206   출력: 206</pre>
+// A(): 1 → B.show(): 101 → n = 5 → B(): 106 → B.show(): 206   출력: 206</code></pre>
       <p class="todo">생성 순서는 <b>부모 필드 → 부모 생성자 → 자식 필드 → 자식 생성자</b>다. 부모 생성자 안에서 호출한 메서드도 <b>실제 객체(자식)</b>의 오버라이딩 버전이 실행되며, 이때 자식 필드는 아직 초기화 전이라 기본값(0, null)이다. <code>static</code> 변수는 모든 객체가 하나를 공유한다.</p>
 
       <h4>매개변수 타입에 따른 오버로딩 선택</h4>
       <p class="note"><b>2025년 1회 출제</b> 같은 이름의 재귀 메서드가 String 버전과 int 버전으로 오버로딩되어 있을 때 어느 쪽이 호출되는지</p>
-<pre class="sql">static int f(int n)    { return n * 2; }
+<pre class="code" data-lang="Java"><code class="language-java">static int f(int n)    { return n * 2; }
 static int f(String s) {
     int n = Integer.parseInt(s);     // "4" → 4  (Integer.valueOf도 같은 역할)
     return f(n) + 1;                 // n은 int → f(int) 호출
 }
-System.out.print(f("4"));            // f(String) → f(4) = 8 → 8 + 1 = 9</pre>
+System.out.print(f("4"));            // f(String) → f(4) = 8 → 8 + 1 = 9</code></pre>
       <p class="todo">호출할 때마다 넘기는 <b>인자의 타입</b>으로 어느 메서드인지 다시 정한다. 처음에 String 버전이 불렸어도, 안에서 int로 부르면 int 버전으로 넘어간다.</p>
 
 
       <h4>문자열 비교: == 와 equals</h4>
       <p class="note"><b>2024년 3회 출제</b> 문자열 리터럴과 <code>new String()</code>으로 만든 문자열을 equals로 비교하고 for-each로 출력</p>
-<pre class="sql">String a = "Hi";
+<pre class="code" data-lang="Java"><code class="language-java">String a = "Hi";
 String b = "Hi";                 // 같은 리터럴은 상수 풀의 같은 객체를 공유
 String c = new String("Hi");     // new는 항상 새 객체를 만듦
 
@@ -1793,13 +1798,13 @@ a.equals(c)    // true   내용(문자)이 같은지 비교
 
 String[] arr = {a, b, c};
 for (String m : arr)             // for-each: 배열의 원소를 처음부터 하나씩 꺼냄
-    System.out.print(m);         // HiHiHi</pre>
+    System.out.print(m);         // HiHiHi</code></pre>
       <p class="todo">객체의 <b>내용</b>을 비교할 때는 <code>equals</code>, <b>같은 객체인지</b>(주소)를 비교할 때는 <code>==</code>를 쓴다.</p>
       <p class="todo"><b>배열도 마찬가지다</b> (2024년 2회 출제). <code>int[] x = {1, 2}, y = {1, 2};</code>일 때 <code>x == y</code>는 false(다른 배열 객체)이고, 내용 비교는 <code>Arrays.equals(x, y)</code>로 해야 true가 된다. 배열의 <code>x.equals(y)</code>는 ==와 같아서 false다.</p>
 
       <h4>제네릭과 오버로딩</h4>
       <p class="note"><b>2024년 3회 출제</b> 제네릭 클래스 안에서 타입 매개변수 T 값을 오버로딩된 메서드(Integer, Number, Object 버전)에 넘길 때 어느 쪽이 선택되는지</p>
-<pre class="sql">class Box&lt;T&gt; {                          // T: 객체를 만들 때 정하는 타입 매개변수
+<pre class="code" data-lang="Java"><code class="language-java">class Box&lt;T&gt; {                          // T: 객체를 만들 때 정하는 타입 매개변수
     T v;
     Box(T v) { this.v = v; }
     void show() { print(v); }            // 컴파일할 때 v의 타입은 그냥 T → Object로 취급
@@ -1810,23 +1815,23 @@ new Box&lt;&gt;(5).show();                     // O5   실제 값이 Integer라�
 
 Box&lt;Integer&gt; box = new Box&lt;&gt;(5);
 Integer n = 5;  box.print(n);            // I5   변수 타입이 Integer
-Object o = n;   box.print(o);            // O5   변수 타입이 Object</pre>
+Object o = n;   box.print(o);            // O5   변수 타입이 Object</code></pre>
       <p class="todo">오버로딩은 <b>컴파일할 때 보이는 타입</b>으로 정해진다. 제한 없는 <code>&lt;T&gt;</code>는 컴파일러가 Object로만 알기 때문에, 클래스 안에서는 print(Object)가 선택된다 (<code>&lt;T extends Number&gt;</code>라면 Number 버전이 선택). 실행 중 실제 값의 타입은 오버로딩 선택에 영향을 주지 않는다.</p>
 
       <h4>throw와 throws</h4>
-<pre class="sql">static void check(int age) throws Exception {   // throws: 이 메서드가 예외를 밖으로 넘길 수 있음을 선언
+<pre class="code" data-lang="Java"><code class="language-java">static void check(int age) throws Exception {   // throws: 이 메서드가 예외를 밖으로 넘길 수 있음을 선언
     if (age &lt; 0) throw new IllegalArgumentException();   // throw: 예외를 직접 발생시킴
 }
 try { check(-1); }
 catch (IllegalArgumentException e) { System.out.print("A"); }   // 실제로 던져진 타입과 맞는 catch
 catch (Exception e) { System.out.print("B"); }
-// 출력: A</pre>
+// 출력: A</code></pre>
       <p class="todo">메서드 선언에 <code>throws Exception</code>이 있어도, catch는 <b>실제로 던져진 예외 객체의 타입</b>으로 고른다.</p>
 
 
       <h4>split과 재귀로 문자열 만들기</h4>
       <p class="note"><b>2024년 2회 출제</b> 구분자가 연달아 나오는 문자열을 split한 배열의 원소, 재귀 호출 결과 앞에 문자를 붙여 가며 만든 문자열</p>
-<pre class="sql">String[] p = "a,b,,c,".split(",");   // [a, b, "", c]   길이 4
+<pre class="code" data-lang="Java"><code class="language-java">String[] p = "a,b,,c,".split(",");   // [a, b, "", c]   길이 4
 // 구분자가 연달아 있으면 그 사이에 빈 문자열 "" 이 생김
 // 맨 끝에 생기는 빈 문자열은 Java가 지움 (맨 앞의 빈 문자열은 남음: ",a" → ["", "a"])
 
@@ -1839,13 +1844,13 @@ static String g(String s, int i) {
     return g(s, i - 1) + s.charAt(i);  // 현재 문자를 결과 '뒤'에 붙임
 }
 f("abc", 2);   // "cba"   'c' + ('b' + ('a' + ""))
-g("abc", 2);   // "abc"   (("" + 'a') + 'b') + 'c'</pre>
+g("abc", 2);   // "abc"   (("" + 'a') + 'b') + 'c'</code></pre>
       <p class="todo"><code>charAt(i)</code>는 i번째 문자(char)를 꺼낸다. char는 정수(ASCII)라서 <code>boolean[256]</code> 같은 배열의 인덱스로 쓸 수 있다. <b>char + 문자열</b>은 이어 붙이기지만, <b>char + char</b>는 숫자 덧셈이다 (<code>'a' + 'b'</code> = 195).</p>
 
 
       <h4>싱글톤 코드와 오버로딩된 자식 메서드</h4>
       <p class="note"><b>2024년 1회 출제</b> static 메서드로 인스턴스를 하나만 만들어 돌려주는 싱글톤, 매개변수가 다른 메서드는 오버라이딩이 아니라서 부모 메서드가 호출되는 실행 순서 문제</p>
-<pre class="sql">class Counter {
+<pre class="code" data-lang="Java"><code class="language-java">class Counter {
     private static Counter inst = null;   // 유일한 인스턴스를 담을 static 변수
     private int n = 0;
     private Counter() {}                  // 외부에서 new 금지
@@ -1864,13 +1869,13 @@ a == b;     // true
 class P { int f() { return 1; } }
 class C extends P { int f(int k) { return 2; } }   // 매개변수가 다름 → 오버라이딩이 아니라 오버로딩
 P p = new C();
-p.f();      // 1      C에는 f()를 재정의한 메서드가 없으므로 P의 f() 실행</pre>
+p.f();      // 1      C에는 f()를 재정의한 메서드가 없으므로 P의 f() 실행</code></pre>
       <p class="todo">오버라이딩은 <b>이름, 매개변수, 반환형이 모두 같아야</b> 성립한다. 실행 순서를 묻는 문제는 main → 객체 생성(자식 생성자 → super로 부모 생성자) → 메서드 호출 순서로 번호를 따라간다.</p>
 
 
       <h4>static 메서드의 제약</h4>
       <p class="note"><b>2023년 3회 출제</b> static 메서드에서 인스턴스 변수를 반환하는 줄에서 컴파일 오류가 나는 문제</p>
-<pre class="sql">class Person {
+<pre class="code" data-lang="Java"><code class="language-java">class Person {
     private String name;              // 인스턴스 변수: 객체마다 따로 있음
     static int count = 0;             // static 변수: 클래스에 하나
 
@@ -1883,23 +1888,23 @@ p.f();      // 1      C에는 f()를 재정의한 메서드가 없으므로 P의
     void print() {
         System.out.print(name + count);   // OK: 인스턴스 메서드는 둘 다 사용 가능
     }
-}</pre>
+}</code></pre>
       <p class="todo">static 메서드는 객체 없이 <code>클래스명.메서드()</code>로 호출되므로 <b>인스턴스 변수, 인스턴스 메서드, this, super를 직접 쓸 수 없다</b>. 오류가 나는 줄을 묻는 문제는 static 메서드 안에서 인스턴스 멤버를 쓰는 줄을 찾는다.</p>
 
 
       <h4>/ 와 % 로 나누기 (거스름돈)</h4>
       <p class="note"><b>2023년 2회 출제</b> 금액 m을 1000원, 500원, 100원, 10원 단위로 나눠 개수를 구하는 식을 <code>/</code>와 <code>%</code>만으로 작성</p>
-<pre class="sql">int m = 3780;
+<pre class="code" data-lang="Java"><code class="language-java">int m = 3780;
 int a = m / 1000;           // 3   천 원짜리 (정수 나눗셈은 몫만)
 int b = m % 1000 / 500;     // 1   천 원으로 못 낸 나머지 780 중 오백 원
 int c = m % 500 / 100;      // 2   오백 원 단위로 나눈 나머지 280 중 백 원
-int d = m % 100 / 10;       // 8   백 원 단위로 나눈 나머지 80 중 십 원</pre>
+int d = m % 100 / 10;       // 8   백 원 단위로 나눈 나머지 80 중 십 원</code></pre>
       <p class="todo">"큰 단위로 나눈 <b>나머지(%)</b>를 다시 작은 단위로 나눈 <b>몫(/)</b>"이 기본 공식이다. <code>%</code>와 <code>/</code>는 우선순위가 같아서 왼쪽부터 계산한다.</p>
 
 
       <h4>this() 생성자 호출과 필드 숨김</h4>
       <p class="note"><b>2023년 1회 출제</b> 부모·자식 모두 <code>this(값)</code>로 다른 생성자를 부르고, 같은 이름의 필드 x가 양쪽에 있을 때 부모의 getX()가 돌려주는 값 (원문 댓글에서도 500인지 5000인지 논란이 있었던 문제)</p>
-<pre class="sql">class P {
+<pre class="code" data-lang="Java"><code class="language-java">class P {
     int x = 1;
     P()      { this(7); }          // 같은 클래스의 다른 생성자 P(int) 호출
     P(int x) { this.x = x; }       // P의 x = 7
@@ -1913,7 +1918,7 @@ class C extends P {
 C obj = new C();
 // 순서: C() → C(9) → (자동) super() → P() → P(7): P.x = 7 → C.x = 2 → C.x = 9
 obj.getX();    // 7    getX()는 P에 정의되어 있어 P의 x를 읽음
-obj.x;         // 9    변수 타입이 C → C의 x</pre>
+obj.x;         // 9    변수 타입이 C → C의 x</code></pre>
       <p class="todo">생성자 첫 줄에 <code>this(...)</code>나 <code>super(...)</code>가 없으면 컴파일러가 <b><code>super()</code>를 자동으로 넣는다</b>. 필드는 오버라이딩되지 않으므로, 메서드 안에서 쓰는 필드는 <b>그 메서드가 정의된 클래스</b>의 필드다. 자식이 getX()를 오버라이딩했다면 자식의 x를 읽는다.</p>
       <p class="todo"><b>static 변수</b>는 <code>클래스명.변수</code>로도, <code>객체.변수</code>로도 접근할 수 있으며 둘 다 같은 하나의 변수다 (2023년 1회 출제). <code>System.out.println(C.cnt++)</code>는 현재 값을 출력한 뒤 1 증가시킨다.</p>
 
@@ -1933,7 +1938,7 @@ obj.x;         // 9    변수 타입이 C → C의 x</pre>
 
       <h4>Runnable과 Thread</h4>
       <p class="note"><b>2022년 1회 출제</b> Runnable을 구현한 클래스를 Thread 생성자에 넘겨 실행하는 코드의 빈칸</p>
-<pre class="sql">class Car implements Runnable {          // 스레드가 할 일을 run()에 작성
+<pre class="code" data-lang="Java"><code class="language-java">class Car implements Runnable {          // 스레드가 할 일을 run()에 작성
     public void run() { System.out.println("message"); }
 }
 Thread t1 = new Thread(new Car());       // Runnable 객체를 넘겨 스레드 생성
@@ -1942,13 +1947,13 @@ t1.start();                              // start()가 새 스레드에서 run()
 class Bus extends Thread {               // Thread를 직접 상속하는 방법도 있음
     public void run() { System.out.println("bus"); }
 }
-new Bus().start();</pre>
+new Bus().start();</code></pre>
       <p class="todo"><code>run()</code>을 직접 부르면 새 스레드 없이 그냥 메서드 호출이 되고, <b><code>start()</code></b>를 불러야 새 스레드에서 실행된다.</p>
 
 
       <h4>boolean 연산자 &amp; | ^ 와 단락 평가</h4>
       <p class="note"><b>2021년 3회 출제</b> <code>(a == 2 | a == c) &amp; !(c &gt; d) &amp; (1 == b ^ c != d)</code>처럼 boolean끼리 &amp;, |, ^ 를 섞은 조건의 참·거짓</p>
-<pre class="sql">boolean t = true, f = false;
+<pre class="code" data-lang="Java"><code class="language-java">boolean t = true, f = false;
 t &amp; f     // false   AND
 t | f     // true    OR
 t ^ f     // true    XOR: 서로 다를 때만 참
@@ -1958,13 +1963,13 @@ int x = 0;
 if (f &amp;&amp; (x++ &gt; 0)) {}   // &amp;&amp;: 왼쪽이 거짓이면 오른쪽을 계산하지 않음 → x = 0
 if (f &amp;  (x++ &gt; 0)) {}   // &amp; : 양쪽을 모두 계산 → x = 1
 
-1 == 4 ^ 3 != 5           // (1 == 4) ^ (3 != 5) = false ^ true = true</pre>
+1 == 4 ^ 3 != 5           // (1 == 4) ^ (3 != 5) = false ^ true = true</code></pre>
       <p class="todo">우선순위는 <b>관계(==, !=) → &amp; → ^ → | → &amp;&amp; → ||</b> 순이라, 비교를 먼저 끝낸 뒤 논리 연산을 한다. <code>&amp;&amp;</code>, <code>||</code>는 결과가 정해지면 나머지를 건너뛰고(단락 평가), <code>&amp;</code>, <code>|</code>는 항상 양쪽을 모두 계산한다.</p>
 
 
       <h4>2차원 배열의 길이 (가변 배열)</h4>
       <p class="note"><b>2021년 1회 출제</b> <code>{{45, 50, 75}, {89}}</code>처럼 행마다 길이가 다른 2차원 배열의 <code>arr[i].length</code>와 원소 값, 초기식이 두 개인 for문</p>
-<pre class="sql">int[][] a = {{1, 2, 3}, {4}};   // 행마다 길이가 달라도 됨 (가변 배열)
+<pre class="code" data-lang="Java"><code class="language-java">int[][] a = {{1, 2, 3}, {4}};   // 행마다 길이가 달라도 됨 (가변 배열)
 a.length        // 2    행의 개수
 a[0].length     // 3    0번 행의 길이
 a[1].length     // 1
@@ -1978,13 +1983,13 @@ c[0] = new int[4];              // 행마다 따로 길이를 정할 수 있음
 for (int i = 0, j = 0; i &lt;= 3; i++) {   // 초기식에 변수 여러 개는 쉼표로
     j += i;
     System.out.print(i + (i == 3 ? "=" + j : "+"));   // 0+1+2+3=6
-}</pre>
+}</code></pre>
 
 
       <h3>Python</h3>
       <h4>문자열 인덱싱과 슬라이싱</h4>
       <p class="note"><b>2026년 2회 출제</b> 음수 인덱스 <code>[-1]</code>, 슬라이싱 <code>[:4]</code> <code>[6:8]</code> <code>[18:]</code>, 딕셔너리 items() 순회</p>
-<pre class="sql">s = "PROGRAMMING"
+<pre class="code" data-lang="Python"><code class="language-python">s = "PROGRAMMING"
 #    P R O G R A M M I N G
 #    0 1 2 3 4 5 6 7 8 9 10     (뒤에서부터는 -1, -2, ...)
 
@@ -1994,11 +1999,11 @@ s[2:5]    # 'OGR'          2, 3, 4번 (끝 번호 5는 포함 안 됨)
 s[:3]     # 'PRO'          처음부터 2번까지
 s[7:]     # 'MING'         7번부터 끝까지
 s[::2]    # 'PORMIG'       2칸씩 건너뛰기
-s[::-1]   # 'GNIMMARGORP'  거꾸로</pre>
+s[::-1]   # 'GNIMMARGORP'  거꾸로</code></pre>
       <p class="todo"><b>[시작:끝]</b>에서 끝 번호는 포함하지 않는다. 길이 = 끝 − 시작. 문제를 풀 때는 문자열 위에 번호를 직접 적어 두면 실수가 줄어든다.</p>
 
       <h4>딕셔너리 순회와 클래스 변수</h4>
-<pre class="sql">d = {"b": 2, "a": 1}
+<pre class="code" data-lang="Python"><code class="language-python">d = {"b": 2, "a": 1}
 for k, v in d.items():        # (키, 값) 쌍을 넣은 순서대로 꺼냄
     print(k + str(v), end="") # 출력: b2a1
 
@@ -2008,7 +2013,7 @@ class C:
         C.count += 1
 
 x = C(); y = C()
-print(C.count, x.count)       # 출력: 2 2</pre>
+print(C.count, x.count)       # 출력: 2 2</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>개념</th><th>핵심</th></tr></thead>
         <tbody>
@@ -2020,7 +2025,7 @@ print(C.count, x.count)       # 출력: 2 2</pre>
 
       <h4>enumerate와 튜플</h4>
       <p class="note"><b>2025년 3회 출제</b> <code>enumerate</code>로 번호와 리스트를 함께 꺼내 딕셔너리에 (합계, 길이) 튜플로 저장하고 출력</p>
-<pre class="sql">for i, v in enumerate(["a", "b"]):       # (번호, 값) 쌍을 꺼냄. 번호는 0부터
+<pre class="code" data-lang="Python"><code class="language-python">for i, v in enumerate(["a", "b"]):       # (번호, 값) 쌍을 꺼냄. 번호는 0부터
     print(i, v)                          # 0 a
                                          # 1 b
 list(enumerate(["a", "b"], start=1))     # [(1, 'a'), (2, 'b')]   시작 번호 지정
@@ -2028,12 +2033,12 @@ list(enumerate(["a", "b"], start=1))     # [(1, 'a'), (2, 'b')]   시작 번호 
 result = {}
 for i, lst in enumerate([[1, 2], [3]]):
     result[i] = (sum(lst), len(lst))     # (합계, 개수) 튜플
-print(result)                            # {0: (3, 2), 1: (3, 1)}</pre>
+print(result)                            # {0: (3, 2), 1: (3, 1)}</code></pre>
       <p class="todo">튜플은 <code>( )</code>로 묶은 <b>수정할 수 없는</b> 순서 있는 자료형이다. 딕셔너리를 print하면 <code>{키: 값, 키: 값}</code> 형태로, 문자열은 작은따옴표로 감싸서 출력된다.</p>
 
       <h4>문자열 메서드, range, print</h4>
       <p class="note"><b>2026년 1회 출제</b> split과 join, 역순 슬라이싱과 조건 필터, <code>range</code>를 음수 간격으로 슬라이싱, <code>print(end=)</code></p>
-<pre class="sql">words = "Hello World Py".split()   # ['Hello', 'World', 'Py']  공백 기준으로 나눔
+<pre class="code" data-lang="Python"><code class="language-python">words = "Hello World Py".split()   # ['Hello', 'World', 'Py']  공백 기준으로 나눔
 "-".join(words)                    # 'Hello-World-Py'           사이에 '-'를 넣어 합침
 s = "".join(words)                 # 'HelloWorldPy'
 
@@ -2044,11 +2049,11 @@ list(range(1, 10, 2))     # [1, 3, 5, 7, 9]  range(시작, 끝, 간격), 끝은 
 
 for c in [1, 2, 3]:
     print(c, end="-")     # 1-2-3-   end: 줄바꿈 대신 붙일 문자 (기본값 '\n')
-print()                   # 줄바꿈만 출력</pre>
+print()                   # 줄바꿈만 출력</code></pre>
 
       <h4>리스트 복사와 += 연산</h4>
       <p class="note"><b>2026년 1회 출제</b> <code>m[:]</code>로 복사한 리스트의 안쪽 리스트를 <code>+=</code>로 수정했을 때 원본도 바뀌는지</p>
-<pre class="sql">a = [[1], [2]]
+<pre class="code" data-lang="Python"><code class="language-python">a = [[1], [2]]
 b = a[:]          # 얕은 복사: 바깥 리스트만 새로 만들고, 안쪽 리스트는 a와 공유
 b[0] += [9]       # 공유 중인 안쪽 리스트를 제자리에서 확장 → a[0]도 바뀜
 b[1] = [7]        # b의 칸만 새 리스트로 교체 → a는 그대로
@@ -2058,7 +2063,7 @@ print(b)          # [[1, 9], [7]]
 x = [1]
 y = x             # 같은 리스트를 가리킴
 x += [2]          # 제자리 확장 → y도 [1, 2]
-x = x + [3]       # 새 리스트를 만들어 x에 대입 → y는 [1, 2] 그대로</pre>
+x = x + [3]       # 새 리스트를 만들어 x에 대입 → y는 [1, 2] 그대로</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>표현</th><th>원본에 영향</th></tr></thead>
         <tbody>
@@ -2071,7 +2076,7 @@ x = x + [3]       # 새 리스트를 만들어 x에 대입 → y는 [1, 2] 그�
       </table></div>
       <h4>딕셔너리 컴프리헨션과 set</h4>
       <p class="note"><b>2025년 2회 출제</b> 리스트로 딕셔너리를 만든 뒤 원본 리스트와 딕셔너리를 바꾸고, set의 교집합 크기 구하기</p>
-<pre class="sql">lst = [1, 2, 3]
+<pre class="code" data-lang="Python"><code class="language-python">lst = [1, 2, 3]
 d = {i: i * 10 for i in lst}     # {1: 10, 2: 20, 3: 30}   딕셔너리 컴프리헨션
 s = set(d.values())              # {10, 20, 30}            중복 없는 집합
 lst[0] = 99                      # 이미 만든 d, s에는 영향 없음
@@ -2083,20 +2088,20 @@ a, b = {1, 2, 3}, {2, 3, 4}
 a | b    # {1, 2, 3, 4}  합집합
 a &amp; b    # {2, 3}        교집합
 a - b    # {1}           차집합
-a ^ b    # {1, 4}        대칭 차집합 (한쪽에만 있는 것)</pre>
+a ^ b    # {1, 4}        대칭 차집합 (한쪽에만 있는 것)</code></pre>
       <p class="todo">set은 <b>중복을 허용하지 않고 순서가 없다</b>. 컴프리헨션으로 만든 딕셔너리나 set은 만드는 순간의 값을 복사해 두므로, 그 뒤에 원본 리스트를 바꿔도 따라 바뀌지 않는다.</p>
-<pre class="sql">s = {'a', 'b'}
+<pre class="code" data-lang="Python"><code class="language-python">s = {'a', 'b'}
 s.add('c')             # {'a', 'b', 'c'}  원소 하나 추가
 s.add('a')             # 변화 없음 (이미 있는 값)
 s.remove('b')          # {'a', 'c'}       없는 값을 remove하면 KeyError
 s.discard('z')         # 없는 값이어도 오류 없음
 s.update({'d', 'a'})   # {'a', 'c', 'd'}  여러 원소를 한 번에 추가 (합집합)
-print(s)               # {'c', 'a', 'd'}처럼 중괄호로 출력, 순서는 정해져 있지 않음</pre>
+print(s)               # {'c', 'a', 'd'}처럼 중괄호로 출력, 순서는 정해져 있지 않음</code></pre>
       <p class="todo">set 출력 문제는 <b>중괄호 { }를 포함해</b> 적어야 한다 (2023년 1회 출제). 순서는 보장되지 않으므로 채점 기준에 맞춰 원소만 정확히 쓴다.</p>
 
       <h4>리스트로 표현한 트리와 기본값 매개변수</h4>
       <p class="note"><b>2025년 1회 출제</b> 리스트 인덱스 <code>(i - 1) // 2</code>로 부모를 찾아 트리를 만들고, 재귀로 홀수 레벨 노드의 값만 더하는 문제</p>
-<pre class="sql">class Node:
+<pre class="code" data-lang="Python"><code class="language-python">class Node:
     def __init__(self, v):
         self.v = v
         self.kids = []
@@ -2115,7 +2120,7 @@ for i in range(1, len(li)):
 def f(n, level=0):                               # level을 생략하면 0
     return (n.v if level % 2 == 1 else 0) + sum(f(k, level + 1) for k in n.kids)
 
-print(f(nodes[0]))                               # 홀수 레벨(1)만 더함: 20 + 30 = 50</pre>
+print(f(nodes[0]))                               # 홀수 레벨(1)만 더함: 20 + 30 = 50</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>관계 (0번부터 시작)</th><th>인덱스</th></tr></thead>
         <tbody>
@@ -2128,7 +2133,7 @@ print(f(nodes[0]))                               # 홀수 레벨(1)만 더함: 2
 
       <h4>type()으로 자료형 확인과 값 교환</h4>
       <p class="note"><b>2024년 3회 출제</b> <code>type(v) == type(100)</code>처럼 자료형을 비교해 분기하는 함수, 튜플 대입으로 리스트 앞뒤 값 교환</p>
-<pre class="sql">def f(v):
+<pre class="code" data-lang="Python"><code class="language-python">def f(v):
     if type(v) == type(0):      # int인지
         return 1
     elif type(v) == type(""):   # str인지
@@ -2143,7 +2148,7 @@ lst = [1, 2, 3, 4, 5]
 for i in range(len(lst) // 2):
     lst[i], lst[-i-1] = lst[-i-1], lst[i]   # 튜플 대입으로 앞뒤 교환 (임시 변수 불필요)
 print(lst)                                  # [5, 4, 3, 2, 1]
-sum(lst[::2]) - sum(lst[1::2])              # (5 + 3 + 1) - (4 + 2) = 3</pre>
+sum(lst[::2]) - sum(lst[1::2])              # (5 + 3 + 1) - (4 + 2) = 3</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>값</th><th>type</th></tr></thead>
         <tbody>
@@ -2158,7 +2163,7 @@ sum(lst[::2]) - sum(lst[1::2])              # (5 + 3 + 1) - (4 + 2) = 3</pre>
 
       <h4>f-string과 부분 문자열 세기</h4>
       <p class="note"><b>2024년 2회 출제</b> 슬라이싱 <code>x[i:i+len(y)]</code>로 부분 문자열이 몇 번 나오는지 센 결과를 f-string으로 출력</p>
-<pre class="sql">s = "abcabca"
+<pre class="code" data-lang="Python"><code class="language-python">s = "abcabca"
 cnt = 0
 for i in range(len(s)):
     if s[i:i+2] == "ca":       # 끝을 넘는 슬라이싱은 오류 없이 짧은 문자열을 돌려줌 (s[6:8] = 'a')
@@ -2166,11 +2171,11 @@ for i in range(len(s)):
 print(f"ca{cnt}")              # ca2   f-string: { } 안의 식을 계산해 문자열에 끼워 넣음
 
 "aaa".count("aa")              # 1   count는 겹치지 않게 셈
-# 슬라이싱으로 한 칸씩 옮기며 세면 "aaa"에서 "aa"는 2번 (겹쳐도 셈)</pre>
+# 슬라이싱으로 한 칸씩 옮기며 세면 "aaa"에서 "aa"는 2번 (겹쳐도 셈)</code></pre>
 
       <h4>input, split, 형변환과 print</h4>
       <p class="note"><b>2023년 3회 출제</b> 입력 한 줄을 공백으로 나눠 두 변수에 받고 int로 바꾼 뒤, 문자열과 숫자를 + 로 이어 출력하는 코드의 빈칸</p>
-<pre class="sql"># 입력: 2 3
+<pre class="code" data-lang="Python"><code class="language-python"># 입력: 2 3
 a, b = input().split()          # input()은 항상 문자열 → a = '2', b = '3'
 a + b                           # '23'  문자열끼리 + 는 이어 붙이기
 
@@ -2178,28 +2183,28 @@ a, b = map(int, input().split())   # 한 번에 정수로 변환 → a = 2, b = 
 print(a, b)                     # 2 3    여러 값을 넣으면 사이에 공백 (sep 기본값 ' ')
 print(a, b, sep=",")            # 2,3
 print(str(a) + " + " + str(b) + " = " + str(a + b))   # 2 + 3 = 5
-"2" + 3                         # TypeError: 문자열과 정수는 + 로 합칠 수 없음</pre>
+"2" + 3                         # TypeError: 문자열과 정수는 + 로 합칠 수 없음</code></pre>
 
       <h4>map, filter, lambda</h4>
       <p class="note"><b>2022년 3회 출제</b> <code>list(map(lambda num: num + 100, 리스트))</code>의 출력</p>
-<pre class="sql">list(map(lambda x: x * 2, [1, 2, 3]))              # [2, 4, 6]  모든 원소에 함수 적용
+<pre class="code" data-lang="Python"><code class="language-python">list(map(lambda x: x * 2, [1, 2, 3]))              # [2, 4, 6]  모든 원소에 함수 적용
 list(filter(lambda x: x % 2 == 1, [1, 2, 3, 4, 5]))  # [1, 3, 5]  조건이 참인 원소만 남김
 map(str, [1, 2])                                   # map 객체 → 결과를 보려면 list()로 변환
-(lambda a, b: a + b)(3, 4)                         # 7  lambda 매개변수: 반환식 (이름 없는 한 줄 함수)</pre>
+(lambda a, b: a + b)(3, 4)                         # 7  lambda 매개변수: 반환식 (이름 없는 한 줄 함수)</code></pre>
       <p class="todo">출력 문제에서 list로 감쌌다면 <b>대괄호 [ ]와 쉼표</b>를 포함해 <code>[101, 102, 103]</code> 형태로 쓴다.</p>
 
       <h4>% 포맷팅과 format()</h4>
       <p class="note"><b>2022년 2회 출제</b> <code>"R AND %s" % "STR"</code>처럼 % 연산자로 문자열에 값을 끼워 넣고, 슬라이싱 결과와 이어 붙여 출력</p>
-<pre class="sql">"%s is %d years, %.1f" % ("Kim", 20, 3.14159)   # 'Kim is 20 years, 3.1'   값이 여러 개면 튜플로
+<pre class="code" data-lang="Python"><code class="language-python">"%s is %d years, %.1f" % ("Kim", 20, 3.14159)   # 'Kim is 20 years, 3.1'   값이 여러 개면 튜플로
 "R AND %s" % "X"                                # 'R AND X'
 "%5d|%-5s|" % (42, "ab")                        # '   42|ab   |'  폭 5, - 는 왼쪽 정렬
 "{} + {} = {}".format(1, 2, 3)                  # '1 + 2 = 3'      { } 자리에 차례로
-f"{1 + 2}"                                      # '3'              f-string</pre>
+f"{1 + 2}"                                      # '3'              f-string</code></pre>
       <p class="todo">서식 문자는 C의 printf와 같다: <code>%s</code> 문자열, <code>%d</code> 정수, <code>%f</code> 실수, <code>%.1f</code> 소수 첫째 자리까지.</p>
 
       <h4>리스트 메서드</h4>
       <p class="note"><b>2022년 1회 출제</b> 모든 항목을 하나씩 추가하는 메서드, 꺼내면서 삭제하는 메서드, 순서를 뒤집는 메서드의 이름 (extend, pop, reverse)</p>
-<pre class="sql">a = [1, 2]
+<pre class="code" data-lang="Python"><code class="language-python">a = [1, 2]
 a.append([3, 4])    # [1, 2, [3, 4]]       통째로 원소 하나로 추가
 a = [1, 2]
 a.extend([3, 4])    # [1, 2, 3, 4]         원소를 하나씩 풀어서 추가
@@ -2212,12 +2217,12 @@ b.remove(1)         # [3, 2, 1]            값 1 중 첫 번째만 삭제
 b.reverse()         # [1, 2, 3]            순서 뒤집기 (제자리)
 b.sort()            # [1, 2, 3]            오름차순 정렬 (reverse=True면 내림차순)
 b.index(2)          # 1                    값 2의 위치
-[1, 1, 2].count(1)  # 2                    값 1의 개수</pre>
+[1, 1, 2].count(1)  # 2                    값 1의 개수</code></pre>
       <p class="todo"><code>print('a=', 20, 'b=', 2)</code>처럼 값을 쉼표로 여러 개 넘기면 <b>사이마다 공백</b>이 들어가 <code>a= 20 b= 2</code>로 출력된다 (2022년 1회 출제).</p>
 
       <h4>비트 연산자와 반복문 안의 대입</h4>
       <p class="note"><b>2021년 2회 출제</b> 반복문 안에서 <code>result = a &gt;&gt; i</code>로 매번 새로 대입한 뒤 +1 한 최종 값</p>
-<pre class="sql">a = 40
+<pre class="code" data-lang="Python"><code class="language-python">a = 40
 for i in range(1, 3):      # i = 1, 2
     r = a &gt;&gt; i             # 매번 a에서 새로 계산해 덮어씀: 20 → 10
     r = r + 1              # 21 → 11
@@ -2227,14 +2232,14 @@ print(r)                   # 11   마지막 반복(i = 2)의 결과만 남음
 40 &amp; 12    # 8     101000 &amp; 001100 = 001000
 40 | 3     # 43
 40 ^ 8     # 32
-~5         # -6    ~x = -x - 1</pre>
+~5         # -6    ~x = -x - 1</code></pre>
       <p class="todo">Python의 비트 연산자는 C와 같다. 반복문 안에서 <code>r = ...</code>로 <b>새로 대입</b>하면 이전 값은 사라지고, <code>r += ...</code>처럼 <b>누적</b>해야 값이 쌓인다. 둘을 구분해서 읽는다.</p>
 
 
       <h3>C언어</h3>
       <h4>포인터와 함수 호출 방식</h4>
       <p class="note"><b>2026년 2회 출제</b> 값에 의한 호출과 주소에 의한 호출의 차이, 배열 이름과 포인터 연산 <code>*(p + 3)</code></p>
-<pre class="sql">void f1(int *p) { *p += 10; }   // 주소를 받아 원본을 바꿈
+<pre class="code" data-lang="C"><code class="language-c">void f1(int *p) { *p += 10; }   // 주소를 받아 원본을 바꿈
 void f2(int n)  { n += 10; }    // 값을 복사해 받으므로 원본은 그대로
 
 int a = 5;
@@ -2243,7 +2248,7 @@ f2(a);                 // a = 15 (변화 없음)
 
 int arr[] = {10, 20, 30, 40};
 int *p = arr;          // 배열 이름 = 첫 번째 원소의 주소
-printf("%d %d %d %d", *p, *(p + 2), p[3], *p + 2);   // 10 30 40 12</pre>
+printf("%d %d %d %d", *p, *(p + 2), p[3], *p + 2);   // 10 30 40 12</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>표현</th><th>의미</th></tr></thead>
         <tbody>
@@ -2258,7 +2263,7 @@ printf("%d %d %d %d", *p, *(p + 2), p[3], *p + 2);   // 10 30 40 12</pre>
 
       <h4>이중 포인터와 구조체 대입</h4>
       <p class="note"><b>2025년 2회 출제</b> 구조체 배열을 이중 포인터로 접근해 한 원소를 다른 원소에 대입</p>
-<pre class="sql">int x = 10;
+<pre class="code" data-lang="C"><code class="language-c">int x = 10;
 int *p = &amp;x;
 int **pp = &amp;p;          // 포인터의 주소를 담는 이중 포인터
 **pp = 20;              // *pp = p, **pp = *p = x → x = 20
@@ -2269,12 +2274,12 @@ struct pt *sp = a;
 struct pt **spp = &amp;sp;
 (*spp)[0] = (*spp)[1];  // (*spp)는 sp → a[0] = a[1]: 구조체 대입은 모든 멤버를 복사
 (*spp)[1].x = 9;        // a[1].x만 바뀌고, 복사된 a[0]은 그대로
-printf("%d %d %d", a[0].x, a[0].y, a[1].x);   // 3 4 9</pre>
+printf("%d %d %d", a[0].x, a[0].y, a[1].x);   // 3 4 9</code></pre>
       <p class="todo"><code>int **pp = &amp;p;</code>일 때 <code>*(*pp + i)</code> = <code>(*pp)[i]</code> = <code>p[i]</code> = <code>arr[i]</code>로 모두 같다 (2024년 3회 출제). 바깥 <code>*</code>를 하나 벗기면 원래 포인터 p가 되고, 그다음은 일반 포인터 연산이다.</p>
 
       <h4>2차원 배열과 포인터 배열</h4>
       <p class="note"><b>2024년 2회 출제</b> 2차원 배열의 행 주소를 담은 포인터 배열에서 <code>parr[1][1]</code>, <code>*(parr[1] + 2)</code>, <code>**parr</code> 값 구하기</p>
-<pre class="sql">int m[2][3] = {1, 2, 3, 4, 5, 6};   // 중괄호 없이 나열하면 행부터 순서대로 채움
+<pre class="code" data-lang="C"><code class="language-c">int m[2][3] = {1, 2, 3, 4, 5, 6};   // 중괄호 없이 나열하면 행부터 순서대로 채움
 // m = { {1, 2, 3},
 //       {4, 5, 6} }
 int *rows[2] = {m[0], m[1]};         // 포인터 배열: 각 칸이 한 행의 시작 주소
@@ -2282,12 +2287,12 @@ int *rows[2] = {m[0], m[1]};         // 포인터 배열: 각 칸이 한 행의 
 rows[1][2]        // 6   = m[1][2]
 *(rows[0] + 1)    // 2   = m[0][1]
 **rows            // 1   *rows = rows[0] = m[0] → **rows = m[0][0]
-*(*(m + 1) + 0)   // 4   m + 1 은 다음 '행', *(m + 1) = m[1]</pre>
+*(*(m + 1) + 0)   // 4   m + 1 은 다음 '행', *(m + 1) = m[1]</code></pre>
       <p class="todo"><code>m[i]</code>는 i번째 <b>행의 시작 주소</b>다. <code>*(*(m + i) + j)</code> = <code>m[i][j]</code>. 괄호 안 식은 대괄호로 바꿔 쓰면(<code>*(p + k)</code> → <code>p[k]</code>) 읽기 쉽다.</p>
 
       <h4>배열 매개변수, 형변환, printf 서식</h4>
       <p class="note"><b>2026년 1회 출제</b> <code>int p[]</code>와 <code>int *p</code> 매개변수, <code>(double)</code> 형변환, <code>%.2f</code> 출력</p>
-<pre class="sql">double avg(int p[], int n) {        // int p[] 와 int *p 는 같은 뜻 (배열의 시작 주소를 받음)
+<pre class="code" data-lang="C"><code class="language-c">double avg(int p[], int n) {        // int p[] 와 int *p 는 같은 뜻 (배열의 시작 주소를 받음)
     double s = 0;
     for (int i = 0; i &lt; n; i++)
         s += (double)p[i];          // p[i] == *(p + i)
@@ -2298,7 +2303,7 @@ printf("%.2f", avg(a, 3));          // 2.33  (7 ÷ 3 = 2.333…, 소수 둘째 �
 printf("%d", 7 / 3);                // 2     정수끼리 나누면 몫만 남음
 
 printf("%x %X %o %.2f %c %5d|", 255, 255, 8, 3.14159, 65, 42);
-// ff FF 10 3.14 A    42|</pre>
+// ff FF 10 3.14 A    42|</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>서식</th><th>출력 형태</th></tr></thead>
         <tbody>
@@ -2313,7 +2318,7 @@ printf("%x %X %o %.2f %c %5d|", 255, 255, 8, 3.14159, 65, 42);
 
       <h4>함수 포인터</h4>
       <p class="note"><b>2026년 1회 출제</b> 구조체 멤버로 선언한 함수 포인터에 함수를 넣고 호출, 반환된 포인터를 역참조해 <code>%x</code>로 출력</p>
-<pre class="sql">int add1(int x) { return x + 1; }
+<pre class="code" data-lang="C"><code class="language-c">int add1(int x) { return x + 1; }
 int (*fp)(int) = add1;       // 함수 포인터: int를 받아 int를 반환하는 함수를 가리킴
 fp(3);                       // 4
 
@@ -2321,12 +2326,12 @@ int* next(int *p) { return p + 1; }       // 다음 원소의 주소를 반환
 struct Op { int* (*fn)(int*); } op;       // int*를 받아 int*를 반환하는 함수 포인터 멤버
 op.fn = next;
 int b[] = {10, 26};
-printf("%x", *op.fn(b));     // op.fn(b) → &amp;b[1],  *(&amp;b[1]) → 26,  16진수로 1a</pre>
+printf("%x", *op.fn(b));     // op.fn(b) → &amp;b[1],  *(&amp;b[1]) → 26,  16진수로 1a</code></pre>
       <p class="todo"><code>int *f(int)</code>는 포인터를 반환하는 <b>함수</b>이고, <code>int (*f)(int)</code>는 함수를 가리키는 <b>포인터</b>다. 괄호 위치로 구분한다.</p>
 
       <h4>문자열과 널 문자, 문자열 포인터</h4>
       <p class="note"><b>2025년 3회 출제</b> 구조체 배열 원소를 가리키는 포인터에서 문자열 포인터에 정수를 더해 <code>%s</code>로 출력, 반복문으로 문자열 길이를 센 뒤 끝에서 두 번째 문자 출력</p>
-<pre class="sql">char str[] = "HELLO";          // 실제 저장: H E L L O \0   (끝에 널 문자 자동 추가)
+<pre class="code" data-lang="C"><code class="language-c">char str[] = "HELLO";          // 실제 저장: H E L L O \0   (끝에 널 문자 자동 추가)
 int n = 0;
 while (str[n] != '\0') n++;    // n = 5 (strlen과 같음)
 str[n - 1];                    // 'O'   마지막 글자
@@ -2338,12 +2343,12 @@ struct Item *p = &amp;it[2];       // p → {3, "COW"}
 
 printf("%s", p-&gt;s + 1);        // OW    문자열 포인터 + 1 → 두 번째 글자부터 \0까지 출력
 printf("%c", *(p-&gt;s + 2));     // W     한 글자만 꺼내려면 * 로 역참조하고 %c
-printf("%s", (p - 1)-&gt;s);      // DOG   구조체 포인터 − 1 → 앞 원소 it[1]</pre>
+printf("%s", (p - 1)-&gt;s);      // DOG   구조체 포인터 − 1 → 앞 원소 it[1]</code></pre>
       <p class="todo"><code>%s</code>는 주어진 주소부터 <b>'\0'을 만날 때까지</b> 출력한다. 그래서 문자열 포인터에 k를 더하면 앞의 k글자를 건너뛴 나머지가 나온다. 포인터에 1을 더하면 <b>가리키는 자료형 한 칸</b>만큼 이동한다(char는 1글자, 구조체는 원소 하나).</p>
 
       <h4>문자열 복사와 '\0' 위치</h4>
       <p class="note"><b>2024년 2회 출제</b> 긴 문자열이 들어 있던 배열에 짧은 문자열을 덮어쓴 뒤 '\0'까지만 반복</p>
-<pre class="sql">void mycopy(char *d, const char *s) {   // strcpy와 같은 동작
+<pre class="code" data-lang="C"><code class="language-c">void mycopy(char *d, const char *s) {   // strcpy와 같은 동작
     while (*s) { *d = *s; d++; s++; }    // s의 '\0' 직전까지 한 글자씩 복사
     *d = '\0';                           // 끝 표시
 }
@@ -2352,12 +2357,12 @@ mycopy(dst, "xyz");
 // dst 메모리: x y z \0 e f g h \0 ...   (뒤쪽 글자는 남아 있지만)
 printf("%s", dst);     // xyz        문자열은 첫 '\0'에서 끝남
 strlen(dst);           // 3
-dst[4];                // 'e'        배열 칸 자체는 그대로</pre>
+dst[4];                // 'e'        배열 칸 자체는 그대로</code></pre>
       <p class="todo"><code>for (i = 0; str[i] != '\0'; i++)</code>처럼 도는 반복은 <b>첫 번째 '\0' 전까지만</b> 실행된다. 덮어쓴 뒤 남은 옛 글자는 반복에 포함되지 않는다.</p>
 
       <h4>같은 배열을 가리키는 포인터들</h4>
       <p class="note"><b>2023년 2회 출제</b> 전역 배열에 입력을 받고 그 주소를 반환하는 함수를 세 번 호출해 받은 포인터 세 개를 출력</p>
-<pre class="sql">char buf[20];                        // 전역 배열 하나
+<pre class="code" data-lang="C"><code class="language-c">char buf[20];                        // 전역 배열 하나
 char* rd(const char *s) {
     strcpy(buf, s);                  // 매번 같은 buf에 덮어씀
     return buf;                      // 항상 같은 주소를 반환
@@ -2366,12 +2371,12 @@ char *a = rd("one");
 char *b = rd("two");
 char *c = rd("three");
 printf("%s %s %s", a, b, c);         // three three three
-// a, b, c 모두 buf를 가리키므로 마지막에 넣은 값만 남음 (a == c 는 참)</pre>
+// a, b, c 모두 buf를 가리키므로 마지막에 넣은 값만 남음 (a == c 는 참)</code></pre>
       <p class="todo">포인터는 값을 복사해 두는 게 아니라 <b>위치를 가리킬 뿐</b>이다. 같은 곳을 가리키는 포인터는 나중에 덮어쓴 내용을 함께 보여 준다.</p>
 
       <h4>양쪽 포인터로 문자열 뒤집기</h4>
       <p class="note"><b>2024년 1회 출제</b> 앞뒤 포인터를 서로 맞바꾸며 가운데로 모아 문자열을 뒤집은 뒤, 홀수 번째 인덱스만 출력</p>
-<pre class="sql">char str[] = "ABCDE";
+<pre class="code" data-lang="C"><code class="language-c">char str[] = "ABCDE";
 char *p1 = str;                         // 첫 글자
 char *p2 = str + strlen(str) - 1;       // 마지막 글자 ('\0' 앞)
 char t;
@@ -2381,11 +2386,11 @@ while (p1 &lt; p2) {                       // 두 포인터가 만나기 전까�
 }
 // str = "EDCBA"
 for (int i = 1; i &lt; strlen(str); i += 2)
-    putchar(str[i]);                    // 인덱스 1, 3 → D B</pre>
+    putchar(str[i]);                    // 인덱스 1, 3 → D B</code></pre>
 
       <h4>문자와 ASCII, 배열 초기화, 끼워 넣기</h4>
       <p class="note"><b>2025년 1회 출제</b> 문자끼리 뺄셈한 값을 %d로 출력, 일부만 초기화한 배열, 정렬된 배열에 문자 하나를 끼워 넣고 뒤를 한 칸씩 미는 코드</p>
-<pre class="sql">printf("%d", 'E' - 'A');         // 4    문자는 ASCII 코드(정수)로 계산 ('A' = 65, 'a' = 97)
+<pre class="code" data-lang="C"><code class="language-c">printf("%d", 'E' - 'A');         // 4    문자는 ASCII 코드(정수)로 계산 ('A' = 65, 'a' = 97)
 printf("%d", 'a' - 'A');         // 32   대문자와 소문자의 차이
 printf("%d %c", 'C' + 1, 'C' + 1);   // 68 D
 
@@ -2399,11 +2404,11 @@ for (i = 0; i &lt; 4; i++)
     if (d[i] &gt; c) break;         // c보다 큰 첫 위치 → i = 2 ('D')
 for (int j = 4; j &gt; i; j--)
     d[j] = d[j - 1];             // 뒤에서부터 한 칸씩 밀기
-d[i] = c;                        // A B C D E</pre>
+d[i] = c;                        // A B C D E</code></pre>
 
       <h4>ctype.h 문자 판별과 문자 이동</h4>
       <p class="note"><b>2024년 1회 출제</b> 대문자·소문자·숫자를 판별해 각각 일정 칸 밀어서 바꾸는 암호화 코드 (대문자에 <code>% 25</code>를 쓴 함정 포함)</p>
-<pre class="sql">#include &lt;ctype.h&gt;
+<pre class="code" data-lang="C"><code class="language-c">#include &lt;ctype.h&gt;
 const char *s = "Ab 9z";
 char r[10];
 int i;
@@ -2414,12 +2419,12 @@ for (i = 0; s[i]; i++) {
     else                    r[i] = s[i];                          // 공백 등은 그대로
 }
 r[i] = '\0';
-printf("%s", r);    // Bc 0a</pre>
+printf("%s", r);    // Bc 0a</code></pre>
       <p class="todo"><code>isupper</code>(대문자), <code>islower</code>(소문자), <code>isdigit</code>(숫자), <code>isalpha</code>(알파벳)는 참이면 0이 아닌 값을 돌려준다. <code>(c - 'A' + k) % 26 + 'A'</code>는 "알파벳 순번 → k칸 이동 → 다시 문자"다. 나누는 수가 26이 아니면(예: 25) 결과가 달라지므로 <b>숫자를 그대로 계산</b>한다.</p>
 
       <h4>2차원 동적 배열과 인덱스 변환</h4>
       <p class="note"><b>2025년 1회 출제</b> <code>int**</code>와 malloc으로 만든 2차원 배열에 1차원 번호를 행·열로 바꿔 값을 넣는 문제</p>
-<pre class="sql">int R = 2, C = 3;
+<pre class="code" data-lang="C"><code class="language-c">int R = 2, C = 3;
 int **a = malloc(sizeof(int*) * R);       // 행 포인터 R개
 for (int i = 0; i &lt; R; i++)
     a[i] = malloc(sizeof(int) * C);       // 각 행에 int C개
@@ -2430,23 +2435,23 @@ for (int k = 0; k &lt; R * C; k++)
 //       {3, 4, 5} }   → a[1][0] = 3, a[1][2] = 5
 
 for (int i = 0; i &lt; R; i++) free(a[i]);   // 행부터 해제한 뒤
-free(a);                                  // 행 포인터 배열 해제</pre>
+free(a);                                  // 행 포인터 배열 해제</code></pre>
       <p class="todo">1차원 번호 k를 2차원으로 바꿀 때 <b>행 = k / 열 개수, 열 = k % 열 개수</b>. 문제에서 식이 복잡하면 k = 0, 1, 2…마다 행·열을 표로 적어 채운다.</p>
 
       <h4>연결 리스트 순회</h4>
       <p class="note"><b>2025년 3회 출제</b> next 포인터로 연결된 구조체를 while문으로 따라가며 값을 누적한 뒤 XOR 연산, <code>%u</code> 출력</p>
-<pre class="sql">struct Node { int v; struct Node *next; };
+<pre class="code" data-lang="C"><code class="language-c">struct Node { int v; struct Node *next; };
 struct Node c = {3, NULL}, b = {2, &amp;c}, a = {1, &amp;b};   // a → b → c → NULL
 
 int sum = 0;
 for (struct Node *q = &amp;a; q; q = q-&gt;next)   // q가 NULL이 될 때까지 다음 노드로 이동
     sum = sum * 10 + q-&gt;v;                  // 1 → 12 → 123
-printf("%d", sum);                          // 123</pre>
+printf("%d", sum);                          // 123</code></pre>
       <p class="todo">연결 순서는 선언 순서가 아니라 <b>next가 가리키는 순서</b>다. 시작 노드부터 화살표를 그려 두고 한 칸씩 표로 값을 추적한다. <code>unsigned int</code>는 음수가 없는 정수이며 <code>%u</code>로 출력한다.</p>
 
       <h4>원형 큐와 스택</h4>
       <p class="note"><b>2025년 2회 출제</b> 배열과 <code>% SIZE</code>로 구현한 원형 큐에 삽입·삭제를 반복한 뒤 꺼낸 값</p>
-<pre class="sql">#define SIZE 3
+<pre class="code" data-lang="C"><code class="language-c">#define SIZE 3
 typedef struct { int a[SIZE]; int front, rear; } Queue;
 
 void enq(Queue *q, int v) { q-&gt;a[q-&gt;rear] = v;  q-&gt;rear  = (q-&gt;rear + 1) % SIZE; }
@@ -2457,7 +2462,7 @@ enq(&amp;q, 10); enq(&amp;q, 20);   // a = [10, 20, _]   rear = 2
 deq(&amp;q);                    // 10 꺼냄           front = 1
 enq(&amp;q, 30);                // a = [10, 20, 30]  rear = 0 (끝에서 처음으로 돌아감)
 enq(&amp;q, 40);                // a = [40, 20, 30]  rear = 1 (꺼낸 자리를 재사용)
-deq(&amp;q); deq(&amp;q); deq(&amp;q);  // 20, 30, 40 순서로 꺼냄</pre>
+deq(&amp;q); deq(&amp;q); deq(&amp;q);  // 20, 30, 40 순서로 꺼냄</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>자료구조</th><th>방식</th><th>연산</th></tr></thead>
         <tbody>
@@ -2469,19 +2474,19 @@ deq(&amp;q); deq(&amp;q); deq(&amp;q);  // 20, 30, 40 순서로 꺼냄</pre>
 
       <h4>배열로 만든 스택</h4>
       <p class="note"><b>2023년 2회 출제</b> <code>isWhat[++point] = num</code>으로 넣고 <code>isWhat[point--]</code>로 꺼내는 스택에 삽입·삭제를 섞어 가며 출력</p>
-<pre class="sql">int st[10], top = -1;                       // 비어 있으면 top = -1
+<pre class="code" data-lang="C"><code class="language-c">int st[10], top = -1;                       // 비어 있으면 top = -1
 void push(int x) { st[++top] = x; }         // top을 먼저 올리고 저장
 int  pop(void)   { return st[top--]; }      // 현재 top 값을 꺼낸 뒤 내림
 
 push(1); push(2);      // [1, 2]    top = 1
 pop();                 // 2         top = 0
 push(3);               // [1, 3]
-pop(); pop();          // 3, 1      top = -1 (비어 있음)</pre>
+pop(); pop();          // 3, 1      top = -1 (비어 있음)</code></pre>
       <p class="todo">스택 문제는 옆에 <b>상자를 그려 두고</b> push는 위에 쌓고 pop은 맨 위에서 꺼내며 따라간다. <code>++top</code>(전위)은 올린 뒤 쓰고, <code>top--</code>(후위)은 쓴 뒤 내린다.</p>
 
       <h4>앞에 삽입하는 연결 리스트 (malloc, free)</h4>
       <p class="note"><b>2025년 2회 출제</b> 문자열의 글자를 하나씩 새 노드로 만들어 맨 앞에 연결한 뒤 처음부터 출력 → 역순으로 출력</p>
-<pre class="sql">struct node { char c; struct node *next; };
+<pre class="code" data-lang="C"><code class="language-c">struct node { char c; struct node *next; };
 const char *s = "ABC";
 struct node *h = NULL, *n;
 while (*s) {                             // '\0'을 만날 때까지
@@ -2493,12 +2498,12 @@ while (*s) {                             // '\0'을 만날 때까지
 while (h) {
     putchar(h-&gt;c);                       // CBA 출력
     struct node *t = h; h = h-&gt;next; free(t);   // 다 쓴 노드는 해제
-}</pre>
+}</code></pre>
       <p class="todo">맨 앞에 계속 붙이면 <b>넣은 순서의 반대</b>로 연결되어 스택처럼 동작한다. <code>*s++</code>는 현재 글자를 먼저 쓰고 포인터를 다음 글자로 옮긴다. 노드 연결을 여러 번 바꾸는 문제는 <b>마지막으로 대입한 next</b>를 기준으로 그림을 다시 그린다.</p>
 
       <h4>노드를 맨 앞으로 옮기기</h4>
       <p class="note"><b>2025년 1회 출제</b> 연결 리스트에서 특정 값의 노드를 찾아 앞 노드와 끊고 맨 앞(head)으로 옮기기</p>
-<pre class="sql">// 1, 2, 3, 4를 차례로 맨 앞에 넣은 리스트: head → 4 → 3 → 2 → 1
+<pre class="code" data-lang="C"><code class="language-c">// 1, 2, 3, 4를 차례로 맨 앞에 넣은 리스트: head → 4 → 3 → 2 → 1
 N *prev = NULL, *cur = head;
 while (cur &amp;&amp; cur-&gt;v != 2) {     // 값이 2인 노드 찾기
     prev = cur;                   // 바로 앞 노드를 기억
@@ -2509,12 +2514,12 @@ if (cur &amp;&amp; prev) {
     cur-&gt;next = head;             // ② 2 → 4
     head = cur;                   // ③ 2가 새 head
 }
-// 결과: 2 → 4 → 3 → 1   출력: 2431</pre>
+// 결과: 2 → 4 → 3 → 1   출력: 2431</code></pre>
       <p class="todo">노드를 삭제할 때는 <code>prev-&gt;next = cur-&gt;next</code>로 건너뛰게 연결한 뒤 <code>free(cur)</code>를 한다. 연결을 바꾸는 코드는 <b>한 줄씩 화살표를 고쳐 그리며</b> 따라간다.</p>
 
       <h4>구조체와 트리 순회</h4>
       <p class="note"><b>2026년 2회 출제</b> 구조체 포인터로 만든 이진 트리를 재귀로 후위 순회하면서, 전역 카운터 <code>++c</code>로 몇 번째 방문 노드인지 찾는 문제</p>
-<pre class="sql">typedef struct Node {
+<pre class="code" data-lang="C"><code class="language-c">typedef struct Node {
     int v;
     struct Node *left, *right;   // 구조체 포인터: p-&gt;left 는 (*p).left 와 같음
 } Node;
@@ -2530,7 +2535,7 @@ void post(Node *n) {             // 후위 순회
 //      /   \
 //     2     3
 //    / \
-//   4   5</pre>
+//   4   5</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>순회</th><th>방문 순서</th><th>위 트리 결과</th></tr></thead>
         <tbody>
@@ -2543,7 +2548,7 @@ void post(Node *n) {             // 후위 순회
 
       <h4>재귀 함수 추적</h4>
       <p class="note"><b>2026년 2회 출제</b> <code>c(n - 1) + c(n - 3)</code>처럼 여러 번 자기 자신을 호출하고, 종료 조건에 음수가 들어가는 재귀</p>
-<pre class="sql">int f(int n) {
+<pre class="code" data-lang="C"><code class="language-c">int f(int n) {
     if (n &lt;= 1) return 1;          // 종료 조건
     return f(n - 1) + f(n - 2);
 }
@@ -2551,12 +2556,12 @@ void post(Node *n) {             // 후위 순회
 // f(2)=f(1)+f(0)=2
 // f(3)=f(2)+f(1)=3
 // f(4)=f(3)+f(2)=5
-// f(5)=f(4)+f(3)=8   → printf("%d", f(5)) 출력: 8</pre>
+// f(5)=f(4)+f(3)=8   → printf("%d", f(5)) 출력: 8</code></pre>
       <p class="todo">위에서부터 호출을 펼치면 길어지므로, <b>작은 n부터 값을 표로 채워 올라가면</b> 빠르고 정확하다. 종료 조건이 <code>return n</code>이면 n이 0이나 음수일 때 그 값(0, −1 등)이 그대로 반환되는 점에 주의한다.</p>
 
       <h4>static 지역 변수</h4>
       <p class="note"><b>2024년 3회 출제</b> 함수 안의 static 변수가 호출할 때마다 값을 유지하며 누적되는 문제 (main의 같은 이름 지역 변수와는 무관)</p>
-<pre class="sql">int counter(void) {
+<pre class="code" data-lang="C"><code class="language-c">int counter(void) {
     static int n = 0;    // 프로그램 시작 때 한 번만 초기화, 함수가 끝나도 값 유지
     n += 1;
     return n;
@@ -2567,7 +2572,7 @@ int plain(void) {
     return n;
 }
 counter(); counter(); counter();   // 1, 2, 3
-plain();   plain();   plain();     // 1, 1, 1</pre>
+plain();   plain();   plain();     // 1, 1, 1</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>변수</th><th>유효 범위</th><th>수명</th></tr></thead>
         <tbody>
@@ -2580,19 +2585,19 @@ plain();   plain();   plain();     // 1, 1, 1</pre>
 
       <h4>C의 참과 거짓</h4>
       <p class="note"><b>2024년 1회 출제</b> if 조건 안에 삼항 연산자를 넣어, 그 결과값(0 또는 0이 아닌 값)으로 분기하는 문제</p>
-<pre class="sql">if (0)  { ... }          // 거짓: 0
+<pre class="code" data-lang="C"><code class="language-c">if (0)  { ... }          // 거짓: 0
 if (-3) { ... }          // 참: 0이 아닌 모든 값 (음수 포함)
 
 int a = 0, b = 5;
 if (a &gt; b ? b : a)       // a &gt; b는 거짓 → 결과는 a = 0 → 조건 거짓
     puts("then");
 else
-    puts("else");        // else 실행</pre>
+    puts("else");        // else 실행</code></pre>
       <p class="todo">C에는 따로 참/거짓 자료형이 없고, <b>0이면 거짓, 0이 아니면 참</b>이다. 비교 연산의 결과는 참이면 1, 거짓이면 0이다.</p>
 
       <h4>switch와 break</h4>
       <p class="note"><b>2024년 2회 출제</b> break가 없는 case에서 아래 case와 default까지 이어서 실행되는 문제</p>
-<pre class="sql">int x = 2, r = 0;
+<pre class="code" data-lang="C"><code class="language-c">int x = 2, r = 0;
 switch (x) {
     case 1:  r += 1;
     case 2:  r += 10;      // x와 일치 → 여기서 시작
@@ -2600,24 +2605,24 @@ switch (x) {
              break;        // 여기서 switch 탈출
     default: r += 1000;    // 실행 안 됨
 }
-printf("%d", r);           // 110</pre>
+printf("%d", r);           // 110</code></pre>
       <p class="todo">switch는 일치하는 case부터 <b>break를 만날 때까지</b> 아래로 계속 실행한다(fall-through). 일치하는 case가 없으면 default부터 실행한다.</p>
 
       <h4>비트 연산자</h4>
-<pre class="sql">// 12 = 1100, 10 = 1010 (2진수)
+<pre class="code" data-lang="C"><code class="language-c">// 12 = 1100, 10 = 1010 (2진수)
 12 &amp; 10    // 8    1000  AND: 둘 다 1일 때 1
 12 | 10    // 14   1110  OR : 하나라도 1이면 1
 12 ^ 10    // 6    0110  XOR: 서로 다를 때 1
 ~12        // -13        NOT: 모든 비트 반전 (~x = -x - 1)
 1 &lt;&lt; 3     // 8          왼쪽 시프트: × 2³
-12 &gt;&gt; 2    // 3          오른쪽 시프트: ÷ 2² (몫)</pre>
+12 &gt;&gt; 2    // 3          오른쪽 시프트: ÷ 2² (몫)</code></pre>
 
       <h4>16진수와 비트 연산</h4>
       <p class="note"><b>2025년 1회 출제</b> <code>0xA5</code> 같은 16진수 값과 비트 AND를 해서 더한 결과</p>
-<pre class="sql">// 16진수 한 자리 = 2진수 4자리:  A = 1010, B = 1011, C = 1100, D = 1101, E = 1110, F = 1111
+<pre class="code" data-lang="C"><code class="language-c">// 16진수 한 자리 = 2진수 4자리:  A = 1010, B = 1011, C = 1100, D = 1101, E = 1110, F = 1111
 0xA5          // 1010 0101 = 160 + 5 = 165
 0xF0 &amp; 0x3C   // 1111 0000 &amp; 0011 1100 = 0011 0000 = 0x30 = 48
-0xC3 &amp; 0xA5   // 1100 0011 &amp; 1010 0101 = 1000 0001 = 0x81 = 129</pre>
+0xC3 &amp; 0xA5   // 1100 0011 &amp; 1010 0101 = 1000 0001 = 0x81 = 129</code></pre>
       <p class="todo">16진수는 <b>한 자리씩 4비트로 풀어 쓴 뒤</b> 자리별로 비트 연산을 하고, 다시 10진수로 바꾼다. 10진 변환은 (앞자리 × 16) + 뒷자리다.</p>
 
       <h4>연산자 우선순위와 삼항 연산자</h4>
@@ -2636,26 +2641,26 @@ printf("%d", r);           // 110</pre>
         </tbody>
       </table></div>
       <p class="todo"><b>암기: 단-산-시-관-비-논-삼-대</b>. 비트 연산자(&amp;)가 관계 연산자(==)보다 <b>낮다</b>는 점이 자주 함정으로 나온다.</p>
-<pre class="sql">int x = 5;
+<pre class="code" data-lang="C"><code class="language-c">int x = 5;
 int r = x &gt; 3 ? 10 : 20;          // 10
 int z = 6 &amp; 6 &gt;&gt; 1;               // &gt;&gt; 먼저: 6 &gt;&gt; 1 = 3 → 6 &amp; 3 = 2
 int w = 3 + 4 &lt;&lt; 1;               // + 먼저: 7 &lt;&lt; 1 = 14
-int k = x &gt; 3 &amp;&amp; z &lt;= 2 ? z * x : z / x;   // (참 &amp;&amp; 참) → z * x = 10</pre>
+int k = x &gt; 3 &amp;&amp; z &lt;= 2 ? z * x : z / x;   // (참 &amp;&amp; 참) → z * x = 10</code></pre>
 
       <h4>% 로 배열 회전과 배수 세기</h4>
       <p class="note"><b>2023년 2회 출제</b> <code>n[(i + 1) % 5]</code>처럼 나머지 연산으로 배열을 한 칸씩 밀어 출력, 1부터 2023까지 4의 배수 개수</p>
-<pre class="sql">int n[5] = {1, 2, 3, 4, 5};
+<pre class="code" data-lang="C"><code class="language-c">int n[5] = {1, 2, 3, 4, 5};
 for (int i = 0; i &lt; 5; i++) printf("%d", n[(i + 2) % 5]);   // 34512  왼쪽으로 2칸 회전
 for (int i = 0; i &lt; 5; i++) printf("%d", n[(i + 4) % 5]);   // 51234  오른쪽으로 1칸 회전
 // (i + k) % 길이: 끝을 넘으면 0으로 돌아옴
 
 int c = 0;
 for (int i = 1; i &lt;= 100; i++)
-    if (i % 7 == 0) c++;      // 14    1 ~ N 중 k의 배수 개수 = N / k (정수 나눗셈)</pre>
+    if (i % 7 == 0) c++;      // 14    1 ~ N 중 k의 배수 개수 = N / k (정수 나눗셈)</code></pre>
 
       <h4>정렬 알고리즘</h4>
       <p class="note"><b>2023년 2회 출제</b> 선택 정렬 코드에서 오름차순이 되도록 비교 연산자를 고르는 문제</p>
-<pre class="sql">int a[] = {5, 3, 1, 4, 2};   // n = 5
+<pre class="code" data-lang="C"><code class="language-c">int a[] = {5, 3, 1, 4, 2};   // n = 5
 
 // 선택 정렬: i번 자리에 남은 것 중 가장 작은 값이 오도록 뒤쪽과 비교해 교환
 for (int i = 0; i &lt; n - 1; i++)
@@ -2673,7 +2678,7 @@ for (int i = 1; i &lt; n; i++) {
     int key = a[i], j = i - 1;
     while (j &gt;= 0 &amp;&amp; a[j] &gt; key) { a[j + 1] = a[j]; j--; }   // 큰 값들을 한 칸씩 뒤로
     a[j + 1] = key;
-}</pre>
+}</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>정렬</th><th>방식</th><th>특징</th></tr></thead>
         <tbody>
@@ -2687,7 +2692,7 @@ for (int i = 1; i &lt; n; i++) {
 
       <h4>2차원 격자 주변 칸 세기</h4>
       <p class="note"><b>2022년 3회 출제</b> 지뢰(1)가 있는 칸마다 주변 3×3 칸의 개수를 1씩 늘리되, 범위를 벗어나는 칸은 건너뛰는 코드의 결과 배열</p>
-<pre class="sql">int in(int w, int h, int x, int y) {          // 격자 안인지 검사
+<pre class="code" data-lang="C"><code class="language-c">int in(int w, int h, int x, int y) {          // 격자 안인지 검사
     return y &gt;= 0 &amp;&amp; y &lt; h &amp;&amp; x &gt;= 0 &amp;&amp; x &lt; w;
 }
 int g[3][3] = {{1, 0, 0},
@@ -2703,22 +2708,22 @@ for (int y = 0; y &lt; 3; y++)
     }
 // c = 1 2 1
 //     1 2 1
-//     0 1 1</pre>
+//     0 1 1</code></pre>
       <p class="todo">1인 칸을 하나씩 골라, 그 칸을 중심으로 한 <b>3×3 범위에 +1씩 도장을 찍는다</b>고 생각하면 빠르다. 격자 밖(음수 인덱스 등)은 건너뛴다. 문제의 반복 범위에 자기 자신이 포함되는지 꼭 확인한다.</p>
 
       <h4>순위 구하기</h4>
       <p class="note"><b>2022년 3회 출제</b> 각 원소마다 1에서 시작해 자기보다 큰 값의 개수만큼 더한 순위 배열</p>
-<pre class="sql">int a[4] = {50, 80, 30, 80}, r[4];
+<pre class="code" data-lang="C"><code class="language-c">int a[4] = {50, 80, 30, 80}, r[4];
 for (int i = 0; i &lt; 4; i++) {
     r[i] = 1;                                 // 1등부터 시작
     for (int j = 0; j &lt; 4; j++)
         if (a[i] &lt; a[j]) r[i]++;              // 나보다 큰 값이 있을 때마다 한 등수 내려감
 }
-// r = 3 1 4 1   (같은 값 80은 공동 1등)</pre>
+// r = 3 1 4 1   (같은 값 80은 공동 1등)</code></pre>
 
       <h4>자주 나오는 수학 반복문 패턴</h4>
       <p class="note"><b>2023년 3회 출제</b> 2부터 100까지 약수의 합이 자기 자신과 같은 수(완전수)를 모두 더하는 문제, 팩토리얼 재귀</p>
-<pre class="sql">int divsum(int n) {                 // 자기 자신을 뺀 약수의 합
+<pre class="code" data-lang="C"><code class="language-c">int divsum(int n) {                 // 자기 자신을 뺀 약수의 합
     int s = 0;
     for (int i = 1; i &lt;= n / 2; i++)
         if (n % i == 0) s += i;
@@ -2749,13 +2754,13 @@ while (n &gt; 0) {
 // sum = 10, rev = 4321
 
 int fact(int n) { return n &lt;= 1 ? 1 : n * fact(n - 1); }
-// fact(5) = 120, fact(7) = 5040</pre>
+// fact(5) = 120, fact(7) = 5040</code></pre>
       <p class="todo"><b>가장 큰 소인수</b> <code>for (i = 2; i &lt; n; i++) if (isPrime(i) &amp;&amp; n % i == 0) max = i;</code>는 n을 나누는 소수 중 마지막(가장 큰) 값을 남긴다. 예: 84 = 2 × 2 × 3 × 7 → 7 (2022년 1회 출제). 직접 소인수분해해서 가장 큰 소수를 고르면 빠르다.</p>
       <p class="todo">완전수(6, 28, 496…)처럼 자주 나오는 값은 외워 두면 시간을 아낄 수 있다. 처음 보는 반복문은 작은 값 몇 개를 직접 넣어 보고 규칙을 찾는다.</p>
 
       <h4>진법 변환</h4>
       <p class="note"><b>2023년 1회 출제</b> 101110처럼 10진 정수로 적힌 2진수를 <code>% 10</code>과 <code>/ 10</code>으로 한 자리씩 떼어 10진수로 바꾸는 코드의 빈칸</p>
-<pre class="sql">int bin = 1101, dec = 0, w = 1;         // 2진수 → 10진수
+<pre class="code" data-lang="C"><code class="language-c">int bin = 1101, dec = 0, w = 1;         // 2진수 → 10진수
 while (bin &gt; 0) {
     dec += (bin % 10) * w;              // 마지막 자리(0 또는 1) × 자릿값
     w *= 2;                             // 자릿값: 1, 2, 4, 8, ...
@@ -2765,11 +2770,11 @@ while (bin &gt; 0) {
 
 int n = 13, bits[32], k = 0;            // 10진수 → 2진수
 while (n &gt; 0) { bits[k++] = n % 2; n /= 2; }   // 나머지를 차례로 저장 (1, 0, 1, 1)
-for (int i = k - 1; i &gt;= 0; i--) printf("%d", bits[i]);   // 거꾸로 출력: 1101</pre>
+for (int i = k - 1; i &gt;= 0; i--) printf("%d", bits[i]);   // 거꾸로 출력: 1101</code></pre>
 
       <h4>break · continue와 누적 변수 초기값</h4>
       <p class="note"><b>2020년 3회 출제</b> 홀수면 continue로 건너뛰며 짝수만 더하는 반복문, 0으로 초기화한 변수에 곱셈을 누적하는 반복문</p>
-<pre class="sql">int s = 0;
+<pre class="code" data-lang="C"><code class="language-c">int s = 0;
 for (int i = 1; i &lt;= 10; i++) {
     if (i % 2 == 1) continue;   // continue: 아래를 건너뛰고 다음 반복으로
     s += i;                     // 2 + 4 + 6 + 8 + 10 = 30
@@ -2783,14 +2788,14 @@ int c = 0, p = 1;
 for (int i = 1; i &lt;= 5; i++) {
     c *= i;                     // 0에 무엇을 곱해도 0 → c = 0
     p *= i;                     // 곱셈 누적은 1로 시작해야 함 → p = 120
-}</pre>
+}</code></pre>
       <p class="todo">덧셈 누적은 <b>0</b>, 곱셈 누적은 <b>1</b>로 초기화한다. 문제 코드가 곱셈 변수를 0으로 두었다면 결과는 그대로 0이다. while문에서 continue를 쓸 때는 증감식이 continue보다 <b>앞에</b> 있는지 확인한다 (뒤에 있으면 무한 반복).</p>
 
       <h4>전위·후위 증감 연산자</h4>
-<pre class="sql">int c = 0;
+<pre class="code" data-lang="C"><code class="language-c">int c = 0;
 int x = c++;   // x = 0, c = 1   (후위: 값을 먼저 쓰고 나중에 증가)
 int y = ++c;   // c = 2, y = 2   (전위: 먼저 증가하고 그 값을 씀)
-if (++c == 3)  // c를 3으로 올린 뒤 비교 → 참</pre>
+if (++c == 3)  // c를 3으로 올린 뒤 비교 → 참</code></pre>
       <p class="todo"><b>for문의 증감식</b>은 반복문 본문이 끝난 뒤 따로 실행되는 한 문장이라, <code>for (i = 0; i &lt; n; ++i)</code>와 <code>for (i = 0; i &lt; n; i++)</code>는 <b>똑같이 동작</b>한다. 전위·후위 차이는 값이 다른 식 안에서 쓰일 때만 생긴다.</p>
     </section>
 
@@ -2990,11 +2995,11 @@ if (++c == 3)  // c를 3으로 올린 뒤 비교 → 참</pre>
           <tr><th scope="row"><code>-</code></th><td>권한 없음</td><td class="num">0</td></tr>
         </tbody>
       </table></div>
-<pre class="sql">chmod 754 a.txt    # 소유자 rwx(4+2+1=7), 그룹 r-x(4+1=5), 기타 r--(4) → -rwxr-xr--
+<pre class="code" data-lang="Bash"><code class="language-bash">chmod 754 a.txt    # 소유자 rwx(4+2+1=7), 그룹 r-x(4+1=5), 기타 r--(4) → -rwxr-xr--
 chmod 644 a.txt    # rw-r--r-- (일반 파일의 흔한 권한)
 chmod u+x a.txt    # 소유자(u)에게 실행 권한 추가 (g: 그룹, o: 기타, a: 모두)
 chmod go-w a.txt   # 그룹과 기타 사용자의 쓰기 권한 제거
-chown user1 a.txt  # 파일 소유자 변경</pre>
+chown user1 a.txt  # 파일 소유자 변경</code></pre>
       <h4>예시 문제</h4>
       <p class="todo">소유자는 읽기·쓰기·실행, 그룹은 읽기·실행, 기타 사용자는 읽기만 가능하도록 a.txt의 권한을 설정하는 명령어를 8진수로 쓰시오.</p>
       <details class="qa"><summary>풀이</summary>
@@ -3374,3 +3379,5 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), { rootMargin: "0px 0px -70% 0px" });
 document.querySelectorAll("section").forEach(s => io.observe(s));
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
