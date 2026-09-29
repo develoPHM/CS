@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Note</title>
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>">
+<link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 <style>
@@ -438,6 +438,10 @@ ol.steps{margin:8px 0 12px;padding-left:22px;font-size:14px;display:grid;gap:4px
           <tr><th scope="row">물리적 설계<small>데이터 구조화</small></th><td>논리적 스키마를 DBMS의 특성과 성능을 고려해 <b>물리적 스키마</b>로 만듦. 실제 저장 장치에 어떻게 저장할지(저장 레코드 형식, 인덱스, 접근 경로) 설계</td></tr>
         </tbody>
       </table></div>
+
+      <h4>E-R 다이어그램 기호</h4>
+      <p class="todo">개념적 설계에서 개체와 관계를 그림으로 표현할 때 쓰는 기호 (피터 첸 표기법)</p>
+      <figure class="fig"><img src="img/er-symbols.png" alt="E-R 다이어그램 기호: 사각형은 개체, 타원은 속성, 밑줄 친 타원은 기본키, 마름모는 관계, 선은 개체 타입과 속성을 연결, 사각형-마름모-사각형은 개체 간의 관계 타입" width="420" height="349" loading="lazy"></figure>
 
       <h3>관계형 데이터 모델</h3>
       <p class="todo">개체(Entity)와 관계(Relationship)를 모두 <b>릴레이션(Relation)</b>이라는 표로 표현한다.</p>
