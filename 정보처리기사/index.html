@@ -46,13 +46,22 @@ nav a{display:grid;grid-template-columns:34px 1fr;align-items:baseline;gap:4px;
 nav a .no{font:500 12px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
 nav a .hint{grid-column:2;font-size:12px;color:var(--muted)}
 nav a:hover{background:var(--accent-soft)}
+nav a.empty span:nth-child(2){text-decoration:line-through;text-decoration-color:var(--muted)}
+nav a.empty,nav a.empty .no,nav a.empty .hint{color:var(--muted);opacity:.75}
 nav a.on{background:var(--accent-soft);color:var(--accent);font-weight:500}
 nav a.on .no{color:var(--accent)}
 nav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
 /* 본문 */
-main{padding:64px 40px 80px;max-width:860px}
-section{padding-block:8px 36px;border-bottom:1px solid var(--line);scroll-margin-top:16px}
+main{padding:0 40px 80px;max-width:860px}
+.curbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;margin:0 -40px 16px;padding:14px 40px;min-height:56px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--bg);border-bottom:1px solid var(--line);font-size:14px;line-height:1.4}
+.curbar .cu{font-weight:700;color:var(--ink)}
+.curbar .cn{font:500 12px var(--mono);color:var(--accent);letter-spacing:.06em}
+.curbar .cs{color:var(--muted)}
+.curbar .cs:not(:empty)::before{content:"›";margin-right:8px;color:var(--muted)}
+.wrap.toc-closed .curbar{padding-left:120px}
+section{padding-block:8px 36px;border-bottom:1px solid var(--line);scroll-margin-top:64px}
+section h3,section h4{scroll-margin-top:64px}
 section+section{padding-top:32px}
 .eyebrow{font:500 12px var(--mono);color:var(--accent);letter-spacing:.08em}
 section h2{font-size:22px;margin:2px 0 12px;text-wrap:balance}
@@ -105,7 +114,8 @@ ol.steps{margin:8px 0 12px;padding-left:22px;font-size:14px;display:grid;gap:4px
 @media (max-width:760px){
   .wrap{grid-template-columns:1fr}
   nav{position:fixed;top:0;left:0;bottom:0;width:min(300px,85vw);height:auto;z-index:15;box-shadow:0 0 24px rgba(0,0,0,.18)}
-  main{padding:64px 16px 60px}
+  main{padding:0 16px 60px}
+  .curbar,.wrap.toc-closed .curbar{margin:0 -16px 16px;padding:12px 16px 12px 120px}
 }
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
@@ -117,21 +127,22 @@ ol.steps{margin:8px 0 12px;padding-left:22px;font-size:14px;display:grid;gap:4px
     <h1>정보처리기사 실기</h1>
     <p class="sub">12개 단원</p>
     <ol id="toc">
-      <li><a href="#u1"><span class="no">01</span><span>요구사항 확인</span></a></li>
-      <li><a href="#u2"><span class="no">02</span><span>데이터 입출력 구현</span></a></li>
-      <li><a href="#u3"><span class="no">03</span><span>통합 구현</span></a></li>
-      <li><a href="#u4"><span class="no">04</span><span>서버 프로그램 구현</span></a></li>
-      <li><a href="#u5"><span class="no">05</span><span>인터페이스 구현</span></a></li>
-      <li><a href="#u6"><span class="no">06</span><span>화면 설계</span></a></li>
-      <li><a href="#u7"><span class="no">07</span><span>애플리케이션 테스트 관리</span></a></li>
-      <li><a href="#u8"><span class="no">08</span><span>SQL 응용</span></a></li>
-      <li><a href="#u9"><span class="no">09</span><span>소프트웨어 개발 보안 구축</span></a></li>
+      <li><a href="#u1"><span class="no">01</span><span>요구사항 확인</span><span class="hint">개발 방법론, UML, 객체지향, 디자인 패턴</span></a></li>
+      <li><a href="#u2"><span class="no">02</span><span>데이터 입출력 구현</span><span class="hint">DB 설계, 관계형 모델, 정규화, 트랜잭션</span></a></li>
+      <li><a href="#u3" class="empty" title="정리 예정"><span class="no">03</span><span>통합 구현</span><span class="hint">연계 메커니즘, 연계 모듈 구현</span></a></li>
+      <li><a href="#u4"><span class="no">04</span><span>서버 프로그램 구현</span><span class="hint">모듈화, 응집도, 결합도</span></a></li>
+      <li><a href="#u5" class="empty" title="정리 예정"><span class="no">05</span><span>인터페이스 구현</span><span class="hint">인터페이스 설계, 보안, 검증</span></a></li>
+      <li><a href="#u6" class="empty" title="정리 예정"><span class="no">06</span><span>화면 설계</span><span class="hint">UI 요구사항, UI 설계</span></a></li>
+      <li><a href="#u7"><span class="no">07</span><span>애플리케이션 테스트 관리</span><span class="hint">테스트 유형, 커버리지, 테스트 원리</span></a></li>
+      <li><a href="#u8"><span class="no">08</span><span>SQL 응용</span><span class="hint">DDL, DML, JOIN, DCL, 트리거</span></a></li>
+      <li><a href="#u9"><span class="no">09</span><span>소프트웨어 개발 보안 구축</span><span class="hint">암호, 접근 통제, 공격 기법</span></a></li>
       <li><a href="#u10"><span class="no">10</span><span>프로그래밍 언어 활용</span><span class="hint">C, Java, Python 코딩 및 응용</span></a></li>
       <li><a href="#u11"><span class="no">11</span><span>응용 SW 기초 기술 활용</span><span class="hint">운영체제, 네트워크 등 기초 지식</span></a></li>
-      <li><a href="#u12"><span class="no">12</span><span>제품 소프트웨어 패키징</span></a></li>
+      <li><a href="#u12" class="empty" title="정리 예정"><span class="no">12</span><span>제품 소프트웨어 패키징</span><span class="hint">패키징, 릴리스 노트, 형상 관리</span></a></li>
     </ol>
   </nav>
   <main id="content">
+    <div class="curbar" id="curbar" aria-live="polite"><span class="cn" id="curNo"></span><span class="cu" id="curUnit"></span><span class="cs" id="curSub"></span></div>
 
     <!-- ========== 1단원: 요구사항 확인 ========== -->
     <section id="u1">
@@ -297,19 +308,19 @@ ol.steps{margin:8px 0 12px;padding-left:22px;font-size:14px;display:grid;gap:4px
 
       <h3>디자인 패턴 (GoF)</h3>
       <dl class="kv">
-        <dt>생성 (5)</dt><dd>객체 생성 방식을 캡슐화해 유연성을 높임 <span class="tags">추상 팩토리 · 팩토리 메서드 · 빌더 · 프로토타입 · 싱글톤</span></dd>
-        <dt>구조 (7)</dt><dd>클래스·객체를 조합해 더 큰 구조를 만듦 <span class="tags">어댑터 · 브리지 · 컴포지트 · 데코레이터 · 퍼사드 · 플라이웨이트 · 프록시</span></dd>
-        <dt>행위 (11)</dt><dd>객체 간 상호작용과 책임 분배를 정의해 결합도를 낮춤 <span class="tags">책임 연쇄 · 커맨드 · 인터프리터 · 반복자 · 중재자 · 메멘토 · 옵서버 · 상태 · 전략 · 템플릿 메서드 · 방문자</span></dd>
+        <dt>생성 (5)</dt><dd>객체 생성 방식을 캡슐화해 유연성을 높임 <span class="tags">빌더 · 프로토타입 · 팩토리 메서드 · 추상 팩토리 · 싱글톤</span><span class="tags">암기 생: 빌프로팩앱싱</span></dd>
+        <dt>구조 (7)</dt><dd>클래스·객체를 조합해 더 큰 구조를 만듦 <span class="tags">브리지 · 데코레이터 · 퍼사드 · 플라이웨이트 · 프록시 · 컴포지트 · 어댑터</span><span class="tags">암기 구: 브데퍼플프록컴어</span></dd>
+        <dt>행위 (11)</dt><dd>객체 간 상호작용과 책임 분배를 정의해 결합도를 낮춤 <span class="tags">중재자 · 인터프리터 · 반복자 · 템플릿 메서드 · 옵서버 · 상태 · 방문자 · 커맨드 · 전략 · 메멘토 · 책임 연쇄</span><span class="tags">암기 행: 미인이템옵스테비커스트메체</span></dd>
       </dl>
 
       <h4>생성 패턴</h4>
       <div class="tbl"><table>
         <thead><tr><th>패턴</th><th>설명</th></tr></thead>
         <tbody>
-          <tr><th scope="row">추상 팩토리<small>Abstract Factory</small></th><td><b>연관된 객체들의 묶음(제품군)</b>을 구체 클래스에 의존하지 않고 만드는 인터페이스를 제공. 사용자는 인터페이스(API)만 쓰고, 실제 구현은 Concrete Product 클래스가 담당</td></tr>
-          <tr><th scope="row">팩토리 메서드<small>Factory Method</small></th><td>상위 클래스는 객체 생성 <b>인터페이스만 정의</b>하고, 어떤 객체를 만들지는 <b>하위 클래스</b>가 결정. 생성 메서드를 오버라이딩해 인터페이스와 실제 생성 클래스를 분리. 가상 생성자(Virtual Constructor)라고도 함</td></tr>
           <tr><th scope="row">빌더<small>Builder</small></th><td>복잡한 객체를 부분별로 조립해 생성. 생성 <b>과정</b>과 <b>표현</b>을 분리해, 같은 생성 절차로 서로 다른 결과를 만들 수 있음</td></tr>
           <tr><th scope="row">프로토타입<small>Prototype</small></th><td>원형 객체를 <b>복제</b>한 뒤 필요한 부분만 수정해서 사용. 새로 생성하는 것보다 비용이 저렴</td></tr>
+          <tr><th scope="row">팩토리 메서드<small>Factory Method</small></th><td>상위 클래스는 객체 생성 <b>인터페이스만 정의</b>하고, 어떤 객체를 만들지는 <b>하위 클래스</b>가 결정. 생성 메서드를 오버라이딩해 인터페이스와 실제 생성 클래스를 분리. 가상 생성자(Virtual Constructor)라고도 함</td></tr>
+          <tr><th scope="row">추상 팩토리<small>Abstract Factory</small></th><td><b>연관된 객체들의 묶음(제품군)</b>을 구체 클래스에 의존하지 않고 만드는 인터페이스를 제공. 사용자는 인터페이스(API)만 쓰고, 실제 구현은 Concrete Product 클래스가 담당</td></tr>
           <tr><th scope="row">싱글톤<small>Singleton</small></th><td>클래스의 인스턴스를 <b>하나만</b> 생성하고, 전역 변수 없이 어디서든 참조할 수 있게 함. 여러 프로세스가 동시에 참조할 수는 없음</td></tr>
         </tbody>
       </table></div>
@@ -318,13 +329,13 @@ ol.steps{margin:8px 0 12px;padding-left:22px;font-size:14px;display:grid;gap:4px
       <div class="tbl"><table>
         <thead><tr><th>패턴</th><th>설명</th></tr></thead>
         <tbody>
-          <tr><th scope="row">어댑터<small>Adapter</small></th><td>서로 맞지 않는 <b>인터페이스를 변환</b>해 기존 클래스를 재사용할 수 있게 함 (예: 변압기). 상속을 쓰는 클래스 패턴과 위임을 쓰는 인스턴스 패턴 두 가지</td></tr>
           <tr><th scope="row">브리지<small>Bridge</small></th><td><b>기능(추상) 계층과 구현 계층을 분리</b>해 각각 독립적으로 확장</td></tr>
-          <tr><th scope="row">컴포지트<small>Composite</small></th><td>객체를 <b>트리 구조</b>로 구성해 부분-전체 계층을 표현. 단일 객체와 복합 객체를 똑같이 다룸</td></tr>
           <tr><th scope="row">데코레이터<small>Decorator</small></th><td>기존 객체에 다른 객체를 덧붙여 기능을 <b>동적으로 추가</b>. 상속 대신 기능을 확장하는 방법</td></tr>
           <tr><th scope="row">퍼사드<small>Facade</small></th><td>복잡한 서브 시스템 앞에 <b>단순한 통합 인터페이스</b>(Wrapper 객체)를 제공해 결합도를 낮추고 사용을 쉽게 함</td></tr>
           <tr><th scope="row">플라이웨이트<small>Flyweight</small></th><td>비슷한 객체를 매번 만들지 않고 공통 요소를 <b>공유</b>해 메모리를 절약. 클래스의 경량화가 목적</td></tr>
           <tr><th scope="row">프록시<small>Proxy</small></th><td>실제 객체의 <b>대리 객체</b>로 접근을 제어. 필요할 때 실제 객체를 할당해 메모리를 아끼고, 실제 객체를 숨겨 정보 은닉 역할도 함</td></tr>
+          <tr><th scope="row">컴포지트<small>Composite</small></th><td>객체를 <b>트리 구조</b>로 구성해 부분-전체 계층을 표현. 단일 객체와 복합 객체를 똑같이 다룸</td></tr>
+          <tr><th scope="row">어댑터<small>Adapter</small></th><td>서로 맞지 않는 <b>인터페이스를 변환</b>해 기존 클래스를 재사용할 수 있게 함 (예: 변압기). 상속을 쓰는 클래스 패턴과 위임을 쓰는 인스턴스 패턴 두 가지</td></tr>
         </tbody>
       </table></div>
 
@@ -332,17 +343,17 @@ ol.steps{margin:8px 0 12px;padding-left:22px;font-size:14px;display:grid;gap:4px
       <div class="tbl"><table>
         <thead><tr><th>패턴</th><th>설명</th></tr></thead>
         <tbody>
-          <tr><th scope="row">책임 연쇄<small>Chain of Responsibility</small></th><td>요청을 처리할 수 있는 객체가 둘 이상 <b>연결</b>되어, 처리하지 못하면 다음 객체로 책임을 넘김. 처리 연결을 하드코딩하지 않고 동적으로 바꿀 수 있음</td></tr>
-          <tr><th scope="row">커맨드<small>Command</small></th><td><b>요청(명령)을 객체로 캡슐화</b>해 저장하거나 로그에 남기고, 재사용·취소할 수 있게 함</td></tr>
+          <tr><th scope="row">중재자<small>Mediator</small></th><td>객체 간 복잡한 상호작용을 <b>중재자</b> 하나에 캡슐화해, 객체끼리 직접 통신하지 않게 하여 결합도를 낮춤</td></tr>
           <tr><th scope="row">인터프리터<small>Interpreter</small></th><td>언어의 <b>문법 규칙</b>을 클래스로 표현하고, 구문별 해석을 맡는 클래스를 두어 문장을 해석 (예: 맞춤법 검사)</td></tr>
           <tr><th scope="row">반복자<small>Iterator</small></th><td>컬렉션의 내부 구현을 드러내지 않고 모든 항목에 <b>순차적으로 접근</b>하는 방법을 제공</td></tr>
-          <tr><th scope="row">중재자<small>Mediator</small></th><td>객체 간 복잡한 상호작용을 <b>중재자</b> 하나에 캡슐화해, 객체끼리 직접 통신하지 않게 하여 결합도를 낮춤</td></tr>
-          <tr><th scope="row">메멘토<small>Memento</small></th><td>특정 시점의 객체 상태를 저장해 두고 필요할 때 <b>되돌림</b>. Undo 기능 (예: Ctrl + Z)</td></tr>
+          <tr><th scope="row">템플릿 메서드<small>Template Method</small></th><td>상위 클래스가 작업의 <b>골격</b>(추상 메서드)을 정의하고, 하위 클래스가 세부 단계를 구체화. 전체 구조는 유지하면서 특정 단계만 바꿈</td></tr>
           <tr><th scope="row">옵서버<small>Observer</small></th><td>한 객체의 상태가 바뀌면 그 객체에 <b>의존하는 객체들</b>에게 알리고 자동으로 갱신. 일대다 의존, 발행-구독 (예: 메신저 읽음 표시)</td></tr>
           <tr><th scope="row">상태<small>State</small></th><td>객체의 <b>상태</b>를 클래스로 캡슐화해, 상태에 따라 같은 요청도 다르게 처리</td></tr>
-          <tr><th scope="row">전략<small>Strategy</small></th><td>같은 계열의 <b>알고리즘</b>(버블·퀵·선택 정렬 등)을 각각 클래스로 캡슐화해 필요할 때 서로 교체해서 사용</td></tr>
-          <tr><th scope="row">템플릿 메서드<small>Template Method</small></th><td>상위 클래스가 작업의 <b>골격</b>(추상 메서드)을 정의하고, 하위 클래스가 세부 단계를 구체화. 전체 구조는 유지하면서 특정 단계만 바꿈</td></tr>
           <tr><th scope="row">방문자<small>Visitor</small></th><td>데이터 구조와 <b>처리 기능을 분리</b>해 별도 클래스로 만들고, 그 클래스가 각 객체를 방문하며 작업. 구조를 바꾸지 않고 기능만 추가</td></tr>
+          <tr><th scope="row">커맨드<small>Command</small></th><td><b>요청(명령)을 객체로 캡슐화</b>해 저장하거나 로그에 남기고, 재사용·취소할 수 있게 함</td></tr>
+          <tr><th scope="row">전략<small>Strategy</small></th><td>같은 계열의 <b>알고리즘</b>(버블·퀵·선택 정렬 등)을 각각 클래스로 캡슐화해 필요할 때 서로 교체해서 사용</td></tr>
+          <tr><th scope="row">메멘토<small>Memento</small></th><td>특정 시점의 객체 상태를 저장해 두고 필요할 때 <b>되돌림</b>. Undo 기능 (예: Ctrl + Z)</td></tr>
+          <tr><th scope="row">책임 연쇄<small>Chain of Responsibility</small></th><td>요청을 처리할 수 있는 객체가 둘 이상 <b>연결</b>되어, 처리하지 못하면 다음 객체로 책임을 넘김. 처리 연결을 하드코딩하지 않고 동적으로 바꿀 수 있음</td></tr>
         </tbody>
       </table></div>
       <p class="note"><b>헷갈리는 쌍</b> 팩토리 메서드는 <b>객체 생성</b>을 하위 클래스에 맡기는 생성 패턴이고, 템플릿 메서드는 <b>알고리즘 단계</b>를 하위 클래스에 맡기는 행위 패턴이다.</p>
@@ -3399,6 +3410,26 @@ try { saved = localStorage.getItem("tocOpen"); } catch (e) {}
 setToc(narrow.matches ? false : saved !== "0");
 btn.addEventListener("click", () => setToc(wrap.classList.contains("toc-closed"), true));
 toc.addEventListener("click", e => { if (e.target.closest("a") && narrow.matches) setToc(false); });
+
+// 현재 보고 있는 단원과 소제목을 상단 바에 표시
+const curbar = document.getElementById("curbar");
+const curNo = document.getElementById("curNo"), curUnit = document.getElementById("curUnit"), curSub = document.getElementById("curSub");
+const sections = [...document.querySelectorAll("main section")];
+let ticking = false;
+function updateCurbar() {
+  ticking = false;
+  const line = curbar.getBoundingClientRect().bottom + 8;
+  let sec = sections[0];
+  for (const s of sections) { if (s.getBoundingClientRect().top <= line) sec = s; else break; }
+  let sub = "";
+  for (const h of sec.querySelectorAll("h3")) { if (h.getBoundingClientRect().top <= line) sub = h.textContent; else break; }
+  curNo.textContent = sec.querySelector(".eyebrow").textContent;
+  curUnit.textContent = sec.querySelector("h2").textContent;
+  curSub.textContent = sub;
+}
+addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(updateCurbar); } }, { passive: true });
+addEventListener("resize", updateCurbar);
+updateCurbar();
 
 // 스크롤 위치에 맞춰 목차 강조
 const links = [...toc.querySelectorAll("a")];
