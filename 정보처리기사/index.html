@@ -774,9 +774,111 @@ ul.steps-plain{margin:6px 0 10px;padding-left:20px;font-size:14px;display:grid;g
           <tr><th scope="row">조건/결정<small>Condition/Decision Coverage, C/DC</small></th><td>결정 커버리지 + 조건 커버리지를 <b>동시에</b> 만족</td><td class="num">2</td></tr>
           <tr><th scope="row">변경 조건/결정<small>Modified C/D Coverage, MC/DC</small></th><td>각 개별 조건이 다른 조건과 상관없이 전체 결과에 <b>독립적으로 영향</b>을 주는지. 항공·의료 등 고신뢰 SW에 사용</td><td class="num">3</td></tr>
           <tr><th scope="row">다중 조건<small>Multiple Condition Coverage, MCC</small></th><td>개별 조건식의 <b>모든 조합</b>(2ⁿ개)을 테스트. 가장 철저하지만 복잡도가 매우 높음</td><td class="num">4</td></tr>
+          <tr><th scope="row">경로<small>Path Coverage</small></th><td>프로그램에서 지나갈 수 있는 <b>모든 실행 경로</b>를 한 번씩 테스트. 가장 엄격함</td><td class="num">2</td></tr>
         </tbody>
       </table></div>
       <p class="note"><b>예시</b> <code>if (A &amp;&amp; B)</code>에서 조건 커버리지는 (A=T, B=F), (A=F, B=T)로 A·B가 각각 참·거짓을 가지지만, 전체 결과는 둘 다 거짓이라 결정 커버리지는 만족하지 못한다.</p>
+
+      <h4>커버리지별 예시</h4>
+      <details class="qa"><summary>1. 구문 (문장) 커버리지</summary>
+      <p class="todo">코드의 <b>모든 줄</b>을 최소 한 번씩 실행한다.</p>
+<pre class="code" data-lang="Python"><code class="language-python">def check_bonus(sales):
+    bonus = 0           # 1번 줄
+    if sales &gt;= 100:    # 2번 줄
+        bonus = 50      # 3번 줄
+    return bonus        # 4번 줄
+
+# [테스트 케이스] 1개로 100% 달성
+# sales = 150 → 1, 2, 3, 4번 줄이 모두 실행됨</code></pre>
+      <p class="todo"><code>sales = 150</code> 하나로 모든 줄을 지나가므로 100%다. 단, 100 미만일 때의 동작은 검증하지 못한다.</p>
+      </details>
+      <details class="qa"><summary>2. 결정 (분기) 커버리지</summary>
+      <p class="todo">if문의 <b>전체 조건식</b>이 참인 경로와 거짓인 경로를 모두 실행한다.</p>
+<pre class="code" data-lang="Python"><code class="language-python">def check_pass(score):
+    if score &gt;= 60:
+        return "합격"    # True 분기
+    else:
+        return "불합격"  # False 분기
+
+# [테스트 케이스] 2개
+# 케이스 1: score = 80 → True → "합격"
+# 케이스 2: score = 40 → False → "불합격"</code></pre>
+      </details>
+      <details class="qa"><summary>3. 조건 커버리지</summary>
+      <p class="todo">전체 결과와 상관없이 <b>각 개별 조건</b>이 True와 False를 한 번씩 갖게 한다.</p>
+<pre class="code" data-lang="Python"><code class="language-python">def check_vip(age, pay):
+    # 조건 A: age &gt;= 20, 조건 B: pay &gt;= 100
+    if (age &gt;= 20) and (pay &gt;= 100):
+        return "VIP"
+    return "일반"
+
+# [테스트 케이스] 2개
+# 케이스 1: age = 25 (A: True),  pay = 50  (B: False) → 전체 False ("일반")
+# 케이스 2: age = 15 (A: False), pay = 200 (B: True)  → 전체 False ("일반")</code></pre>
+      <p class="todo">A와 B 모두 True/False를 가져서 조건 커버리지는 100%지만, 전체 결과는 둘 다 "일반"이라 <b>"VIP" 경로를 한 번도 지나지 못한다</b>.</p>
+      </details>
+      <details class="qa"><summary>4. 조건/결정 커버리지</summary>
+      <p class="todo">개별 조건이 각각 True/False를 갖고, <b>동시에</b> 전체 결과도 True와 False가 모두 나오게 한다.</p>
+<pre class="code" data-lang="Python"><code class="language-python">def can_drive(has_license, is_sober):
+    # 조건 A: has_license, 조건 B: is_sober
+    if has_license and is_sober:
+        return "운전 가능"
+    return "운전 불가"
+
+# [테스트 케이스] 2개
+# 케이스 1: (T, T) → 전체 True  ("운전 가능")
+# 케이스 2: (F, F) → 전체 False ("운전 불가")</code></pre>
+      <p class="todo">A와 B 모두 True/False를 가졌고(조건 만족), 전체 결과도 "가능/불가"가 모두 나왔다(결정 만족).</p>
+      </details>
+      <details class="qa"><summary>5. 변경 조건/결정 커버리지 (MC/DC)</summary>
+      <p class="todo">각 조건이 다른 조건은 그대로 둔 채 <b>혼자서</b> 전체 결과를 바꿀 수 있는지 확인한다. 조건이 N개면 최소 <b>N + 1</b>개 케이스가 필요하다.</p>
+<pre class="code" data-lang="Python"><code class="language-python">def unlock_door(has_key, has_card):
+    # 조건 A: has_key, 조건 B: has_card
+    if has_key and has_card:
+        return "문 열림"
+    return "문 잠김"
+
+# [테스트 케이스] 3개
+# 케이스 1 (기준):  (T, T) → "문 열림"
+# 케이스 2 (A 검증): (F, T) → "문 잠김"   B는 그대로, A만 바꿔서 결과가 바뀜
+# 케이스 3 (B 검증): (T, F) → "문 잠김"   A는 그대로, B만 바꿔서 결과가 바뀜</code></pre>
+      </details>
+      <details class="qa"><summary>6. 다중 조건 커버리지</summary>
+      <p class="todo">개별 조건의 <b>모든 조합</b>(2<sup>N</sup>개)을 빠짐없이 테스트한다.</p>
+<pre class="code" data-lang="Python"><code class="language-python">def borrow_book(is_member, has_overdue):
+    # 회원이면서(True) 연체가 없어야(True) 대출 가능
+    if is_member and not has_overdue:
+        return "대출 완료"
+    return "대출 불가"
+
+# [테스트 케이스] 2² = 4개
+# 케이스 1: is_member = True,  has_overdue = False (T, T)
+# 케이스 2: is_member = True,  has_overdue = True  (T, F)
+# 케이스 3: is_member = False, has_overdue = False (F, T)
+# 케이스 4: is_member = False, has_overdue = True  (F, F)</code></pre>
+      <p class="todo">괄호 안 (T, F)는 두 조건 <code>is_member</code>, <code>not has_overdue</code>의 값이다.</p>
+      </details>
+      <details class="qa"><summary>7. 경로 커버리지</summary>
+      <p class="todo">프로그램에서 지나갈 수 있는 <b>모든 갈래길의 조합</b>을 전부 통과한다.</p>
+<pre class="code" data-lang="Python"><code class="language-python">def calc_delivery_fee(is_island, is_heavy):
+    fee = 3000
+    if is_island:      # 1번 갈림길
+        fee += 2000    # 경로 A1
+    else:
+        fee += 0       # 경로 A2
+    if is_heavy:       # 2번 갈림길
+        fee += 1000    # 경로 B1
+    else:
+        fee += 0       # 경로 B2
+    return fee
+
+# [테스트 케이스] 2 × 2 = 4개
+# 경로 1 (A1 → B1): is_island = True,  is_heavy = True  → 6000
+# 경로 2 (A1 → B2): is_island = True,  is_heavy = False → 5000
+# 경로 3 (A2 → B1): is_island = False, is_heavy = True  → 4000
+# 경로 4 (A2 → B2): is_island = False, is_heavy = False → 3000</code></pre>
+      <p class="todo">갈림길이 늘어날수록 경로 수가 곱으로 늘어나서, 결정 커버리지(각 if의 참·거짓만 확인, 여기서는 2개로 충분)보다 훨씬 많은 케이스가 필요하다.</p>
+      </details>
 
       <h4>테스트 시각</h4>
       <div class="tbl"><table>
