@@ -1455,17 +1455,6 @@ EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</code></pre
           <tr><th scope="row">책임추적성</th><td>주체의 접근을 추적하고 행동을 기록하는 활동</td></tr>
         </tbody>
       </table></div>
-      <h4>인증 (Authentication) 유형</h4>
-      <div class="tbl"><table>
-        <thead><tr><th>유형</th><th>설명</th><th>예</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">지식 기반<small>Something You Know</small></th><td>사용자가 <b>알고 있는</b> 것</td><td>비밀번호, PIN</td></tr>
-          <tr><th scope="row">소유 기반<small>Something You Have</small></th><td>사용자가 <b>가지고 있는</b> 것</td><td>OTP, 스마트카드, 공동인증서</td></tr>
-          <tr><th scope="row">생체 기반<small>Something You Are</small></th><td>사용자의 <b>고유한 신체</b> 특징</td><td>지문, 홍채, 얼굴, 정맥</td></tr>
-          <tr><th scope="row">행위 기반<small>Something You Do</small></th><td>사용자의 <b>행동</b> 특징</td><td>서명, 키 입력 패턴, 걸음걸이</td></tr>
-          <tr><th scope="row">위치 기반<small>Somewhere You Are</small></th><td>사용자의 <b>위치</b> 정보</td><td>GPS, IP 주소</td></tr>
-        </tbody>
-      </table></div>
       <p class="note"><b>AAA</b> <b>Authentication</b>(인증: 신원 확인) · <b>Authorization</b>(인가: 권한 부여) · <b>Accounting</b>(계정 관리: 사용 기록·과금). 네트워크 접속 보안의 기본 구조</p>
       <h4>서버 접근 통제 유형</h4>
       <div class="tbl"><table>
@@ -1476,30 +1465,6 @@ EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</code></pre
           <tr><th scope="row">RBAC<small>역할 기반 접근 통제</small></th><td>조직 내 맡은 <b>역할</b> 기반으로 접근 제한<span class="ex"><span role="button" tabindex="0" data-r="2025-3" data-n="18">2025년 3회</span><span role="button" tabindex="0" data-r="2023-3" data-n="7">2023년 3회</span></span></td></tr>
         </tbody>
       </table></div>
-      <h4>접근 통제 보안 모델</h4>
-      <div class="tbl"><table>
-        <thead><tr><th>모델</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">벨-라파듈라<small>BLP, Bell-LaPadula</small></th><td><b>기밀성</b> 중심. <b>No Read Up</b>(자기보다 높은 등급은 읽기 불가), <b>No Write Down</b>(낮은 등급에 쓰기 불가)</td></tr>
-          <tr><th scope="row">비바<small>Biba</small></th><td><b>무결성</b> 중심. <b>No Read Down</b>(낮은 등급은 읽기 불가), <b>No Write Up</b>(높은 등급에 쓰기 불가)</td></tr>
-          <tr><th scope="row">클락-윌슨<small>Clark-Wilson</small></th><td><b>무결성</b> 중심의 상업용 모델. 정해진 절차(트랜잭션)로만 데이터를 변경</td></tr>
-          <tr><th scope="row">만리장성<small>Chinese Wall, Brewer-Nash</small></th><td><b>이해 충돌</b>을 막음. 경쟁 관계인 회사의 정보에 함께 접근할 수 없게 함</td></tr>
-        </tbody>
-      </table></div>
-      <p class="note"><b>구분</b> BLP와 Biba는 규칙이 정반대다. BLP는 <b>기밀성</b>, Biba는 <b>무결성</b></p>
-      <h4>암호 방식 한눈에 보기</h4>
-      <div class="tbl"><table>
-        <thead><tr><th>구분</th><th>대칭키 (양방향)</th><th>비대칭키 (양방향)</th><th>단방향 (해시)</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">키</th><td>암호화·복호화에 <b>같은 키</b></td><td><b>공개키</b>로 암호화, <b>개인키</b>로 복호화</td><td>복호화 <b>불가능</b></td></tr>
-          <tr><th scope="row">주 용도</th><td>기밀성 (대용량 데이터, 파일, DB 암호화)</td><td>기밀성 + 인증, 키 교환, 전자서명</td><td><b>무결성</b> 검증, 비밀번호 저장</td></tr>
-          <tr><th scope="row">속도</th><td>빠름, 구현 간단</td><td>느림</td><td>빠름</td></tr>
-          <tr><th scope="row">키 개수 (N명)</th><td><b>N(N−1)/2</b></td><td><b>2N</b></td><td>-</td></tr>
-          <tr><th scope="row">약점</th><td>키를 안전하게 나눠 갖기 어려움. 키가 유출되면 끝</td><td>연산이 복잡해 대용량에 부적합</td><td>원문 복원 불가</td></tr>
-        </tbody>
-      </table></div>
-      <p class="note"><b>비밀번호 저장</b> 단방향으로 저장해 두고, 로그인할 때 입력값을 같은 방식으로 해시해서 저장된 값과 비교한다. 복호화할 필요가 없다.</p>
-
       <h4>대칭키 암호 방식</h4>
       <dl class="kv">
         <dt>블록 암호</dt><dd>평문을 고정 길이 블록 단위로 나눠 암호화 <span class="tags">DES · 3DES · AES · IDEA · SEED · ARIA · Skipjack · RC5</span></dd>
@@ -1546,6 +1511,8 @@ EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</code></pre
       <p class="note"><b>주의</b> MD5와 SHA-1은 충돌 공격이 알려져 보안 용도로는 권장하지 않는다. 여기서 MAC은 메시지 인증 코드이고, 접근 통제의 MAC(강제적 접근 통제)과는 다르다.</p>
 
       <p class="note"><b>솔트와 키 스트레칭</b> <b>솔트(Salt)</b>: 해시하기 전에 비밀번호에 <b>무작위 값</b>을 덧붙여, 같은 비밀번호라도 해시 값이 달라지게 함 → 레인보우 테이블 공격 방어 · <b>키 스트레칭(Key Stretching)</b>: 해시를 <b>여러 번 반복</b>해 무차별 대입에 드는 시간을 늘림. 예: bcrypt, PBKDF2, scrypt</p>
+      <p class="note"><b>비밀번호 저장</b> 단방향으로 저장해 두고, 로그인할 때 입력값을 같은 방식으로 해시해서 저장된 값과 비교한다. 복호화할 필요가 없다.</p>
+
       <h4>PEM (Privacy Enhanced Mail)</h4>
       <p class="todo">IETF가 만든 인터넷 <b>이메일 보안 표준</b>(암호화, 인증, 무결성)이다. 지금은 개인키·공개키·인증서를 <b>Base64</b> 텍스트로 저장하는 파일 형식(<code>.pem</code>)으로 더 많이 쓰이며, SSL/TLS 인증서 설정에 흔히 사용한다.</p>
       <h4>데이터 암호화 전송</h4>
@@ -1600,20 +1567,6 @@ EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</code></pre
       </table></div>
 
       <h3>9-2. 소프트웨어 개발 보안 구현</h3>
-      <h4>소프트웨어 개발 보안 취약점 7대 영역</h4>
-      <p class="todo">행정안전부 소프트웨어 보안약점 진단 가이드의 구현 단계 분류</p>
-      <div class="tbl"><table>
-        <thead><tr><th>영역</th><th>설명</th><th>예</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">입력 데이터 검증 및 표현</th><td>입력값의 검증 누락·부적절한 검증, 잘못된 형식 지정</td><td>SQL 삽입, XSS, 경로 조작, 위험한 파일 업로드</td></tr>
-          <tr><th scope="row">보안 기능</th><td>인증, 접근 제어, 기밀성, 암호화, 권한 관리를 부적절하게 구현</td><td>적절한 인증 없는 중요 기능 허용, 하드코딩된 비밀번호, 취약한 암호 알고리즘</td></tr>
-          <tr><th scope="row">시간 및 상태</th><td>동시에 수행되는 시스템에서 시간과 상태를 부적절하게 관리</td><td>경쟁 조건(TOCTOU), 종료되지 않는 반복문·재귀</td></tr>
-          <tr><th scope="row">에러 처리</th><td>에러를 처리하지 않거나 부적절하게 처리해 에러 메시지에 중요 정보가 노출</td><td>오류 메시지를 통한 정보 노출, 오류 상황 대응 부재</td></tr>
-          <tr><th scope="row">코드 오류</th><td>개발자가 흔히 저지르는 코딩 실수</td><td>널 포인터 역참조, 부적절한 자원 해제, 해제된 자원 사용, 초기화되지 않은 변수</td></tr>
-          <tr><th scope="row">캡슐화</th><td>중요한 데이터나 기능을 불충분하게 캡슐화해 인가되지 않은 사용자에게 노출</td><td>잘못된 세션에 의한 정보 노출, 제거되지 않은 디버그 코드</td></tr>
-          <tr><th scope="row">API 오용</th><td>의도된 사용에 반하는 방법으로 API를 사용하거나 보안에 취약한 API 사용</td><td>DNS lookup에 의존한 보안 결정, 취약한 API 사용</td></tr>
-        </tbody>
-      </table></div>
       <h4>입력 데이터 검증 및 표현 취약점</h4>
       <div class="tbl"><table>
         <thead><tr><th>취약점</th><th>설명</th></tr></thead>
@@ -1740,15 +1693,6 @@ EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</code></pre
           <tr><th scope="row">Zero-Day<small>제로 데이 공격</small></th><td>취약점이 발견됐지만 <b>패치가 나오기 전</b> 무방비 상태를 노림</td></tr>
           <tr><th scope="row">Exploit<small>익스플로잇</small></th><td>버그·취약점을 악용해 권한 상승, 코드 실행 등을 수행하는 스크립트나 공격 행위</td></tr>
           <tr><th scope="row">Drive By Download<small>드라이브 바이 다운로드</small></th><td>정상 웹서버에 악성 스크립트를 심어, 사용자가 <b>방문만 해도</b> 동의 없이 악성코드가 다운로드·감염</td></tr>
-        </tbody>
-      </table></div>
-      <h4>하드웨어·암호 구현 공격</h4>
-      <div class="tbl"><table>
-        <thead><tr><th>용어</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Side Channel Attack<small>부채널 공격</small></th><td>알고리즘 자체가 아닌 전력 소비, 전자기파, 수행 시간 등 <b>물리적 특성</b>을 분석해 암호 키를 알아냄</td></tr>
-          <tr><th scope="row">Heartbleed<small>하트블리드</small></th><td>OpenSSL <b>Heartbeat</b> 모듈의 입력값 검증 누락을 악용해 서버 메모리의 비밀키·세션 쿠키 등을 탈취</td></tr>
-          <tr><th scope="row">Meltdown<small>멜트다운</small></th><td>인텔 x86 CPU 파이프라인의 비순차 명령 실행 시 발생하는 버그를 악용</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -3304,61 +3248,6 @@ chown user1 a.txt  # 파일 소유자 변경</code></pre>
         </tbody>
       </table></div>
 
-      <h4>IP (Internet Protocol)</h4>
-      <dl class="kv">
-        <dt>비연결형</dt><dd>연결 설정 없이 패킷(데이터그램)을 독립적으로 전송</dd>
-        <dt>비신뢰성</dt><dd>전달·순서를 보장하지 않는 최선형(Best Effort) 전송. 신뢰성은 상위 계층(TCP)이 담당</dd>
-        <dt>주소 지정·라우팅</dt><dd>IP 주소로 출발지와 목적지를 지정하고 경로를 결정</dd>
-        <dt>단편화</dt><dd>네트워크가 허용하는 크기(MTU)보다 크면 패킷을 나누고, 목적지에서 재조립</dd>
-      </dl>
-      <div class="tbl"><table>
-        <thead><tr><th>IPv4 헤더 필드</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Version</th><td>IP 버전 (IPv4 = 4)</td></tr>
-          <tr><th scope="row">Header Length</th><td>헤더 길이. 20 ~ 60바이트</td></tr>
-          <tr><th scope="row">Type of Service</th><td>서비스 품질(우선순위)</td></tr>
-          <tr><th scope="row">Total Length</th><td>헤더 + 데이터 전체 길이</td></tr>
-          <tr><th scope="row">Identification · Flags · Fragment Offset</th><td>단편화된 조각을 식별하고, 더 쪼갤 수 있는지, 원래 위치가 어디인지 표시해 재조립에 사용</td></tr>
-          <tr><th scope="row">TTL</th><td>Time To Live. 라우터를 지날 때마다 1씩 줄고 0이 되면 폐기해 무한 순환을 막음</td></tr>
-          <tr><th scope="row">Protocol</th><td>상위 계층 프로토콜 구분 (TCP = 6, UDP = 17, ICMP = 1)</td></tr>
-          <tr><th scope="row">Header Checksum</th><td>헤더의 오류 검사</td></tr>
-          <tr><th scope="row">Source · Destination Address</th><td>출발지·목적지 IP 주소 (각 32bit)</td></tr>
-        </tbody>
-      </table></div>
-
-      <h4>TCP (Transmission Control Protocol)</h4>
-      <dl class="kv">
-        <dt>연결형</dt><dd><b>3-Way Handshake</b>로 연결을 설정한 뒤 전송 (SYN → SYN+ACK → ACK)</dd>
-        <dt>신뢰성</dt><dd>순서 번호와 확인 응답(ACK)으로 순서를 보장하고, 손실되면 재전송</dd>
-        <dt>흐름 제어</dt><dd><b>슬라이딩 윈도우</b>로 수신 측이 처리할 수 있는 만큼만 전송</dd>
-        <dt>혼잡 제어</dt><dd>네트워크가 혼잡하면 전송량을 줄임</dd>
-        <dt>전이중·스트림</dt><dd>양방향 동시 통신, 바이트 스트림 단위 전송</dd>
-      </dl>
-      <div class="tbl"><table>
-        <thead><tr><th>TCP 헤더 필드</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Source · Destination Port</th><td>출발지·목적지 포트 번호 (각 16bit)</td></tr>
-          <tr><th scope="row">Sequence Number</th><td>보내는 데이터의 순서 번호</td></tr>
-          <tr><th scope="row">Acknowledgment Number</th><td>다음에 받기를 기대하는 순서 번호 (확인 응답)</td></tr>
-          <tr><th scope="row">Header Length</th><td>헤더 길이. 20 ~ 60바이트</td></tr>
-          <tr><th scope="row">Flags</th><td>제어 비트: URG, <b>ACK</b>, PSH, RST(연결 초기화), <b>SYN</b>(연결 요청), <b>FIN</b>(연결 종료)</td></tr>
-          <tr><th scope="row">Window Size</th><td>수신 측이 한 번에 받을 수 있는 데이터 크기. 흐름 제어에 사용</td></tr>
-          <tr><th scope="row">Checksum</th><td>헤더와 데이터의 오류 검사</td></tr>
-          <tr><th scope="row">Urgent Pointer</th><td>긴급 데이터의 위치 (URG 플래그와 함께 사용)</td></tr>
-        </tbody>
-      </table></div>
-
-      <h4>TCP vs UDP</h4>
-      <div class="tbl"><table>
-        <thead><tr><th>구분</th><th>TCP</th><th>UDP</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">연결</th><td>연결형</td><td>비연결형</td></tr>
-          <tr><th scope="row">신뢰성</th><td>순서 보장, 재전송, 흐름·혼잡 제어</td><td>보장하지 않음</td></tr>
-          <tr><th scope="row">속도</th><td>상대적으로 느림</td><td>빠름</td></tr>
-          <tr><th scope="row">헤더</th><td>20 ~ 60바이트</td><td><b>8바이트</b> (포트 2개, 길이, 체크섬)</td></tr>
-          <tr><th scope="row">사용 예</th><td>웹, 파일 전송, 이메일</td><td>DNS, 실시간 스트리밍, 온라인 게임</td></tr>
-        </tbody>
-      </table></div>
 
 
       <h3>네트워크: IP 주소와 서브넷팅</h3>
@@ -3470,17 +3359,6 @@ chown user1 a.txt  # 파일 소유자 변경</code></pre>
         </tbody>
       </table></div>
       <h3>네트워크: 전송 오류 제어</h3>
-      <h4>전송 오류 발생 원인</h4>
-      <div class="tbl"><table>
-        <thead><tr><th>원인</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">지연 왜곡</th><td>주파수에 따라 신호의 전달 속도가 달라 생기는 왜곡</td></tr>
-          <tr><th scope="row">상호 변조(간섭) 잡음</th><td>서로 다른 주파수가 같은 전송 매체를 공유할 때 생기는 간섭</td></tr>
-          <tr><th scope="row">충격성 잡음</th><td>순간적으로 크게 발생하는 잡음. 데이터 전송 오류의 주된 원인</td></tr>
-          <tr><th scope="row">시스템적 왜곡</th><td>전송 시스템의 특성 때문에 일정하게 발생하는 왜곡 (감쇠 등)</td></tr>
-        </tbody>
-      </table></div>
-
       <h4>전송 오류 제어 방식</h4>
       <div class="tbl"><table>
         <thead><tr><th>방식</th><th>설명</th></tr></thead>
