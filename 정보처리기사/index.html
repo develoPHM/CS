@@ -65,6 +65,14 @@ main{padding:0 40px 80px;max-width:860px}
 .curbar .cs{color:var(--muted)}
 .curbar .cs:not(:empty)::before{content:"›";margin-right:8px;color:var(--muted)}
 .wrap.toc-closed .curbar{padding-left:120px}
+.hide-btn{margin-left:auto;padding:5px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:500 12px var(--sans);cursor:pointer;white-space:nowrap}
+.hide-btn:hover{background:var(--accent-soft)}
+.hide-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hide-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+body.hide-terms section:not(#u10) tbody th[scope="row"]{cursor:pointer;background:var(--accent-soft);position:relative}
+body.hide-terms section:not(#u10) tbody th[scope="row"]:not(.peek),body.hide-terms section:not(#u10) tbody th[scope="row"]:not(.peek) *{color:transparent !important;text-decoration-color:transparent}
+body.hide-terms section:not(#u10) tbody th[scope="row"]:not(.peek)::after{content:"?";position:absolute;left:12px;top:8px;color:var(--muted);font:500 13px var(--mono)}
+#qdlg tbody th[scope="row"]{cursor:auto}
 section{padding-block:8px 36px;border-bottom:1px solid var(--line);scroll-margin-top:64px}
 section h3,section h4{scroll-margin-top:64px}
 section+section{padding-top:32px}
@@ -176,7 +184,7 @@ ul.steps-plain{margin:6px 0 10px;padding-left:20px;font-size:14px;display:grid;g
     </ol>
   </nav>
   <main id="content">
-    <div class="curbar" id="curbar" aria-live="polite"><span class="cn" id="curNo"></span><span class="cu" id="curUnit"></span><span class="cs" id="curSub"></span></div>
+    <div class="curbar" id="curbar" aria-live="polite"><span class="cn" id="curNo"></span><span class="cu" id="curUnit"></span><span class="cs" id="curSub"></span><button type="button" class="hide-btn" id="hideTermsBtn" aria-pressed="false">용어 가리기</button></div>
 
     <!-- ========== 1단원: 요구사항 확인 ========== -->
     <section id="u1">
@@ -3498,6 +3506,23 @@ addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimat
 addEventListener("resize", updateCurbar);
 updateCurbar();
 
+
+// 용어 가리기: 모든 표의 왼쪽 용어 열을 숨기고, 숨긴 칸은 클릭하면 그 칸만 보임
+const hideBtn = document.getElementById("hideTermsBtn");
+function setHide(on, save) {
+  document.body.classList.toggle("hide-terms", on);
+  hideBtn.setAttribute("aria-pressed", on);
+  hideBtn.textContent = on ? "용어 보이기" : "용어 가리기";
+  if (!on) document.querySelectorAll("th.peek").forEach(t => t.classList.remove("peek"));
+  if (save) try { localStorage.setItem("hideTerms", on ? "1" : "0"); } catch (e) {}
+}
+try { setHide(localStorage.getItem("hideTerms") === "1"); } catch (e) {}
+hideBtn.addEventListener("click", () => setHide(!document.body.classList.contains("hide-terms"), true));
+document.addEventListener("click", e => {
+  if (!document.body.classList.contains("hide-terms")) return;
+  const th = e.target.closest('tbody th[scope="row"]');
+  if (th && !th.closest("#qdlg") && !th.closest("#u10")) th.classList.toggle("peek");
+});
 
 // 기출 뱃지 → 문제 팝업
 const QB = JSON.parse(document.getElementById("qbank").textContent);
