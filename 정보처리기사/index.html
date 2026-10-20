@@ -3016,7 +3016,6 @@ if (++c == 3)  // c를 3으로 올린 뒤 비교 → 참</code></pre>
       <div class="tbl"><table>
         <thead><tr><th>기법</th><th>설명</th></tr></thead>
         <tbody>
-          <tr><th scope="row">OPT<small>OPTimal, 최적 교체</small></th><td>앞으로 <b>가장 오랫동안 사용하지 않을</b> 페이지를 교체. 벨레이디(Belady)가 제안했고 페이지 부재가 가장 적지만, 미래 참조를 알 수 없어 실제 구현은 불가능 (비교 기준용)</td></tr>
           <tr><th scope="row">FIFO<small>First In First Out</small></th><td><b>가장 먼저 들어온</b> 페이지를 교체. 적재 시간을 기억해 두고 가장 오래 있던 페이지를 내보냄. 이해·구현이 간단. 프레임을 늘려도 부재가 늘 수 있음(<b>벨레이디의 모순</b>)</td></tr>
           <tr><th scope="row">LRU<small>Least Recently Used</small></th><td>최근에 <b>가장 오랫동안 사용하지 않은</b> 페이지를 교체. 페이지마다 계수기(Counter)나 스택(Stack)을 두어 가장 오래전에 사용된 페이지를 찾음<span class="ex"><span role="button" tabindex="0" data-r="2024-3" data-n="4">2024년 3회</span><span role="button" tabindex="0" data-r="2024-1" data-n="9">2024년 1회</span></span></td></tr>
           <tr><th scope="row">LFU<small>Least Frequently Used</small></th><td><b>사용 횟수가 가장 적은</b> 페이지를 교체. 자주 쓰는 페이지는 횟수가 많아 남음<span class="ex"><span role="button" tabindex="0" data-r="2024-1" data-n="9">2024년 1회</span></span></td></tr>
@@ -3024,7 +3023,7 @@ if (++c == 3)  // c를 3으로 올린 뒤 비교 → 참</code></pre>
       </table></div>
 
       <h4>예시 문제: 페이지 부재 횟수</h4>
-      <p class="todo">페이지 프레임이 3개이고 처음에는 비어 있을 때, 참조 문자열 <code>7 0 1 2 0 3 0 4 2 3 0 3 2</code>에 대해 FIFO, LRU, OPT 각각의 페이지 부재 횟수를 구하시오.</p>
+      <p class="todo">페이지 프레임이 3개이고 처음에는 비어 있을 때, 참조 문자열 <code>7 0 1 2 0 3 0 4 2 3 0 3 2</code>에 대해 FIFO, LRU 각각의 페이지 부재 횟수를 구하시오.</p>
       <details class="qa"><summary>FIFO 풀이: 페이지 부재 10회</summary>
       <p class="todo">교체할 때 <b>가장 먼저 들어온</b> 페이지를 고른다. 참조(적중)되어도 들어온 순서는 바뀌지 않는다.</p>
       <div class="tbl"><table class="frames"><thead><tr><th>참조</th><th>7</th><th>0</th><th>1</th><th>2</th><th>0</th><th>3</th><th>0</th><th>4</th><th>2</th><th>3</th><th>0</th><th>3</th><th>2</th></tr></thead><tbody><tr><th scope="row">프레임 1</th><td>7</td><td>7</td><td>7</td><td>2</td><td>2</td><td>2</td><td>2</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td></tr><tr><th scope="row">프레임 2</th><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr><tr><th scope="row">프레임 3</th><td></td><td></td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>3</td></tr><tr class="pf"><th scope="row">부재</th><td>F</td><td>F</td><td>F</td><td>F</td><td></td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td></td><td></td></tr></tbody></table></div>
@@ -3033,11 +3032,7 @@ if (++c == 3)  // c를 3으로 올린 뒤 비교 → 참</code></pre>
       <p class="todo">교체할 때 <b>가장 오래전에 사용한</b> 페이지를 고른다. 적중할 때마다 사용 시점이 갱신된다.</p>
       <div class="tbl"><table class="frames"><thead><tr><th>참조</th><th>7</th><th>0</th><th>1</th><th>2</th><th>0</th><th>3</th><th>0</th><th>4</th><th>2</th><th>3</th><th>0</th><th>3</th><th>2</th></tr></thead><tbody><tr><th scope="row">프레임 1</th><td>7</td><td>7</td><td>7</td><td>2</td><td>2</td><td>2</td><td>2</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td></tr><tr><th scope="row">프레임 2</th><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>3</td><td>3</td></tr><tr><th scope="row">프레임 3</th><td></td><td></td><td>1</td><td>1</td><td>1</td><td>3</td><td>3</td><td>3</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr><tr class="pf"><th scope="row">부재</th><td>F</td><td>F</td><td>F</td><td>F</td><td></td><td>F</td><td></td><td>F</td><td>F</td><td>F</td><td>F</td><td></td><td></td></tr></tbody></table></div>
       </details>
-      <details class="qa"><summary>OPT 풀이: 페이지 부재 7회</summary>
-      <p class="todo">교체할 때 앞으로 <b>가장 늦게 다시 쓰이는</b> 페이지를 고른다. 예: 2를 넣을 때 7은 다시 안 쓰이므로 7 교체.</p>
-      <div class="tbl"><table class="frames"><thead><tr><th>참조</th><th>7</th><th>0</th><th>1</th><th>2</th><th>0</th><th>3</th><th>0</th><th>4</th><th>2</th><th>3</th><th>0</th><th>3</th><th>2</th></tr></thead><tbody><tr><th scope="row">프레임 1</th><td>7</td><td>7</td><td>7</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr><tr><th scope="row">프레임 2</th><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>4</td><td>4</td><td>0</td><td>0</td><td>0</td></tr><tr><th scope="row">프레임 3</th><td></td><td></td><td>1</td><td>1</td><td>1</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td></tr><tr class="pf"><th scope="row">부재</th><td>F</td><td>F</td><td>F</td><td>F</td><td></td><td>F</td><td></td><td>F</td><td></td><td></td><td>F</td><td></td><td></td></tr></tbody></table></div>
-      </details>
-      <p class="note"><b>정답</b> FIFO 10회 · LRU 9회 · OPT 7회. 빈 프레임을 처음 채울 때도 부재로 센다.</p>
+      <p class="note"><b>정답</b> FIFO 10회 · LRU 9회. 빈 프레임을 처음 채울 때도 부재로 센다.</p>
 
       <h4>예시 문제: LRU와 LFU 비교</h4>
       <p class="note"><b>2024년 1회 출제</b> 같은 참조 문자열에 대해 LRU와 LFU의 페이지 부재 횟수를 각각 구하는 문제</p>
