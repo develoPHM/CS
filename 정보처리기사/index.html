@@ -1674,7 +1674,7 @@ EXECUTE 급여인상(100);          -- 호출 (EXEC, CALL도 사용)</code></pre
           <tr><th scope="row"></th><td><code>putchar('A')</code></td><td class="num">X</td><td>문자 한 개만 출력</td></tr>
           <tr><th scope="row">Java</th><td><code>System.out.print(x)</code></td><td class="num">X</td><td>이어서 출력</td></tr>
           <tr><th scope="row"></th><td><code>System.out.println(x)</code></td><td class="num"><b>O</b></td><td>출력한 <b>뒤에</b> 줄바꿈 (ln = line). <code>println()</code>만 쓰면 빈 줄</td></tr>
-          <tr><th scope="row"></th><td><code>System.out.printf("%d\n", x)</code></td><td class="num">X</td><td>C의 printf와 같음. <code>\n</code> 또는 <code>%n</code>을 넣어야 줄바꿈</td></tr>
+          <tr><th scope="row"></th><td><code>System.out.printf("%d", x)</code></td><td class="num">X</td><td>C의 printf와 같음. 자동 줄바꿈은 없고, <code>printf("%d\n", x)</code>처럼 <code>\n</code>(또는 <code>%n</code>)을 직접 넣으면 줄바꿈됨</td></tr>
           <tr><th scope="row">Python</th><td><code>print(x)</code></td><td class="num"><b>O</b></td><td>기본값 <code>end="\n"</code>. <code>print()</code>만 쓰면 빈 줄</td></tr>
           <tr><th scope="row"></th><td><code>print(x, end="")</code></td><td class="num">X</td><td>end에 준 문자가 끝에 붙음 (<code>end=" "</code>이면 공백)</td></tr>
           <tr><th scope="row"></th><td><code>print(a, b)</code></td><td class="num"><b>O</b></td><td>값 사이에 <b>공백</b> 자동 삽입 (기본값 <code>sep=" "</code>)</td></tr>
@@ -3020,17 +3020,6 @@ if (++c == 3)  // c를 3으로 올린 뒤 비교 → 참</code></pre>
           <tr><th scope="row">FIFO<small>First In First Out</small></th><td><b>가장 먼저 들어온</b> 페이지를 교체. 적재 시간을 기억해 두고 가장 오래 있던 페이지를 내보냄. 이해·구현이 간단. 프레임을 늘려도 부재가 늘 수 있음(<b>벨레이디의 모순</b>)</td></tr>
           <tr><th scope="row">LRU<small>Least Recently Used</small></th><td>최근에 <b>가장 오랫동안 사용하지 않은</b> 페이지를 교체. 페이지마다 계수기(Counter)나 스택(Stack)을 두어 가장 오래전에 사용된 페이지를 찾음<span class="ex"><span role="button" tabindex="0" data-r="2024-3" data-n="4">2024년 3회</span><span role="button" tabindex="0" data-r="2024-1" data-n="9">2024년 1회</span></span></td></tr>
           <tr><th scope="row">LFU<small>Least Frequently Used</small></th><td><b>사용 횟수가 가장 적은</b> 페이지를 교체. 자주 쓰는 페이지는 횟수가 많아 남음<span class="ex"><span role="button" tabindex="0" data-r="2024-1" data-n="9">2024년 1회</span></span></td></tr>
-          <tr><th scope="row">SCR<small>Second Chance, 2차 기회</small></th><td>FIFO의 단점을 보완. 오래 있던 페이지라도 <b>참조 비트가 1</b>이면 비트를 0으로 바꾸고 한 번 더 기회를 줌. 자주 쓰는 페이지가 교체되는 것을 막음</td></tr>
-          <tr><th scope="row">NUR<small>Not Used Recently</small></th><td>LRU와 비슷하게 <b>최근에 사용하지 않은</b> 페이지를 교체. LRU의 시간 오버헤드를 줄이려고 페이지마다 <b>참조 비트</b>와 <b>변형 비트</b>(Modified, Dirty Bit) 두 개를 사용</td></tr>
-        </tbody>
-      </table></div>
-      <div class="tbl"><table>
-        <thead><tr><th>NUR 교체 순서</th><th>참조 비트</th><th>변형 비트</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">1순위 (먼저 교체)</th><td class="num">0</td><td class="num">0</td></tr>
-          <tr><th scope="row">2순위</th><td class="num">0</td><td class="num">1</td></tr>
-          <tr><th scope="row">3순위</th><td class="num">1</td><td class="num">0</td></tr>
-          <tr><th scope="row">4순위 (마지막)</th><td class="num">1</td><td class="num">1</td></tr>
         </tbody>
       </table></div>
 
