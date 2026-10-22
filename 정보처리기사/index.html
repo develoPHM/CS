@@ -2765,6 +2765,16 @@ printf("%d", r);           // 110</code></pre>
 ~12        // -13        NOT: 모든 비트 반전 (~x = -x - 1)
 1 &lt;&lt; 3     // 8          왼쪽 시프트: × 2³
 12 &gt;&gt; 2    // 3          오른쪽 시프트: ÷ 2² (몫)</code></pre>
+      <div class="tbl"><table class="nf">
+        <thead><tr><th>A</th><th>B</th><th>AND (A &amp; B)</th><th>OR (A | B)</th><th>XOR (A ^ B)</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td><b>1</b></td><td><b>1</b></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td><b>1</b></td><td><b>1</b></td></tr>
+          <tr><td>1</td><td>1</td><td><b>1</b></td><td><b>1</b></td><td>0</td></tr>
+        </tbody>
+      </table></div>
+      <p class="todo"><b>AND</b>는 두 비트가 <b>모두 1</b>일 때만 1, <b>OR</b>는 <b>하나라도 1</b>이면 1, <b>XOR</b>는 두 비트가 <b>서로 다를 때</b>만 1이다. <b>NOT</b>(<code>~</code>)은 0과 1을 뒤집는다.</p>
 
       <h4>16진수와 비트 연산</h4>
       <p class="note"><b>2025년 1회 출제</b> <code>0xA5</code> 같은 16진수 값과 비트 AND를 해서 더한 결과</p>
@@ -3228,6 +3238,29 @@ chown user1 a.txt  # 파일 소유자 변경</code></pre>
           <tr><th scope="row">서브넷 개수</th><td>2<sup>빌려온 비트 수</sup></td></tr>
         </tbody>
       </table></div>
+      <h4>비트 연산으로 네트워크 주소 구하기</h4>
+      <div class="tbl"><table class="nf">
+        <thead><tr><th>A</th><th>B</th><th>AND (A &amp; B)</th><th>OR (A | B)</th><th>XOR (A ^ B)</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td><td><b>1</b></td><td><b>1</b></td></tr>
+          <tr><td>1</td><td>0</td><td>0</td><td><b>1</b></td><td><b>1</b></td></tr>
+          <tr><td>1</td><td>1</td><td><b>1</b></td><td><b>1</b></td><td>0</td></tr>
+        </tbody>
+      </table></div>
+      <p class="todo"><b>AND</b>는 두 비트가 <b>모두 1</b>일 때만 1, <b>OR</b>는 <b>하나라도 1</b>이면 1, <b>XOR</b>는 두 비트가 <b>서로 다를 때</b>만 1이다. <b>NOT</b>(<code>~</code>)은 0과 1을 뒤집는다.</p>
+      <p class="todo">네트워크 주소 = <b>IP 주소 AND 서브넷 마스크</b>. 마스크가 1인 자리는 IP 비트가 그대로 남고, 0인 자리는 모두 0이 되어 호스트 부분이 지워진다.</p>
+<pre class="code" data-lang="IP"><code class="language-plaintext">192.168.11.20 / 255.255.254.0 (/23)
+
+IP     11000000.10101000.00001011.00010100   (192.168.11.20)
+마스크  11111111.11111111.11111110.00000000   (255.255.254.0)
+AND    11000000.10101000.00001010.00000000   (192.168.10.0)
+
+셋째 옥텟만 보면   11 = 00001011
+                254 = 11111110
+                AND = 00001010 = 10   → 네트워크 주소 192.168.10.0/23</code></pre>
+      <p class="todo">마스크 옥텟이 <b>255</b>면 IP 값 그대로, <b>0</b>이면 0이므로, 실제로는 255도 0도 아닌 옥텟(위에서는 254) <b>하나만</b> AND 하면 된다. 빠르게 풀 때는 블록 크기(256 − 254 = 2)의 배수로 내림해도 같다 (11 → 10).</p>
+
       <h4>예시 문제 1</h4>
       <p class="todo">IP 주소 <code>192.168.1.130/26</code>의 서브넷 마스크, 네트워크 주소, 브로드캐스트 주소, 사용 가능한 호스트 범위와 개수를 구하시오.</p>
       <details class="qa"><summary>풀이</summary>
