@@ -151,6 +151,8 @@ ul.steps-plain{margin:6px 0 10px;padding-left:20px;font-size:14px;display:grid;g
 .qd-ans[open] summary{margin-bottom:6px}
 .exam-card{padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
 section#exam .exam-card+.exam-card{margin-top:12px;border-top:1px solid var(--line)}
+.exam-prompt{margin:0 0 6px;font-weight:500}
+.ans-out{margin:0 0 4px;font:500 13px/1.6 var(--mono);white-space:pre-wrap;color:var(--ink)}
 .qd-sol{margin-top:8px}
 .qd-sol p{margin:8px 0}
 .qd-sol .tbl{margin:6px 0;background:var(--panel)}
@@ -186,7 +188,7 @@ section#exam .exam-card+.exam-card{margin-top:12px;border-top:1px solid var(--li
       <li><a href="#u11"><span class="no">11</span><span>응용 SW 기초 기술 활용</span><span class="hint">운영체제, 네트워크 등 기초 지식</span></a></li>
       <li><a href="#u12" class="empty" title="정리 예정"><span class="no">12</span><span>제품 소프트웨어 패키징</span><span class="hint">패키징, 릴리스 노트, 형상 관리</span></a></li>
       <li><a href="#appendix"><span class="no">+</span><span>부록</span><span class="hint">자주 나온 개념</span></a></li>
-      <li><a href="#exam"><span class="no">+</span><span>기출문제</span><span class="hint">IP 주소 기출 모음</span></a></li>
+      <li><a href="#exam"><span class="no">+</span><span>기출문제</span><span class="hint">IP · C · Java · Python</span></a></li>
     </ol>
   </nav>
   <main id="content">
@@ -3459,8 +3461,10 @@ AND    11000000.10101000.00001010.00000000   (192.168.10.0)
 
     <section id="exam">
       <div class="eyebrow">기출문제</div>
-      <h2>IP 주소 기출 모음</h2>
-      <p class="todo">IP 주소·서브넷팅·IPv6 주소 관련 실기 기출 (2020년 1회 ~ 2026년 2회). 정답을 펼치면 풀이가 함께 나온다.</p>
+      <h2>기출문제 모음</h2>
+      <p class="todo">2020년 1회 ~ 2026년 2회 실기 기출 중 IP 주소와 C·Java·Python 코딩 문제. 회차 최신순이며, 정답을 펼치면 풀이가 함께 나온다.</p>
+
+      <h3>IP 주소 (10문제)</h3>
       <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 10번</div><div class="qd-q">네트워크 A, B, C에 속한 호스트의 IP 주소 목록이다. 빈칸 2, 4, 5에 들어갈 수 있는 IP 주소를 각각 하나씩 쓰시오. (1·2는 같은 네트워크, 3·4는 같은 네트워크, 5·6은 같은 네트워크)<div class="tbl"><table><thead><tr><th>번호</th><th>IP 주소 / 서브넷</th></tr></thead><tbody><tr><td>1</td><td>192.168.35.3/24</td></tr><tr><td>2</td><td>(        )</td></tr><tr><td>3</td><td>129.200.10.72/22</td></tr><tr><td>4</td><td>(        )</td></tr><tr><td>5</td><td>(        )</td></tr><tr><td>6</td><td>192.168.36.16/24</td></tr></tbody></table></div></div>
         <details class="qd-ans"><summary>정답 보기</summary><div>2. 192.168.35.72  4. 129.200.8.249  5. 192.168.36.249</div><div class="qd-sol"><p><b>풀이</b> 각 빈칸은 짝이 되는 주소와 <b>같은 네트워크</b>에 있어야 하고, 네트워크 주소(첫 주소)와 브로드캐스트 주소(끝 주소)는 호스트에 줄 수 없다.</p><div class="tbl"><table><thead><tr><th>번호</th><th>짝 주소</th><th>네트워크 범위</th><th>예시 정답</th></tr></thead><tbody><tr><td>2</td><td>192.168.35.3/24</td><td>192.168.35.0 ~ 192.168.35.255</td><td><b>192.168.35.72</b></td></tr><tr><td>4</td><td>129.200.10.72/22</td><td>셋째 옥텟 10 AND 252 = 8 → 129.200.8.0 ~ 129.200.11.255</td><td><b>129.200.8.249</b></td></tr><tr><td>5</td><td>192.168.36.16/24</td><td>192.168.36.0 ~ 192.168.36.255</td><td><b>192.168.36.249</b></td></tr></tbody></table></div><p>범위 안의 호스트 주소라면 다른 값도 정답이 될 수 있다. 보기가 주어지면 .0(네트워크 주소)처럼 할당할 수 없는 주소를 걸러 낸다.</p></div></details></article>
       <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 16번</div><div class="qd-q">10.0.0.0/27 네트워크를 같은 크기의 서브넷 2개로 나눴다.<br>첫 번째: 10.0.0.0 ~ 10.0.0.15 / 두 번째: 10.0.0.16 ~ 10.0.0.31<br>10.0.0.1이 속한 서브넷의 프리픽스 길이는?</div>
@@ -3481,7 +3485,2729 @@ AND    11000000.10101000.00001010.00000000   (192.168.10.0)
         <details class="qd-ans"><summary>정답 보기</summary><div>(1) 128  (2) 8</div><div class="qd-sol"><p><b>풀이</b> IPv6는 16비트씩 8부분 = <b>128</b>비트, IPv4는 8비트씩 4부분 = 32비트.</p></div></details></article>
       <article class="qd-item exam-card"><div class="qd-no">2020년 4회 · 1번</div><div class="qd-q">IPv4의 주소 고갈, 보안성, 이동성 문제를 해결하려고 개발된 128비트 주소 체계의 차세대 프로토콜은?</div>
         <details class="qd-ans"><summary>정답 보기</summary><div>IPv6</div></details></article>
-    </section>
+    
+      <h3>C언어 (59문제)</h3>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+typedef struct N {
+    int v;
+    struct N* a;
+    struct N* b;
+} N;
+
+int c = 0;
+int ans = 0;
+
+void pst(N *n) {
+    if (!n) return;
+    pst(n-&gt;a);
+    pst(n-&gt;b);
+    if (++c == 3) ans = n-&gt;v;
+}
+
+int main() {
+    N ne = {35, 0, 0};
+    N nd = {64, 0, 0};
+    N nc = {53, 0, 0};
+    N nb = {12, &amp;ne, &amp;nc};
+    N na = {21, &amp;nb, &amp;nd};
+
+    pst(&amp;na);
+    printf("%d\n", ans);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">12</pre><div class="qd-sol"><p><b>풀이</b> 후위 순회(왼쪽 → 오른쪽 → 자신) 방문 순서는 35 → 53 → 12 → 64 → 21이고, 3번째로 방문한 노드는 12다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 9번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+void fn1(int* i) { *i = 50; }
+void fn2(int i) { i = 60; }
+
+void fn34(int* p) {
+    printf("3. %d\n", *p);
+    printf("4. %d\n", *(p + 3));
+}
+
+int main() {
+    int i = 30;
+    int list[] = {2, 4, 6, 8, 10};
+
+    fn1(&amp;i);
+    printf("1. %d\n", i);
+
+    fn2(i);
+    printf("2. %d\n", i);
+
+    fn34(list);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1. 50
+2. 50
+3. 2
+4. 8</pre><div class="qd-sol"><p><b>풀이</b> fn1은 주소로 받아 원본을 50으로 바꾸고, fn2는 값만 복사해서 원본은 그대로다. *(p + 3)은 list[3] = 8.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 18번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int c(int n) {
+    if (n &lt;= 1) return n;
+    return c(n - 1) + c(n - 3);
+}
+
+int main() {
+    printf("%d", c(5));
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1</pre><div class="qd-sol"><p><b>풀이</b> c(n) = n (n ≤ 1). c(2) = c(1) + c(-1) = 1 + (-1) = 0, c(3) = c(2) + c(0) = 0, c(4) = c(3) + c(1) = 1, c(5) = c(4) + c(2) = 1 + 0 = 1.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 1회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+double arr1(int p[], int len) {
+    double av = 0;
+    int i;
+    for (i = 0; i &lt; len; i++) {
+        av += (double) p[i];
+    }
+    return av / len;
+}
+
+double arr2(int *p, int len) {
+    double av = 0;
+    int i;
+    for (i = 0; i &lt; len; i++) {
+        av += (double)(*(p + i));
+    }
+    return av / len;
+}
+
+int main() {
+    int arr[10] = {80, 20, 50, 55, 45, 95, 55, 10, 40, 80};
+    int len = 10;
+
+    printf("%.2f", arr1(arr, len) + arr2(arr, len));
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">106.00</pre><div class="qd-sol"><p><b>풀이</b> 두 함수 모두 평균을 구한다. 합 530 ÷ 10 = 53.0이고, 53 + 53 = 106을 소수 둘째 자리까지 출력.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 1회 · 12번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct fns {
+    int* (*fn)(int*);
+} mine;
+
+int* dummy(int *d) {
+    return d + 1;
+}
+
+int main() {
+    struct fns mine;
+    int n[] = {16, 32};
+    mine.fn = dummy;
+    printf("%x", *mine.fn(n));
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">20</pre><div class="qd-sol"><p><b>풀이</b> mine.fn(n)은 n + 1(= &amp;n[1])을 돌려주고, 역참조하면 32. %x는 16진수라 32 → 20.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 5번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct Test {
+    int i;
+    const char *g;
+};
+
+int main() {
+    struct Test test[] = {{1, "AB"}, {2, "DC"}, {3, "EB"}};
+    struct Test *p = &amp;test[1];
+    printf("%s", p-&gt;g + (p-&gt;i - 1));
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">C</pre><div class="qd-sol"><p><b>풀이</b> p는 test[1] = {2, "DC"}. p-&gt;g + (2 − 1) → "DC"의 두 번째 글자부터 출력하므로 C.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 6번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main(void) {
+    char str[] = "REPUBLICOFKOREA";
+    int a = 0;
+
+    while (str[a] != '\0')
+        ++a;
+
+    putchar(str[a - 2]);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">E</pre><div class="qd-sol"><p><b>풀이</b> 반복이 끝나면 a = 15(문자열 길이). str[13]은 끝에서 두 번째 글자 E.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct Node {
+    struct Node* next;
+    unsigned int x;
+};
+
+int main() {
+    struct Node t1 = { 0, 5u };
+    struct Node t2 = { 0, 7u };
+    struct Node t3 = { 0, 11u };
+
+    t3.next = &amp;t2;
+    t2.next = &amp;t1;
+
+    struct Node* curr = &amp;t3;
+    int sum = 0;
+
+    while (curr) {
+        sum = sum * 3 + curr-&gt;x;
+        curr = curr-&gt;next;
+    }
+
+    sum = (sum ^ 42u) + 100u;
+
+    printf("%u\n", sum);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">187</pre><div class="qd-sol"><p><b>풀이</b> t3 → t2 → t1 순서: 0·3 + 11 = 11 → 11·3 + 7 = 40 → 40·3 + 5 = 125. 125 ^ 42 = 1111101 ^ 0101010 = 1010111 = 87, + 100 = 187.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int x = 7, y = 4, z;
+    z = y % 3 &lt; 3 ? 2 : 1;
+    z = z &amp; z &gt;&gt; 1;
+    z = x &gt; 5 &amp;&amp; z &lt;= 3 ? z * x : z / x;
+    printf("%d", z);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">0</pre><div class="qd-sol"><p><b>풀이</b> 4 % 3 = 1 &lt; 3 → z = 2. &gt;&gt;가 &amp;보다 먼저: 2 &gt;&gt; 1 = 1, 2 &amp; 1 = 0. 7 &gt; 5 &amp;&amp; 0 ≤ 3 → 참 → 0 × 7 = 0.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 12번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#define SIZE 3
+
+typedef struct {
+    int a[SIZE];
+    int front;
+    int rear;
+} Queue;
+
+void enq(Queue* q, int val) {
+    q-&gt;a[q-&gt;rear] = val;
+    q-&gt;rear = (q-&gt;rear + 1) % SIZE;
+}
+
+int deq(Queue* q) {
+    int val = q-&gt;a[q-&gt;front];
+    q-&gt;front = (q-&gt;front + 1) % SIZE;
+    return val;
+}
+
+int main() {
+    Queue q = {{0}, 0, 0};
+
+    enq(&amp;q, 1); enq(&amp;q, 2); deq(&amp;q); enq(&amp;q, 3);
+
+    int first = deq(&amp;q);
+    int second = deq(&amp;q);
+    printf("%d 그리고 %d", first, second);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">2 그리고 3</pre><div class="qd-sol"><p><b>풀이</b> 1, 2를 넣고 1을 꺼낸 뒤 3을 넣으면 큐에는 2, 3이 남는다. 차례로 꺼내면 2, 3.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 14번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct dat {
+    int x;
+    int y;
+};
+
+int main() {
+    struct dat a[] = {{1, 2}, {3, 4}, {5, 6}};
+    struct dat* ptr = a;
+    struct dat** pptr = &amp;ptr;
+
+    (*pptr)[1] = (*pptr)[2];
+    printf("%d 그리고 %d", a[1].x, a[1].y);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">5 그리고 6</pre><div class="qd-sol"><p><b>풀이</b> (*pptr)는 ptr = a. a[1] = a[2]로 구조체 전체가 복사되어 a[1] = {5, 6}.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 16번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    int p;
+    struct node* n;
+};
+
+int main() {
+    struct node a = {1, NULL};
+    struct node b = {2, NULL};
+    struct node c = {3, NULL};
+
+    a.n = &amp;b; b.n = &amp;c; c.n = NULL;
+    c.n = &amp;a; a.n = &amp;b; b.n = NULL;
+    struct node* head = &amp;c;
+    printf("%d %d %d", head-&gt;p, head-&gt;n-&gt;p, head-&gt;n-&gt;n-&gt;p);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">3 1 2</pre><div class="qd-sol"><p><b>풀이</b> 마지막 대입 기준 연결은 c → a → b → NULL. head = c이므로 3, 1, 2.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 18번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct node {
+    char c;
+    struct node* p;
+};
+
+struct node* func(char* s) {
+    struct node* h = NULL, *n;
+
+    while (*s) {
+        n = malloc(sizeof(struct node));
+        n-&gt;c = *s++;
+        n-&gt;p = h;
+        h = n;
+    }
+
+    return h;
+}
+
+int main() {
+    struct node* n = func("BEST");
+
+    while (n) {
+        putchar(n-&gt;c);
+        struct node* t = n;
+        n = n-&gt;p;
+        free(t);
+    }
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">TSEB</pre><div class="qd-sol"><p><b>풀이</b> 새 노드를 계속 맨 앞에 붙이므로 넣은 순서의 반대로 연결된다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 10번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+char Data[5] = {'B', 'A', 'D', 'E'};
+char c;
+
+int main() {
+    int i, temp, temp2;
+
+    c = 'C';
+    printf("%d\n", Data[3] - Data[1]);
+
+    for (i = 0; i &lt; 5; ++i) {
+        if (Data[i] &gt; c)
+            break;
+    }
+
+    temp = Data[i];
+    Data[i] = c;
+    i++;
+
+    for (; i &lt; 5; ++i) {
+        temp2 = Data[i];
+        Data[i] = temp;
+        temp = temp2;
+    }
+
+    for (i = 0; i &lt; 5; i++) {
+        printf("%c", Data[i]);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">4
+BACDE</pre><div class="qd-sol"><p><b>풀이</b> 'E' − 'A' = 4. C보다 큰 첫 글자는 D(인덱스 2)라서 그 자리에 C를 넣고 뒤를 한 칸씩 민다 → B A C D E.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 11번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void set(int** arr, int* data, int rows, int cols) {
+    for (int i = 0; i &lt; rows * cols; ++i) {
+        arr[((i + 1) / rows) % rows][(i + 1) % cols] = data[i];
+    }
+}
+
+int main() {
+    int rows = 3, cols = 3, sum = 0;
+    int data[] = {5, 2, 7, 4, 1, 8, 3, 6, 9};
+    int** arr;
+    arr = (int**) malloc(sizeof(int*) * rows);
+    for (int i = 0; i &lt; cols; i++) {
+        arr[i] = (int*) malloc(sizeof(int) * cols);
+    }
+
+    set(arr, data, rows, cols);
+
+    for (int i = 0; i &lt; rows * cols; i++) {
+        sum += arr[i / rows][i % cols] * (i % 2 == 0 ? 1 : -1);
+    }
+
+    for (int i = 0; i &lt; rows; i++) {
+        free(arr[i]);
+    }
+    free(arr);
+
+    printf("%d", sum);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">13</pre><div class="qd-sol"><p><b>풀이</b> set은 data[i]를 i + 1번째 칸에 넣고, 마지막 9는 다시 0번 칸으로 간다 → arr = {9, 5, 2 / 7, 4, 1 / 8, 3, 6}. 짝수 번째는 +, 홀수 번째는 − 로 더하면 9 − 5 + 2 − 7 + 4 − 1 + 8 − 3 + 6 = 13.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 18번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+typedef struct Data {
+    int value;
+    struct Data *next;
+} Data;
+
+Data* insert(Data* head, int value) {
+    Data* new_node = (Data*)malloc(sizeof(Data));
+    new_node-&gt;value = value;
+    new_node-&gt;next = head;
+    return new_node;
+}
+
+Data* reconnect(Data* head, int value) {
+    if (head == NULL || head-&gt;value == value) return head;
+    Data *prev = NULL, *curr = head;
+    while (curr != NULL &amp;&amp; curr-&gt;value != value) {
+        prev = curr;
+        curr = curr-&gt;next;
+    }
+
+    if (curr != NULL &amp;&amp; prev != NULL) {
+        prev-&gt;next = curr-&gt;next;
+        curr-&gt;next = head;
+        head = curr;
+    }
+    return head;
+}
+
+int main() {
+    Data *head = NULL, *curr;
+    for (int i = 1; i &lt;= 5; i++)
+        head = insert(head, i);
+    head = reconnect(head, 3);
+    for (curr = head; curr != NULL; curr = curr-&gt;next)
+        printf("%d", curr-&gt;value);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">35421</pre><div class="qd-sol"><p><b>풀이</b> 1 ~ 5를 맨 앞에 넣으면 5 → 4 → 3 → 2 → 1. 값이 3인 노드를 떼어 맨 앞으로 옮기면 3 → 5 → 4 → 2 → 1.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+typedef struct student {
+    char* name;
+    int score[3];
+} Student;
+
+int dec(int enc) {
+    return enc &amp; 0xA5;
+}
+
+int sum(Student* p) {
+    return dec(p-&gt;score[0]) + dec(p-&gt;score[1]) + dec(p-&gt;score[2]);
+}
+
+int main() {
+    Student s[2] = { "Kim", {0xA0, 0xA5, 0xDB}, "Lee", {0xA0, 0xED, 0x81} };
+    Student* p = s;
+    int result = 0;
+
+    for (int i = 0; i &lt; 2; i++) {
+        result += sum(&amp;s[i]);
+    }
+    printf("%d", result);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">908</pre><div class="qd-sol"><p><b>풀이</b> 0xA5 = 1010 0101과 AND. Kim: 0xA0 → 160, 0xA5 → 165, 0xDB → 129 (합 454) / Lee: 0xA0 → 160, 0xED → 165, 0x81 → 129 (합 454) → 908.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int func() {
+    static int x = 0;
+    x += 2;
+    return x;
+}
+
+int main() {
+    int x = 1;
+    int sum = 0;
+    for (int i = 0; i &lt; 4; i++) {
+        x++;
+        sum += func();
+    }
+    printf("%d", sum);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">20</pre><div class="qd-sol"><p><b>풀이</b> func 안의 static x는 호출마다 값이 유지된다: 2, 4, 6, 8 → 합 20. main의 x는 관계없다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 12번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct Node {
+    int value;
+    struct Node* next;
+};
+
+void func(struct Node* node) {
+    while (node != NULL &amp;&amp; node-&gt;next != NULL) {
+        int t = node-&gt;value;
+        node-&gt;value = node-&gt;next-&gt;value;
+        node-&gt;next-&gt;value = t;
+        node = node-&gt;next-&gt;next;
+    }
+}
+
+int main() {
+    struct Node n1 = {1, NULL};
+    struct Node n2 = {2, NULL};
+    struct Node n3 = {3, NULL};
+
+    n1.next = &amp;n3;
+    n3.next = &amp;n2;
+
+    func(&amp;n1);
+
+    struct Node* current = &amp;n1;
+
+    while (current != NULL) {
+        printf("%d", current-&gt;value);
+        current = current-&gt;next;
+    }
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">312</pre><div class="qd-sol"><p><b>풀이</b> 연결은 n1(1) → n3(3) → n2(2). 앞의 두 값을 바꾸면 3, 1이 되고, 다음 노드 n2는 next가 없어 끝 → 3 1 2.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 16번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+void func(int** arr, int size) {
+    for (int i = 0; i &lt; size; i++) {
+        *(*arr + i) = (*(*arr + i) + i) % size;
+    }
+}
+
+int main() {
+    int arr[] = {3, 1, 4, 1, 5};
+    int* p = arr;
+    int** pp = &amp;p;
+    int num = 6;
+
+    func(pp, 5);
+    num = arr[2];
+    printf("%d", num);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1</pre><div class="qd-sol"><p><b>풀이</b> *(*arr + i)는 arr[i]. arr[2] = (4 + 2) % 5 = 1.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int arr[3][3] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int* parr[2] = {arr[1], arr[2]};
+    printf("%d", parr[1][1] + *(parr[1] + 2) + **parr);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">21</pre><div class="qd-sol"><p><b>풀이</b> parr[1][1] = arr[2][1] = 8, *(parr[1] + 2) = arr[2][2] = 9, **parr = arr[1][0] = 4 → 21.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+void sumFn(char* d, const char* s) {
+    while (*s) {
+        *d = *s;
+        d++;
+        s++;
+    }
+    *d = '\0';
+}
+
+int main() {
+    const char* str1 = "first";
+    char str2[50] = "teststring";
+    int result = 0;
+    sumFn(str2, str1);
+
+    for (int i = 0; str2[i] != '\0'; i++) {
+        result += i;
+    }
+    printf("%d", result);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">10</pre><div class="qd-sol"><p><b>풀이</b> "first"를 덮어쓰고 바로 뒤에 '\0'을 넣으므로 str2는 5글자. 0 + 1 + 2 + 3 + 4 = 10.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 18번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+void swap(int a, int b) {
+    int t = a;
+    a = b;
+    b = t;
+}
+
+int main() {
+    int a = 11;
+    int b = 19;
+    swap(a, b);
+
+    switch (a) {
+        case 1:
+            b += 1;
+        case 11:
+            b += 2;
+        default:
+            b += 3;
+            break;
+    }
+
+    printf("%d", a - b);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">-13</pre><div class="qd-sol"><p><b>풀이</b> swap은 값만 복사해서 a, b는 그대로. case 11부터 break 전까지 실행: b = 19 + 2 + 3 = 24 → 11 − 24 = −13.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct node {
+    int n1;
+    struct node *n2;
+};
+
+int main() {
+    struct node a = {10, NULL};
+    struct node b = {20, NULL};
+    struct node c = {30, NULL};
+
+    struct node *head = &amp;a;
+    a.n2 = &amp;b;
+    b.n2 = &amp;c;
+
+    printf("%d\n", head-&gt;n2-&gt;n1);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">20</pre><div class="qd-sol"><p><b>풀이</b> head = a, a.n2 = b → b의 n1 = 20.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 2번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int v1 = 0, v2 = 35, v3 = 29;
+
+    if (v1 &gt; v2 ? v2 : v1) {
+        v2 = v2 &lt;&lt; 2;
+    } else {
+        v3 = v3 &lt;&lt; 2;
+    }
+
+    printf("%d", v2 + v3);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">151</pre><div class="qd-sol"><p><b>풀이</b> v1 &gt; v2는 거짓이라 조건 값은 v1 = 0 → else 실행: v3 = 29 × 4 = 116. 35 + 116 = 151.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 4번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+void reverse(char* str) {
+    int len = strlen(str);
+    char temp;
+    char* p1 = str;
+    char* p2 = str + len - 1;
+    while (p1 &lt; p2) {
+        temp = *p1;
+        *p1 = *p2;
+        *p2 = temp;
+        p1++;
+        p2--;
+    }
+}
+
+int main(int argc, char* argv[]) {
+    char str[100] = "ABCDEFGH";
+
+    reverse(str);
+
+    int len = strlen(str);
+
+    for (int i = 1; i &lt; len; i += 2) {
+        printf("%c", str[i]);
+    }
+
+    printf("\n");
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">GECA</pre><div class="qd-sol"><p><b>풀이</b> 뒤집으면 HGFEDCBA. 인덱스 1, 3, 5, 7은 G, E, C, A.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 11번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+typedef struct {
+    int accNum;
+    double bal;
+} BankAcc;
+
+double sim_pow(double base, int year) {
+    int i;
+    double r = 1.0;
+    for (i = 0; i &lt; year; i++) {
+        r = r * base;
+    }
+    return r;
+}
+
+void initAcc(BankAcc *acc, int x, double y) {
+    acc-&gt;accNum = x;
+    acc-&gt;bal = y;
+}
+
+void xxx(BankAcc *acc, double *en) {
+    if (*en &gt; 0 &amp;&amp; *en &lt; acc-&gt;bal) {
+        acc-&gt;bal = acc-&gt;bal - *en;
+    } else {
+        acc-&gt;bal = acc-&gt;bal + *en;
+    }
+}
+
+void yyy(BankAcc *acc) {
+    acc-&gt;bal = acc-&gt;bal * sim_pow((1 + 0.1), 3);
+}
+
+int main() {
+    BankAcc myAcc;
+    initAcc(&amp;myAcc, 9981, 2200.0);
+    double amount = 100.0;
+    xxx(&amp;myAcc, &amp;amount);
+    yyy(&amp;myAcc);
+    printf("%d and %.2f", myAcc.accNum, myAcc.bal);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">9981 and 2795.10</pre><div class="qd-sol"><p><b>풀이</b> 100은 0보다 크고 잔액보다 작으므로 2200 − 100 = 2100. 2100 × 1.1³ = 2100 × 1.331 = 2795.10.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+
+int main() {
+    char* p = "It is 8";
+    char result[100];
+    int i;
+
+    for (i = 0; p[i] != '\0'; i++) {
+        if (isupper(p[i]))
+            result[i] = (p[i] - 'A' + 5) % 25 + 'A';
+        else if (islower(p[i]))
+            result[i] = (p[i] - 'a' + 10) % 26 + 'a';
+        else if (isdigit(p[i]))
+            result[i] = (p[i] - '0' + 3) % 10 + '0';
+        else if (!(isupper(p[i]) || islower(p[i]) || isdigit(p[i])))
+            result[i] = p[i];
+    }
+
+    result[i] = '\0';
+    printf("%s\n", result);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">Nd sc 1</pre><div class="qd-sol"><p><b>풀이</b> I: (8 + 5) % 25 = 13 → N, t: (19 + 10) % 26 = 3 → d, i: 18 → s, s: (18 + 10) % 26 = 2 → c, 8: (8 + 3) % 10 = 1. 공백은 그대로. 대문자에 % 25를 쓴 점에 주의.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 4번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int test(int n) {
+    int i, sum = 0;
+
+    for (i = 1; i &lt;= n / 2; i++) {
+        if (n % i == 0)
+            sum += i;
+    }
+
+    if (n == sum)
+        return 1;
+
+    return 0;
+}
+
+int main() {
+    int i, sum = 0;
+
+    for (i = 2; i &lt;= 100; i++) {
+        if (test(i))
+            sum += i;
+    }
+
+    printf("%d ", sum);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">34</pre><div class="qd-sol"><p><b>풀이</b> test는 자기 자신을 뺀 약수의 합이 자신과 같은 수(완전수)인지 본다. 100 이하 완전수 6 + 28 = 34.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 5번</div><div class="qd-q"><p class="exam-prompt">출력 결과가 10, 10이 되도록 괄호 안에 들어갈 기호를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+typedef struct Data {
+    char c;
+    int *numPtr;
+} Data;
+
+int main() {
+    int num = 10;
+    Data d1;
+    Data *d2 = malloc(sizeof(struct Data));
+
+    d1.numPtr = &amp;num;
+    d2 (   ) numPtr = &amp;num;
+
+    printf("%d\n", *d1.numPtr);
+    printf("%d\n", *d2 (   ) numPtr);
+
+    free(d2);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">-&gt;</pre><div class="qd-sol"><p><b>풀이</b> d2는 구조체 포인터라 멤버에 접근할 때 -&gt;를 쓴다. 출력은 10, 10.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 8번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int f(int n) {
+    if (n &lt;= 1) return 1;
+    else return n * f(n - 1);
+}
+
+int main() {
+    printf("%d", f(7));
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">5040</pre><div class="qd-sol"><p><b>풀이</b> 7! = 5040</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 10번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char* p = "KOREA";
+    printf("%s\n", p);
+    printf("%s\n", p + 1);
+    printf("%c\n", *p);
+    printf("%c\n", *(p + 3));
+    printf("%c\n", *p + 4);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">KOREA
+OREA
+K
+E
+O</pre><div class="qd-sol"><p><b>풀이</b> p + 1은 두 번째 글자부터, *(p + 3)은 E, *p + 4는 'K' + 4 = 'O'.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 1번</div><div class="qd-q"><p class="exam-prompt">입력값이 5, 4, 3, 2, 1일 때 출력이 43215가 되도록 괄호에 들어갈 코드를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main(void) {
+    int n[5];
+    int i;
+
+    for (i = 0; i &lt; 5; i++) {
+        printf("숫자를 입력해주세요 : ");
+        scanf("%d", &amp;n[i]);
+    }
+
+    for (i = 0; i &lt; 5; i++) {
+        printf("%d", (            ));
+    }
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">n[(i + 1) % 5]</pre><div class="qd-sol"><p><b>풀이</b> 5, 4, 3, 2, 1을 입력했을 때 43215가 나오려면 한 칸씩 밀어서 출력하고, 마지막에는 n[0]으로 돌아와야 한다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 3번</div><div class="qd-q"><p class="exam-prompt">입력값이 홍길동, 김철수, 박영희 순서일 때 출력 결과를 쓰시오 (입력 안내 문구는 제외).</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+char n[30];
+char *test() {
+    printf("입력하세요 : ");
+    gets(n);
+    return n;
+}
+
+int main() {
+    char *test1;
+    char *test2;
+    char *test3;
+
+    test1 = test();
+    test2 = test();
+    test3 = test();
+
+    printf("%s\n", test1);
+    printf("%s\n", test2);
+    printf("%s", test3);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">박영희
+박영희
+박영희</pre><div class="qd-sol"><p><b>풀이</b> test는 매번 같은 전역 배열 n의 주소를 돌려준다. 세 포인터가 같은 곳을 가리키므로 마지막 입력값만 세 번 출력.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 5번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int n[3] = {73, 95, 82};
+    int sum = 0;
+
+    for (int i = 0; i &lt; 3; i++) {
+        sum += n[i];
+    }
+
+    switch (sum / 30) {
+        case 10:
+        case 9: printf("A");
+        case 8: printf("B");
+        case 7:
+        case 6: printf("C");
+        default: printf("D");
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">BCD</pre><div class="qd-sol"><p><b>풀이</b> 합 250 ÷ 30 = 8 → case 8부터 break 없이 끝까지 실행 → B, C, D.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int c = 0;
+
+    for (int i = 1; i &lt;= 2023; i++) {
+        if (i % 4 == 0) c++;
+    }
+    printf("%d", c);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">505</pre><div class="qd-sol"><p><b>풀이</b> 1 ~ 2023 중 4의 배수 개수 = 2023 / 4 = 505.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 9번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+#define MAX_SIZE 10
+
+int isWhat[MAX_SIZE];
+int point = -1;
+
+int isEmpty() {
+    if (point == -1) return 1;
+    return 0;
+}
+
+int isFull() {
+    if (point == 10) return 1;
+    return 0;
+}
+
+void into(int num) {
+    if (point &gt;= 10) printf("Full");
+    else isWhat[++point] = num;
+}
+
+int take() {
+    if (isEmpty() == 1) printf("Empty");
+    else return isWhat[point--];
+    return 0;
+}
+
+int main(int argc, char const *argv[]) {
+    int e;
+    into(5); into(2);
+
+    while (!isEmpty()) {
+        printf("%d", take());
+        into(4); into(1); printf("%d", take());
+        into(3); printf("%d", take()); printf("%d", take());
+        into(6); printf("%d", take()); printf("%d", take());
+    }
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">213465</pre><div class="qd-sol"><p><b>풀이</b> 스택(나중에 넣은 것이 먼저). [5, 2] → 2 꺼냄 → 4, 1 넣고 1 → 3 넣고 3, 4 → 6 넣고 6, 5 → 비었으므로 반복 종료.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 18번</div><div class="qd-q"><p class="exam-prompt">오름차순으로 정렬되도록 괄호에 들어갈 연산자를 보기(&lt;, &lt;=, =&gt;, &gt;, ==, /, %)에서 고르시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int E[] = {64, 25, 12, 22, 11};
+    int n = sizeof(E) / sizeof(E[0]);
+    int i = 0;
+    do {
+        int j = i + 1;
+        do {
+            if (E[i] (     ) E[j]) {
+                int tmp = E[i];
+                E[i] = E[j];
+                E[j] = tmp;
+            }
+            j++;
+        } while (j &lt; n);
+        i++;
+    } while (i &lt; n - 1);
+    for (int i = 0; i &lt;= 4; i++)
+        printf("%d ", E[i]);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">&gt;</pre><div class="qd-sol"><p><b>풀이</b> 앞의 값이 뒤의 값보다 클 때 교환하면 오름차순(11 12 22 25 64)이 된다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 2번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char a[] = "Art";
+    char* p = NULL;
+    p = a;
+
+    printf("%s\n", a);
+    printf("%c\n", *p);
+    printf("%c\n", *a);
+    printf("%s\n", p);
+
+    for (int i = 0; a[i] != '\0'; i++)
+        printf("%c", a[i]);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">Art
+A
+A
+Art
+Art</pre><div class="qd-sol"><p><b>풀이</b> 배열 이름 a와 포인터 p는 같은 주소를 가리킨다. *p와 *a는 첫 글자 A.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 3번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char* a = "qwer";
+    char* b = "qwtety";
+
+    for (int i = 0; a[i] != '\0'; i++) {
+        for (int j = 0; b[j] != '\0'; j++) {
+            if (a[i] == b[j]) printf("%c", a[i]);
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">qwe</pre><div class="qd-sol"><p><b>풀이</b> a의 글자마다 b에 같은 글자가 있으면 출력: q, w, e는 있고 r은 없다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 9번</div><div class="qd-q"><p class="exam-prompt">2진수를 10진수로 바꾸는 코드다. (a), (b)에 들어갈 알맞은 답을 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int input = 101110;
+    int di = 1;
+    int sum = 0;
+
+    while (1) {
+        if (input == 0) break;
+        else {
+            sum = sum + (input (a) (b)) * di;
+            di = di * 2;
+            input = input / 10;
+        }
+    }
+
+    printf("%d", sum);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">(a) %  (b) 10</pre><div class="qd-sol"><p><b>풀이</b> 마지막 자리를 꺼내려면 input % 10. 2진수 101110 → 10진수 46.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 3회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과(mines 배열)를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int calculate(int w, int h, int j, int i) {
+    if (i &gt;= 0 &amp;&amp; i &lt; h &amp;&amp; j &gt;= 0 &amp;&amp; j &lt; w) return 1;
+    return 0;
+}
+
+int main() {
+    int field[4][4] = {{0,0,1,0},{1,0,1,1},{0,0,1,1},{1,1,0,1}};
+    int mines[4][4] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+    int w = 4, h = 4, x, y, i, j;
+
+    for (y = 0; y &lt; h; y++) {
+        for (x = 0; x &lt; w; x++) {
+            if (field[y][x] == 0) continue;
+            for (i = y - 1; i &lt;= y + 1; i++) {
+                for (j = x - 1; j &lt;= x + 1; j++) {
+                    if (calculate(w, h, j, i) == 1) {
+                        mines[i][j] += 1;
+                    }
+                }
+            }
+        }
+    }
+
+    for (y = 0; y &lt; h; y++) {
+        for (x = 0; x &lt; w; x++)
+            printf("%d", mines[y][x]);
+        printf("\n");
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1333
+1455
+3565
+2343</pre><div class="qd-sol"><p><b>풀이</b> field가 1인 칸마다 그 칸을 포함한 주변 3×3에 +1, 격자 밖은 건너뛴다. 복원 글에는 field가 {{0,1,0,1},{0,0,0,1},{1,1,1,0},{0,1,1,1}}로 적혀 있지만, 널리 알려진 정답은 그 행과 열을 바꾼(전치한) 배열의 결과와 일치해 시험지 기준으로 위 배열을 실었다. 복원 글 배열 그대로 실행하면 1132 / 3453 / 3564 / 3553.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 3회 · 4번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int result[5];
+    int arr[] = {77, 32, 10, 99, 50};
+
+    for (int i = 0; i &lt; 5; i++) {
+        result[i] = 1;
+        for (int j = 0; j &lt; 5; j++) {
+            if (arr[i] &lt; arr[j]) result[i]++;
+        }
+    }
+
+    for (int k = 0; k &lt; 5; k++) {
+        printf("%d", result[k]);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">24513</pre><div class="qd-sol"><p><b>풀이</b> 각 값보다 큰 값의 개수 + 1 = 순위. 77 → 2, 32 → 4, 10 → 5, 99 → 1, 50 → 3.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 3회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int n, k, s;
+    int el = 0;
+
+    for (n = 6; n &lt;= 30; n++) {
+        s = 0;
+        k = n / 2;
+        for (int j = 1; j &lt;= k; j++) {
+            if (n % j == 0) {
+                s = s + j;
+            }
+        }
+        if (s == n) {
+            el++;
+        }
+    }
+
+    printf("%d", el);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">2</pre><div class="qd-sol"><p><b>풀이</b> 6 ~ 30 중 완전수는 6, 28 두 개.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 2회 · 8번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct A {
+    int n;
+    int g;
+};
+
+int main() {
+    struct A a[2];
+    for (int i = 0; i &lt; 2; i++) {
+        a[i].n = i;
+        a[i].g = i + 1;
+    }
+    printf("%d", a[0].n + a[1].g);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">2</pre><div class="qd-sol"><p><b>풀이</b> a[0].n = 0, a[1].g = 2 → 2. (복원 코드가 C와 Java 문법이 섞여 있어 C로 정리)</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 2회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int len(char* p);
+
+int main() {
+    char* p1 = "2022";
+    char* p2 = "202207";
+
+    int a = len(p1);
+    int b = len(p2);
+
+    printf("%d", a + b);
+}
+
+int len(char* p) {
+    int r = 0;
+    while (*p != '\0') {
+        p++;
+        r++;
+    }
+    return r;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">10</pre><div class="qd-sol"><p><b>풀이</b> 문자열 길이 4 + 6 = 10.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 2회 · 16번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[]) {
+    int a[4] = {0, 2, 4, 8};
+    int b[3] = {0};
+    int i = 1;
+    int sum = 0;
+    int *p1;
+
+    for (i; i &lt; 4; i++) {
+        p1 = a + i;
+        b[i - 1] = *p1 - a[i - 1];
+        sum = sum + b[i - 1] + a[i];
+    }
+
+    printf("%d", sum);
+
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">22</pre><div class="qd-sol"><p><b>풀이</b> i = 1: b[0] = 2 − 0 = 2, sum = 2 + 2 = 4 / i = 2: b[1] = 2, sum = 4 + 2 + 4 = 10 / i = 3: b[2] = 4, sum = 10 + 4 + 8 = 22.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 1회 · 14번</div><div class="qd-q"><p class="exam-prompt">입력값이 5일 때 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+int func(int a) {
+    if (a &lt;= 1) return 1;
+    return a * func(a - 1);
+}
+
+int main() {
+    int a;
+    scanf("%d", &amp;a);
+    printf("%d", func(a));
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">120</pre><div class="qd-sol"><p><b>풀이</b> 5! = 120</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 1회 · 15번</div><div class="qd-q"><p class="exam-prompt">정수를 역순으로 출력(결과 4321)하도록 괄호 안에 들어갈 연산자를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+int main() {
+    int number = 1234;
+    int div = 10;
+    int result = 0;
+
+    while (number ( 1 ) 0) {
+        result = result * div;
+        result = result + number ( 2 ) div;
+        number = number ( 3 ) div;
+    }
+
+    printf("%d", result);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">(1) &gt;  (2) %  (3) /</pre><div class="qd-sol"><p><b>풀이</b> 마지막 자리(% 10)를 result 뒤에 붙이고, number는 / 10으로 한 자리씩 줄인다 → 4321.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 1회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+int isPrime(int number) {
+    int i;
+    for (i = 2; i &lt; number; i++) {
+        if (number % i == 0) return 0;
+    }
+    return 1;
+}
+
+int main(void) {
+    int number = 13195, max_div = 0, i;
+    for (i = 2; i &lt; number; i++)
+        if (isPrime(i) == 1 &amp;&amp; number % i == 0) max_div = i;
+    printf("%d", max_div);
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">29</pre><div class="qd-sol"><p><b>풀이</b> 13195 = 5 × 7 × 13 × 29 → 가장 큰 소인수 29.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 3회 · 12번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int *arr[3];
+    int a = 12, b = 24, c = 36;
+    arr[0] = &amp;a;
+    arr[1] = &amp;b;
+    arr[2] = &amp;c;
+
+    printf("%d\n", *arr[1] + **arr + 1);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">37</pre><div class="qd-sol"><p><b>풀이</b> *arr[1] = b = 24, **arr = *arr[0] = a = 12 → 24 + 12 + 1 = 37.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 3회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct jsu {
+    char name[12];
+    int os, db, hab, hhab;
+};
+
+int main() {
+    struct jsu st[3] = {{"데이터1", 95, 88},
+                        {"데이터2", 84, 91},
+                        {"데이터3", 86, 75}};
+    struct jsu* p;
+
+    p = &amp;st[0];
+
+    (p + 1)-&gt;hab = (p + 1)-&gt;os + (p + 2)-&gt;db;
+    (p + 1)-&gt;hhab = (p + 1)-&gt;hab + p-&gt;os + p-&gt;db;
+
+    printf("%d\n", (p + 1)-&gt;hab + (p + 1)-&gt;hhab);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">501</pre><div class="qd-sol"><p><b>풀이</b> hab = 84 + 75 = 159, hhab = 159 + 95 + 88 = 342 → 159 + 342 = 501.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 2회 · 16번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int mp(int base, int exp);
+
+int main() {
+    int res;
+    res = mp(2, 10);
+    printf("%d", res);
+    return 0;
+}
+
+int mp(int base, int exp) {
+    int res = 1;
+    for (int i = 0; i &lt; exp; i++) {
+        res = res * base;
+    }
+    return res;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1024</pre><div class="qd-sol"><p><b>풀이</b> 2¹⁰ = 1024</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 2회 · 18번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int ary[3];
+    int s = 0;
+    *(ary + 0) = 1;
+    ary[1] = *(ary + 0) + 2;
+    ary[2] = *ary + 3;
+    for (int i = 0; i &lt; 3; i++) {
+        s = s + ary[i];
+    }
+
+    printf("%d", s);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">8</pre><div class="qd-sol"><p><b>풀이</b> ary = {1, 3, 4} → 8.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 1회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+struct good {
+    char name[10];
+    int age;
+};
+
+int main() {
+    struct good s[] = {"Kim", 28, "Lee", 38, "Seo", 50, "Park", 35};
+
+    struct good *p;
+    p = s;
+    p++;
+    printf("%s\n", p-&gt;name);
+    printf("%d\n", p-&gt;age);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">Lee
+38</pre><div class="qd-sol"><p><b>풀이</b> p++로 두 번째 원소 {"Lee", 38}을 가리킨다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 4회 · 18번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    char *p = "KOREA";
+    printf("%s\n", p);
+    printf("%s\n", p + 3);
+    printf("%c\n", *p);
+    printf("%c\n", *(p + 3));
+    printf("%c\n", *p + 2);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">KOREA
+EA
+K
+E
+M</pre><div class="qd-sol"><p><b>풀이</b> p + 3은 네 번째 글자부터 EA, *p + 2는 'K' + 2 = 'M'.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 3회 · 2번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i = 0, c = 0;
+    while (i &lt; 10) {
+        i++;
+        c *= i;
+    }
+    printf("%d", c);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">0</pre><div class="qd-sol"><p><b>풀이</b> c가 0에서 시작해 곱하기만 하므로 계속 0.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 3회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+int r1() {
+    return 4;
+}
+int r10() {
+    return (30 + r1());
+}
+int r100() {
+    return (200 + r10());
+}
+int main() {
+    printf("%d\n", r100());
+    return 0;
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">234</pre><div class="qd-sol"><p><b>풀이</b> 200 + (30 + 4) = 234</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 1회 · 12번</div><div class="qd-q"><p class="exam-prompt">다음 C 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="C"><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int i, j;
+    int temp;
+    int a[5] = {75, 95, 85, 100, 50};
+
+    for (i = 0; i &lt; 4; i++) {
+        for (j = 0; j &lt; 4 - i; j++) {
+            if (a[j] &gt; a[j + 1]) {
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+            }
+        }
+    }
+
+    for (i = 0; i &lt; 5; i++) {
+        printf("%d", a[i]);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">50758595100</pre><div class="qd-sol"><p><b>풀이</b> 버블 정렬로 오름차순 50 75 85 95 100. 서식에 공백이 없어 붙어서 출력된다.</p></div></details></article>
+
+      <h3>Java (56문제)</h3>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 2번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class A {
+    private int a;
+
+    public A(int a) {
+        this.a = a;
+    }
+
+    void print() {
+        System.out.print(a + "a");
+    }
+}
+
+class B extends A {
+    private int b;
+
+    B(int a, int b) {
+        super(a);
+        this.b = b;
+    }
+
+    void print() {
+        super.print();
+        System.out.print(b + "b");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        B obj = new B(10, 20);
+        obj.print();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">10a20b</pre><div class="qd-sol"><p><b>풀이</b> B의 print가 super.print()로 부모의 "10a"를 먼저 출력한 뒤 "20b"를 붙인다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class A {
+    int a;
+    private int b;
+    protected int c;
+
+    void set(int aa, int bb, int cc) {
+        a = aa;
+        b = bb;
+        c = cc;
+    }
+
+    int hap() { return a + b + c; }
+}
+
+class B extends A {
+    public int hap() { return a * c; }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        A aaa = new A();
+        B bbb = new B();
+
+        aaa.set(1, 5, 3);
+        bbb.set(10, 30, 50);
+
+        System.out.print(aaa.hap() + bbb.hap());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">509</pre><div class="qd-sol"><p><b>풀이</b> aaa.hap() = 1 + 5 + 3 = 9, bbb.hap()는 오버라이딩된 a × c = 10 × 50 = 500. 둘 다 정수라 9 + 500 = 509.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 1회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class A {
+    String f(Object x) {
+        return "1";
+    }
+
+    String g() {
+        return f("a");
+    }
+}
+
+class B extends A {
+    String f(Object x) {
+        return "2";
+    }
+
+    String f(String x) {
+        return "3";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        A a = new B();
+        System.out.println(a.g());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">2</pre><div class="qd-sol"><p><b>풀이</b> A 안의 g()에서는 f(Object)밖에 보이지 않아 그 시그니처가 선택되고, 실행 시 실제 객체 B가 오버라이딩한 f(Object)가 실행되어 "2".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 1회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        int x1 = 9;
+        int x2 = 2;
+        String x3 = "3";
+        System.out.println(x1 + x2 + "2" + x3);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1123</pre><div class="qd-sol"><p><b>풀이</b> 왼쪽부터: 9 + 2 = 11 → "11" + "2" = "112" → "112" + "3" = "1123".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 8번</div><div class="qd-q"><p class="exam-prompt">WashingMachine 클래스가 Machine 인터페이스를 구현하도록 빈칸에 들어갈 키워드를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">interface Machine {
+    void run();
+}
+
+class WashingMachine (____빈칸____) Machine {
+    private String name;
+
+    public WashingMachine() {
+        this.name = "LG Washer";
+    }
+
+    public void run() {
+        System.out.println("Washing machine running");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        WashingMachine wm = new WashingMachine();
+        wm.run();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">implements</pre><div class="qd-sol"><p><b>풀이</b> 클래스가 인터페이스를 구현할 때는 implements.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 12번</div><div class="qd-q"><p class="exam-prompt">밑줄에 알맞은 단어를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Rectangle {
+    int width, height;
+
+    Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+}
+
+class Square extends Rectangle {
+    Square(int a) {
+        ____(a, a);
+    }
+
+    int getSquareArea() {
+        return width * height;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Square sq = new Square(10);
+        System.out.println(sq.getSquareArea());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">super</pre><div class="qd-sol"><p><b>풀이</b> 자식 생성자에서 부모 생성자 Rectangle(int, int)를 호출하는 super. 출력은 100.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">enum Tri {
+    A("A"), B("AB"), C("ABC");
+
+    private String code;
+
+    Tri(String code) {
+        this.code = code;
+    }
+
+    public String code() {
+        return code;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Tri t = Tri.values()[Tri.A.name().length()];
+        System.out.print(t.code());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">AB</pre><div class="qd-sol"><p><b>풀이</b> Tri.A.name() = "A" → 길이 1 → values()[1] = B → code "AB".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 5번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void change(String[] data, String s) {
+        data[0] = s;
+        s = "Z";
+    }
+
+    public static void main(String[] args) {
+        String data[] = { "A" };
+        String s = "B";
+
+        change(data, s);
+        System.out.print(data[0] + s);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">BB</pre><div class="qd-sol"><p><b>풀이</b> 배열 칸 수정(data[0] = "B")은 원본에 반영되고, 매개변수 s에 "Z"를 대입한 것은 원본 s에 영향이 없다 → "B" + "B".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 9번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+
+    static interface F {
+        int apply(int x) throws Exception;
+    }
+
+    public static int run(F f) {
+        try {
+            return f.apply(3);
+        } catch (Exception e) {
+            return 7;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        F f = (x) -&gt; {
+            if (x &gt; 2) {
+                throw new Exception();
+            }
+            return x * 2;
+        };
+
+        System.out.print(run(f) + run((int n) -&gt; n + 9));
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">19</pre><div class="qd-sol"><p><b>풀이</b> run(f): 3 &gt; 2라 예외 → catch에서 7. run(n -&gt; n + 9): 3 + 9 = 12. 7 + 12 = 19.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 10번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+
+    public static class Parent {
+        public int x(int i) { return i + 2; }
+        public static String id() { return "P"; }
+    }
+
+    public static class Child extends Parent {
+        public int x(int i) { return i + 3; }
+        public String x(String s) { return s + "R"; }
+        public static String id() { return "C"; }
+    }
+
+    public static void main(String[] args) {
+        Parent ref = new Child();
+        System.out.println(ref.x(2) + ref.id());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">5P</pre><div class="qd-sol"><p><b>풀이</b> x(2)는 인스턴스 메서드라 실제 객체 Child의 것 → 5. id()는 static이라 변수 타입 Parent의 것 → "P".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static class BO {
+        public int v;
+        public BO(int v) {
+            this.v = v;
+        }
+    }
+    public static void main(String[] args) {
+        BO a = new BO(1);
+        BO b = new BO(2);
+        BO c = new BO(3);
+        BO[] arr = {a, b, c};
+        BO t = arr[0];
+        arr[0] = arr[2];
+        arr[2] = t;
+        arr[1].v = arr[0].v;
+        System.out.println(a.v + "a" + b.v + "b" + c.v);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1a3b3</pre><div class="qd-sol"><p><b>풀이</b> 배열 칸만 a와 c를 맞바꿨고 객체 자체는 그대로다. arr[1]은 b, arr[0]은 c라서 b.v = c.v = 3. a.v = 1.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 5번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        int a = 5, b = 0;
+
+        try {
+            System.out.print(a / b);
+        } catch (ArithmeticException e) {
+            System.out.print("출력1");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print("출력2");
+        } catch (NumberFormatException e) {
+            System.out.print("출력3");
+        } catch (Exception e) {
+            System.out.print("출력4");
+        } finally {
+            System.out.print("출력5");
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">출력1출력5</pre><div class="qd-sol"><p><b>풀이</b> 정수를 0으로 나누면 ArithmeticException → 첫 catch만 실행, finally는 항상 실행.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        new Child();
+        System.out.println(Parent.total);
+    }
+}
+
+class Parent {
+    static int total = 0;
+    int v = 1;
+
+    public Parent() {
+        total += (++v);
+        show();
+    }
+
+    public void show() {
+        total += total;
+    }
+}
+
+class Child extends Parent {
+    int v = 10;
+
+    public Child() {
+        v += 2;
+        total += v++;
+        show();
+    }
+
+    @Override
+    public void show() {
+        total += total * 2;
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">54</pre><div class="qd-sol"><p><b>풀이</b> Parent(): total = 2, show()는 Child 것 → 2 + 4 = 6. Child 필드 v = 10 → v = 12 → total = 6 + 12 = 18 → show() → 18 + 36 = 54.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 16번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+
+    public static void main(String[] args) {
+        int[] data = {3, 5, 8, 12, 17};
+        System.out.println(func(data, 0, data.length - 1));
+    }
+
+    static int func(int[] a, int st, int end) {
+        if (st &gt;= end) return 0;
+        int mid = (st + end) / 2;
+        return a[mid] + Math.max(func(a, st, mid), func(a, mid + 1, end));
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">20</pre><div class="qd-sol"><p><b>풀이</b> func(0,4): mid 2 → 8 + max(func(0,2), func(3,4)). func(0,2): mid 1 → 5 + max(func(0,1) = 3, 0) = 8. func(3,4): mid 3 → 12 + max(0, 0) = 12. → 8 + max(8, 12) = 20.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 20번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        System.out.println(calc("5"));
+    }
+
+    static int calc(int value) {
+        if (value &lt;= 1) return value;
+        return calc(value - 1) + calc(value - 2);
+    }
+
+    static int calc(String str) {
+        int value = Integer.valueOf(str);
+        if (value &lt;= 1) return value;
+        return calc(value - 1) + calc(value - 3);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">4</pre><div class="qd-sol"><p><b>풀이</b> calc("5")는 String 버전 → calc(4) + calc(2). 안쪽은 int라 int 버전(피보나치): calc(4) = 3, calc(2) = 1 → 4.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    static String[] s = new String[3];
+
+    static void func(String[] s, int size) {
+        for (int i = 1; i &lt; size; i++) {
+            if (s[i - 1].equals(s[i])) {
+                System.out.print("O");
+            } else {
+                System.out.print("N");
+            }
+        }
+        for (String m : s) {
+            System.out.print(m);
+        }
+    }
+
+    public static void main(String[] args) {
+        s[0] = "A";
+        s[1] = "A";
+        s[2] = new String("A");
+
+        func(s, 3);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">OOAAA</pre><div class="qd-sol"><p><b>풀이</b> equals는 내용을 비교하므로 두 번 모두 O. 이어서 배열 원소 A, A, A 출력.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 11번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        Base a = new Derivate();
+        Derivate b = new Derivate();
+
+        System.out.print(a.getX() + a.x + b.getX() + b.x);
+    }
+}
+
+class Base {
+    int x = 3;
+
+    int getX() {
+        return x * 2;
+    }
+}
+
+class Derivate extends Base {
+    int x = 7;
+
+    int getX() {
+        return x * 3;
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">52</pre><div class="qd-sol"><p><b>풀이</b> getX()는 오버라이딩되어 둘 다 Derivate 것 → 7 × 3 = 21. 필드 x는 변수 타입을 따라 a.x = 3, b.x = 7. 21 + 3 + 21 + 7 = 52.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 18번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class ExceptionHandling {
+    public static void main(String[] args) {
+        int sum = 0;
+        try {
+            func();
+        } catch (NullPointerException e) {
+            sum = sum + 1;
+        } catch (Exception e) {
+            sum = sum + 10;
+        } finally {
+            sum = sum + 100;
+        }
+        System.out.print(sum);
+    }
+
+    static void func() throws Exception {
+        throw new NullPointerException();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">101</pre><div class="qd-sol"><p><b>풀이</b> 던져진 예외는 NullPointerException → 첫 catch(+1), finally(+100) → 101.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Main {
+
+    public static class Collection&lt;T&gt; {
+        T value;
+
+        public Collection(T t) {
+            value = t;
+        }
+
+        public void print() {
+            new Printer().print(value);
+        }
+
+        class Printer {
+            void print(Integer a) {
+                System.out.print("A" + a);
+            }
+            void print(Object a) {
+                System.out.print("B" + a);
+            }
+            void print(Number a) {
+                System.out.print("C" + a);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Collection&lt;&gt;(0).print();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">B0</pre><div class="qd-sol"><p><b>풀이</b> 오버로딩은 컴파일 시점의 타입으로 정해진다. 클래스 안에서 value의 타입은 제한 없는 T, 즉 Object로 취급되어 print(Object)가 선택된다. (원문 댓글에서 A0와 논쟁이 있었지만 JLS 기준 B0)</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Main {
+    public static void main(String[] args) {
+        int[] a = new int[]{1, 2, 3, 4};
+        int[] b = new int[]{1, 2, 3, 4};
+        int[] c = new int[]{1, 2, 3};
+
+        check(a, b);
+        check(a, c);
+        check(b, c);
+    }
+
+    public static void check(int[] a, int[] b) {
+        if (a == b) {
+            System.out.print("O");
+        } else {
+            System.out.print("N");
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">NNN</pre><div class="qd-sol"><p><b>풀이</b> 배열의 ==는 같은 객체인지(주소) 비교한다. 세 배열 모두 서로 다른 객체.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 14번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Main {
+    public static void main(String[] args) {
+        int a[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        ODDNumber OE = new ODDNumber();
+        System.out.print(OE.sum(a, true) + ", " + OE.sum(a, false));
+    }
+}
+
+interface Number {
+    int sum(int[] a, boolean odd);
+}
+
+class ODDNumber implements Number {
+    public int sum(int[] a, boolean odd) {
+        int result = 0;
+        for (int i = 0; i &lt; a.length; i++) {
+            if ((odd &amp;&amp; a[i] % 2 != 0) || (!odd &amp;&amp; a[i] % 2 == 0))
+                result += a[i];
+        }
+        return result;
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">25, 20</pre><div class="qd-sol"><p><b>풀이</b> true면 홀수 합 1 + 3 + 5 + 7 + 9 = 25, false면 짝수 합 2 + 4 + 6 + 8 = 20.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Main {
+    public static void main(String[] args) {
+        String str = "abacabcd";
+        boolean[] seen = new boolean[256];
+        System.out.print(calculFn(str, str.length() - 1, seen));
+    }
+
+    public static String calculFn(String str, int index, boolean[] seen) {
+        if (index &lt; 0) return "";
+        char c = str.charAt(index);
+        String result = calculFn(str, index - 1, seen);
+        if (!seen[c]) {
+            seen[c] = true;
+            return c + result;
+        }
+        return result;
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">dcba</pre><div class="qd-sol"><p><b>풀이</b> 재귀가 먼저 끝까지 내려가므로 앞 글자부터 처리된다. 처음 나온 글자(a, b, c, d)만 결과의 앞에 붙어서 dcba.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 20번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Main {
+    public static void main(String[] args) {
+        String str = "ITISTESTSTRING";
+        String[] result = str.split("T");
+        System.out.print(result[3]);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">S</pre><div class="qd-sol"><p><b>풀이</b> "T" 기준으로 나누면 ["I", "IS", "ES", "S", "RING"] → result[3] = "S".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Connection {
+
+    private static Connection _inst = null;
+    private int count = 0;
+
+    static public Connection get() {
+        if (_inst == null) {
+            _inst = new Connection();
+            return _inst;
+        }
+        return _inst;
+    }
+
+    public void count() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Connection conn1 = Connection.get();
+        conn1.count();
+
+        Connection conn2 = Connection.get();
+        conn2.count();
+
+        Connection conn3 = Connection.get();
+        conn3.count();
+
+        conn1.count();
+        System.out.print(conn1.getCount());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">4</pre><div class="qd-sol"><p><b>풀이</b> 싱글톤이라 conn1~3이 같은 객체다. count()를 4번 호출.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 10번</div><div class="qd-q"><p class="exam-prompt">실행 순서를 중복 번호 없이 쓰시오. 5 → ( ) → ( ) → ( ) → ( ) → ( )</p><pre class="code" data-lang="Java"><code class="language-java">class Parent {
+    int x, y;
+
+    Parent(int x, int y) {       // ①
+        this.x = x;
+        this.y = y;
+    }
+
+    int getT() {                 // ②
+        return x * y;
+    }
+}
+
+class Child extends Parent {
+    int x;
+
+    Child(int x) {               // ③
+        super(x + 1, x);
+        this.x = x;
+    }
+
+    int getT(int n) {            // ④
+        return super.getT() + n;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {   // ⑤
+        Parent parent = new Child(3);           // ⑥
+        System.out.println(parent.getT());      // ⑦
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">5 → 6 → 3 → 1 → 7 → 2</pre><div class="qd-sol"><p><b>풀이</b> main(⑤) → 객체 생성(⑥) → Child 생성자(③) → super로 Parent 생성자(①) → 출력문(⑦) → getT()(②). Child의 getT(int)는 매개변수가 달라 오버라이딩이 아니므로 Parent의 getT()가 실행된다 (출력 12).</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 16번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class classOne {
+    int a, b;
+
+    public classOne(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public void print() {
+        System.out.println(a + b);
+    }
+}
+
+class classTwo extends classOne {
+    int po = 3;
+
+    public classTwo(int i) {
+        super(i, i + 1);
+    }
+
+    public void print() {
+        System.out.println(po * po);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        classOne one = new classTwo(10);
+        one.print();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">9</pre><div class="qd-sol"><p><b>풀이</b> print()는 classTwo가 오버라이딩 → 3 × 3 = 9.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        A b = new B();
+        b.paint();
+        b.draw();
+    }
+}
+
+class A {
+    public void paint() {
+        System.out.print("A");
+        draw();
+    }
+    public void draw() {
+        System.out.print("B");
+        draw();
+    }
+}
+
+class B extends A {
+    public void paint() {
+        super.draw();
+        System.out.print("C");
+        this.draw();
+    }
+    public void draw() {
+        System.out.print("D");
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">BDCDD</pre><div class="qd-sol"><p><b>풀이</b> b.paint()는 B의 것: super.draw()로 A의 draw → "B", 그 안의 draw()는 B의 것 → "D". 이어서 "C", this.draw() → "D". 마지막 b.draw() → "D".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 11번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Parent {
+    int compute(int num) {
+        if (num &lt;= 1)
+            return num;
+        return compute(num - 1) + compute(num - 2);
+    }
+}
+
+class Child extends Parent {
+    int compute(int num) {
+        if (num &lt;= 1)
+            return num;
+        return compute(num - 1) + compute(num - 3);
+    }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        Parent obj = new Child();
+        System.out.print(obj.compute(7));
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">2</pre><div class="qd-sol"><p><b>풀이</b> Child의 compute가 재귀 내내 실행된다. c(n) = n (n ≤ 1): c(2) = 0, c(3) = 0, c(4) = 1, c(5) = 1, c(6) = 1, c(7) = c(6) + c(4) = 2.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 코드를 실행하면 에러가 발생한다. 에러가 발생하는 라인 번호를 쓰시오 (첫 줄이 1번 라인).</p><pre class="code" data-lang="Java"><code class="language-java">class Person {
+    private String name;
+    public Person(String val) {
+        name = val;
+    }
+    public static String get() {
+        return name;
+    }
+    public void print() {
+        System.out.println(name);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Person obj = new Person("Kim");
+        obj.print();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">7번 라인 (return name;)</pre><div class="qd-sol"><p><b>풀이</b> static 메서드 get()에서 인스턴스 변수 name을 참조할 수 없어 컴파일 오류.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 2번</div><div class="qd-q"><p class="exam-prompt">4620원을 1000, 500, 100, 10원으로 나눌 때 변수 m, 연산자 / %, 괄호, 정수만 써서 빈칸을 채우시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Problem {
+    public static void main(String[] args) {
+        int m = 4620;
+
+        int a = (              );
+        int b = (              );
+        int c = (              );
+        int d = (              );
+
+        System.out.println(a);   // 천원짜리   4장
+        System.out.println(b);   // 오백원짜리 1개
+        System.out.println(c);   // 백원짜리   1개
+        System.out.println(d);   // 십원짜리   2개
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">a = m / 1000  b = m % 1000 / 500  c = m % 500 / 100  d = m % 100 / 10</pre><div class="qd-sol"><p><b>풀이</b> 큰 단위로 나눈 나머지를 다음 단위로 나눈 몫이 개수다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 14번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        String str1 = "Programming";
+        String str2 = "Programming";
+        String str3 = new String("Programming");
+
+        System.out.println(str1 == str2);
+        System.out.println(str1 == str3);
+        System.out.println(str1.equals(str3));
+        System.out.print(str2.equals(str3));
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">true
+false
+true
+true</pre><div class="qd-sol"><p><b>풀이</b> 같은 리터럴은 같은 객체라 str1 == str2는 true, new는 새 객체라 false. equals는 내용 비교라 모두 true.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Static {
+    public int a = 20;
+    static int b = 0;
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int a;
+        a = 10;
+        Static.b = a;
+
+        Static st = new Static();
+
+        System.out.println(Static.b++);
+        System.out.println(st.b);
+        System.out.println(a);
+        System.out.print(st.a);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">10
+11
+10
+20</pre><div class="qd-sol"><p><b>풀이</b> Static.b++는 10을 출력한 뒤 11이 된다. st.b도 같은 static 변수라 11. 지역 변수 a = 10, 인스턴스 a = 20.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 14번</div><div class="qd-q"><p class="exam-prompt">출력이 1 2 3 5 7 8이 되도록 괄호에 들어갈 값을 변수명으로 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Sort {
+
+    public static void swap(int[] arr, int idx1, int idx2) {
+        int temp = arr[idx1];
+        arr[idx1] = arr[idx2];
+        arr[( 1 )] = temp;
+    }
+
+    public static void Usort(int[] array, int length) {
+        for (int i = 0; i &lt; length; i++) {
+            for (int j = 0; j &lt; length - i - 1; j++) {
+                if (array[j] &gt; array[j + 1]) {
+                    swap(array, j, j + 1);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] item = new int[] { 5, 3, 8, 1, 2, 7 };
+        int nx = 6;
+        Usort(item, ( 2 ));
+
+        for (int data : item) {
+            System.out.print(data + " ");
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">(1) idx2  (2) nx</pre><div class="qd-sol"><p><b>풀이</b> 교환의 마지막 단계는 arr[idx2] = temp, 정렬 길이는 nx(6). 출력 1 2 3 5 7 8.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">abstract class Vehicle {
+    String name;
+    abstract public String getName(String val);
+
+    public String getName() {
+        return "Vehicle name: " + name;
+    }
+}
+
+class Car extends Vehicle {
+    public Car(String val) {
+        name = super.name = val;
+    }
+
+    public String getName(String val) {
+        return "Car name:" + val;
+    }
+
+    public String getName(byte val[]) {
+        return "Car name:" + val;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Vehicle obj = new Car("Spark");
+        System.out.println(obj.getName());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">Vehicle name: Spark</pre><div class="qd-sol"><p><b>풀이</b> 매개변수 없는 getName()은 Vehicle에만 있다. name = "Spark".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 20번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Parent {
+    int x = 100;
+
+    Parent() {
+        this(500);
+    }
+
+    Parent(int x) {
+        this.x = x;
+    }
+
+    int getX() {
+        return x;
+    }
+}
+
+class Child extends Parent {
+    int x = 4000;
+
+    Child() {
+        this(5000);
+    }
+
+    Child(int x) {
+        this.x = x;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Child obj = new Child();
+        System.out.println(obj.getX());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">500</pre><div class="qd-sol"><p><b>풀이</b> Child() → Child(5000) → 자동 super() → Parent() → Parent(500): Parent의 x = 500. getX()는 Parent에 있어 Parent의 x를 읽는다. (Child의 x = 5000은 별개)</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 3회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Main {
+    static int[] MakeArray() {
+        int[] tempArr = new int[4];
+
+        for (int i = 0; i &lt; tempArr.length; i++) {
+            tempArr[i] = i;
+        }
+
+        return tempArr;
+    }
+
+    public static void main(String[] args) {
+        int[] intArr;
+        intArr = MakeArray();
+
+        for (int i = 0; i &lt; intArr.length; i++)
+            System.out.print(intArr[i]);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">0123</pre><div class="qd-sol"><p><b>풀이</b> 길이 4 배열에 0 ~ 3을 넣어 반환. (복원 코드의 Length는 length로 정리)</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 3회 · 20번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Exam {
+    public static void main(String[] args) {
+        int a = 0;
+        for (int i = 1; i &lt; 999; i++) {
+            if (i % 3 == 0 &amp;&amp; i % 2 != 0)
+                a = i;
+        }
+        System.out.print(a);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">993</pre><div class="qd-sol"><p><b>풀이</b> 3의 배수이면서 홀수인 수 중 999 미만의 마지막 값.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 2회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public static void main(String args[]) {
+    int i = 3; int k = 1;
+    switch (i) {
+        case 1: k += 1;
+        case 2: k++;
+        case 3: k = 0;
+        case 4: k += 3;
+        case 5: k -= 10;
+        default: k--;
+    }
+    System.out.print(k);
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">-8</pre><div class="qd-sol"><p><b>풀이</b> case 3부터 끝까지 실행: k = 0 → 3 → −7 → −8.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 2회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Conv {
+    public Conv(int a) {
+        this.a = a;
+    }
+    int func() {
+        int b = 1;
+        for (int i = 1; i &lt; a; i++) {
+            b = a * i + b;
+        }
+        return a + b;
+    }
+    int a;
+
+    public static void main(String[] args) {
+        Conv obj = new Conv(3);
+        obj.a = 5;
+        int b = obj.func();
+        System.out.print(obj.a + b);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">61</pre><div class="qd-sol"><p><b>풀이</b> a = 5로 바뀐 뒤 func(): b = 1 → 6 → 16 → 31 → 51, return 5 + 51 = 56. 출력 5 + 56 = 61.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 1회 · 3번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class A {
+    int a;
+    int b;
+}
+
+public class Main {
+
+    static void func1(A m) {
+        m.a *= 10;
+    }
+
+    static void func2(A m) {
+        m.a += m.b;
+    }
+
+    public static void main(String args[]) {
+        A m = new A();
+
+        m.a = 100;
+        func1(m);
+        m.b = m.a;
+        func2(m);
+
+        System.out.printf("%d", m.a);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">2000</pre><div class="qd-sol"><p><b>풀이</b> 객체 참조를 넘기므로 원본이 바뀐다: a = 1000 → b = 1000 → a = 2000.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 1회 · 11번</div><div class="qd-q"><p class="exam-prompt">밑줄에 들어갈 알맞은 코드를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Car implements Runnable {
+    int a;
+
+    public void run() {
+        System.out.println("message");
+    }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        Thread t1 = new Thread(new ___());
+        t1.start();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">Car</pre><div class="qd-sol"><p><b>풀이</b> Runnable을 구현한 Car 객체를 Thread 생성자에 넘긴다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 3회 · 1번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Connection {
+    private static Connection _inst = null;
+    private int count = 0;
+
+    static public Connection get() {
+        if (_inst == null) {
+            _inst = new Connection();
+            return _inst;
+        }
+        return _inst;
+    }
+    public void count() { count++; }
+    public int getCount() { return count; }
+}
+
+public class testcon {
+    public static void main(String[] args) {
+        Connection conn1 = Connection.get();
+        conn1.count();
+        Connection conn2 = Connection.get();
+        conn2.count();
+        Connection conn3 = Connection.get();
+        conn3.count();
+
+        System.out.print(conn1.getCount());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">3</pre><div class="qd-sol"><p><b>풀이</b> 싱글톤이라 세 변수가 같은 객체를 가리키고 count()를 3번 호출.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 3회 · 11번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class testco {
+    public static void main(String[] args) {
+        int a = 3, b = 4, c = 3, d = 5;
+        if ((a == 2 | a == c) &amp; !(c &gt; d) &amp; (1 == b ^ c != d)) {
+            a = b + c;
+            if (7 == b ^ c != a) {
+                System.out.println(a);
+            } else {
+                System.out.println(b);
+            }
+        } else {
+            a = c + d;
+            if (7 == c ^ d != a) {
+                System.out.println(a);
+            } else {
+                System.out.println(d);
+            }
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">7</pre><div class="qd-sol"><p><b>풀이</b> (false | true) &amp; true &amp; (false ^ true) = true → a = 7. (7 == 4) ^ (3 != 7) = false ^ true = true → a 출력.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 2회 · 17번</div><div class="qd-q"><p class="exam-prompt">객체 생성 없이 사용할 수 있도록 괄호에 들어갈 키워드를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class Test {
+    public static void main(String[] args) {
+        System.out.print(Test.check(1));
+    }
+
+    (    ) String check(int num) {
+        return (num &gt;= 0) ? "positive" : "negative";
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">static</pre><div class="qd-sol"><p><b>풀이</b> 객체 생성 없이 클래스명.메서드()로 부르려면 static. 출력은 positive.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 2회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class ovr1 {
+    public static void main(String[] args) {
+        ovr1 a1 = new ovr1();
+        ovr2 a2 = new ovr2();
+        System.out.println(a1.sun(3, 2) + a2.sun(3, 2));
+    }
+
+    int sun(int x, int y) {
+        return x + y;
+    }
+}
+
+class ovr2 extends ovr1 {
+    int sun(int x, int y) {
+        return x - y + super.sun(x, y);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">11</pre><div class="qd-sol"><p><b>풀이</b> a1.sun = 5, a2.sun = 3 − 2 + 5 = 6 → 11.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 1회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class good {
+    public static void main(String[] args) {
+        int[][] arr = new int[][]{{45, 50, 75}, {89}};
+        System.out.println(arr[0].length);
+        System.out.println(arr[1].length);
+        System.out.println(arr[0][0]);
+        System.out.println(arr[0][1]);
+        System.out.println(arr[1][0]);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">3
+1
+45
+50
+89</pre><div class="qd-sol"><p><b>풀이</b> 행마다 길이가 다른 가변 배열. 0번 행 길이 3, 1번 행 길이 1.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 1회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class good {
+    public static void main(String[] args) {
+        int i, j;
+        for (j = 0, i = 0; i &lt;= 5; i++) {
+            j += i;
+            System.out.print(i);
+            if (i == 5) {
+                System.out.print("=");
+                System.out.print(j);
+            } else {
+                System.out.print("+");
+            }
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">0+1+2+3+4+5=15</pre><div class="qd-sol"><p><b>풀이</b> i를 출력하고 마지막이면 "=합", 아니면 "+".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 4회 · 5번</div><div class="qd-q"><p class="exam-prompt">n이 10일 때 2진수 00001010을 출력하도록 1, 2에 알맞은 값을 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class good {
+    public static void main(String[] args) {
+        int[] a = new int[8];
+        int i = 0; int n = 10;
+        while (  1.  ) {
+            a[i++] = (  2.  );
+            n /= 2;
+        }
+        for (i = 7; i &gt;= 0; i--) {
+            System.out.print(a[i]);
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1. n &gt; 0  2. n % 2</pre><div class="qd-sol"><p><b>풀이</b> 2로 나눈 나머지를 차례로 저장하고 거꾸로 출력하면 2진수 00001010.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 4회 · 6번</div><div class="qd-q"><p class="exam-prompt">출력이 1 4 7 10 13 / 2 5 8 11 14 / 3 6 9 12 15가 되도록 1, 2에 알맞은 값을 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class good {
+    public static void main(String[] args) {
+        int[][] a = new int[(1.)][(2.)];
+        for (int i = 0; i &lt; 3; i++) {
+            for (int j = 0; j &lt; 5; j++) {
+                a[i][j] = j * 3 + (i + 1);
+                System.out.print(a[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1. 3  2. 5</pre><div class="qd-sol"><p><b>풀이</b> i는 0 ~ 2(3행), j는 0 ~ 4(5열).</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 4회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class parent {
+    public int compute(int num) {
+        if (num &lt;= 1) return num;
+        return compute(num - 1) + compute(num - 2);
+    }
+}
+
+class Child extends parent {
+    public int compute(int num) {
+        if (num &lt;= 1) return num;
+        return compute(num - 1) + compute(num - 3);
+    }
+}
+
+class good {
+    public static void main(String[] args) {
+        parent obj = new Child();
+        System.out.print(obj.compute(4));
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">1</pre><div class="qd-sol"><p><b>풀이</b> Child의 compute가 실행된다: c(2) = c(1) + c(−1) = 0, c(3) = c(2) + c(0) = 0, c(4) = c(3) + c(1) = 1.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 3회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">abstract class Vehicle {
+    private String name;
+    abstract public String getName(String val);
+    public String getName() {
+        return "vehicle name:" + name;
+    }
+    public void setName(String val) {
+        name = val;
+    }
+}
+
+class Car extends Vehicle {
+    public Car(String val) {
+        setName(val);
+    }
+    public String getName(String val) {
+        return "Car name : " + val;
+    }
+    public String getName(byte val[]) {
+        return "Car name : " + val;
+    }
+}
+
+public class good {
+    public static void main(String[] args) {
+        Vehicle obj = new Car("Spark");
+        System.out.print(obj.getName());
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">vehicle name:Spark</pre><div class="qd-sol"><p><b>풀이</b> 매개변수 없는 getName()은 Vehicle 것이다. setName으로 name = "Spark".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 3회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class good {
+    public static void main(String[] args) {
+        int i = 0;
+        int sum = 0;
+        while (i &lt; 10) {
+            i++;
+            if (i % 2 == 1)
+                continue;
+            sum += i;
+        }
+        System.out.println(sum);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">30</pre><div class="qd-sol"><p><b>풀이</b> 홀수는 continue로 건너뛰고 짝수만 더한다: 2 + 4 + 6 + 8 + 10 = 30.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 2회 · 5번</div><div class="qd-q"><p class="exam-prompt">밑줄에 들어갈 키워드를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class Parent {
+    public void show() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    public void show() {
+        System.out.println("Child");
+    }
+}
+
+public class good {
+    public static void main(String[] args) {
+        Parent pa = ____ Child();
+        pa.show();
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">new</pre><div class="qd-sol"><p><b>풀이</b> 객체를 생성하는 키워드 new. 출력은 Child.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 2회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">class A {
+    private int a;
+    public A(int a) {
+        this.a = a;
+    }
+    public void display() {
+        System.out.println("a=" + a);
+    }
+}
+
+class B extends A {
+    public B(int a) {
+        super(a);
+        super.display();
+    }
+}
+
+public class good {
+    public static void main(String[] args) {
+        B obj = new B(10);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">a=10</pre><div class="qd-sol"><p><b>풀이</b> B 생성자가 super(10)으로 a = 10을 넣고 display()를 호출.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 1회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class good {
+    public static void main(String[] args) {
+        int i;
+        int[] a = {0, 1, 2, 3};
+        for (i = 0; i &lt; 4; i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">0 1 2 3</pre><div class="qd-sol"><p><b>풀이</b> 값마다 뒤에 공백이 붙는다 (마지막 3 뒤에도 공백).</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 1회 · 14번</div><div class="qd-q"><p class="exam-prompt">다음 Java 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Java"><code class="language-java">public class good {
+    public static void main(String[] args) {
+        int i = 3;
+        int k = 1;
+        switch (i) {
+            case 0:
+            case 1:
+            case 2:
+            case 3: k = 0;
+            case 4: k += 3;
+            case 5: k -= 10;
+            default: k--;
+        }
+        System.out.print(k);
+    }
+}</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">-8</pre><div class="qd-sol"><p><b>풀이</b> case 3부터 break 없이 끝까지: 0 → 3 → −7 → −8.</p></div></details></article>
+
+      <h3>Python (23문제)</h3>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 5번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">class LocationDict:
+    locations = {
+        "NYC": "New York",
+        "LON": "London",
+        "PAR": "Paris",
+        "TKY": "Tokyo"
+    }
+
+tmpdict = LocationDict()
+str01 = ""
+for key, location in tmpdict.locations.items():
+    keyk = key[-1]
+    locationk = location[0]
+    str01 += keyk + locationk
+
+print(str01, end="")</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">CNNLRPYT</pre><div class="qd-sol"><p><b>풀이</b> 키의 마지막 글자 + 값의 첫 글자: C+N, N+L, R+P, Y+T.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 2회 · 6번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a = "_THIS_IS_KIM_SPEAKING"
+b = a[:4]
+c = a[6:8]
+d = a[18:]
+e = b + c + d
+print(e)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">_THIISING</pre><div class="qd-sol"><p><b>풀이</b> a[:4] = "_THI", a[6:8] = "IS", a[18:] = "ING".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 1회 · 8번</div><div class="qd-q"><p class="exam-prompt">입력값으로 HumanDev를 주었을 때 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">i = input()
+x = []
+
+for word in i.split():
+    x.append(word)
+
+y = ''.join(x)
+z = ''.join(c for c in y[::-1] if c not in 'ong')
+
+print(z)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">veDamuH</pre><div class="qd-sol"><p><b>풀이</b> y = "HumanDev", 뒤집으면 "veDnamuH", o·n·g를 빼면 "veDamuH".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 1회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">lst = list(range(10))
+for c in lst[::-2]:
+    print(c, end='A')
+print()</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">9A7A5A3A1A</pre><div class="qd-sol"><p><b>풀이</b> 끝에서부터 2칸씩: 9, 7, 5, 3, 1. 값마다 뒤에 A.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2026년 1회 · 14번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">def f(a):
+    m = [[x] for x in a]
+    b = m[:]
+    for i in range(len(b) - 1):
+        b[i+1] += b[i]
+    return sum(len(x) for x in m)
+
+print(f([1, 2, 3, 4]))</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">10</pre><div class="qd-sol"><p><b>풀이</b> m[:]는 얕은 복사라 안쪽 리스트를 공유한다. += 가 제자리에서 늘려서 m의 길이가 1, 2, 3, 4가 되고 합 10.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 3회 · 9번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">data = [
+    [3, 5, 2, 4, 1],
+    [4, 5, 1],
+    [4, 4, 1, 5, 4],
+    [4, 5]
+]
+
+result = {}
+
+for index, lis in enumerate(data):
+    list_sum = sum(lis)
+    list_len = len(lis)
+
+    result[index] = (list_sum, list_len)
+
+print(result)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">{0: (15, 5), 1: (10, 3), 2: (18, 5), 3: (9, 2)}</pre><div class="qd-sol"><p><b>풀이</b> enumerate로 번호와 리스트를 꺼내 (합계, 길이) 튜플로 저장.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 2회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">lst = [1, 2, 3]
+dst = {i: i * 2 for i in lst}
+s = set(dst.values())
+lst[0] = 99
+dst[2] = 7
+s.add(99)
+print(len(s &amp; set(dst.values())))</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">2</pre><div class="qd-sol"><p><b>풀이</b> s = {2, 4, 6, 99}, dst의 값 = {2, 7, 6} → 교집합 {2, 6} → 2.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2025년 1회 · 17번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">class Node:
+    def __init__(self, value):
+        self.value = value
+        self.children = []
+
+def tree(li):
+    nodes = [Node(i) for i in li]
+    for i in range(1, len(li)):
+        nodes[(i - 1) // 2].children.append(nodes[i])
+    return nodes[0]
+
+def calc(node, level=0):
+    if node is None:
+        return 0
+    return (node.value if level % 2 == 1 else 0) + sum(calc(n, level + 1) for n in node.children)
+
+li = [3, 5, 8, 12, 15, 18, 21]
+
+root = tree(li)
+
+print(calc(root))</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">13</pre><div class="qd-sol"><p><b>풀이</b> 부모 = (i − 1) // 2로 트리를 만들면 레벨 0: 3, 레벨 1: 5, 8, 레벨 2: 12, 15, 18, 21. 홀수 레벨(1)만 더해 5 + 8 = 13.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 2번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">def func(lst):
+    for i in range(len(lst) // 2):
+        lst[i], lst[-i-1] = lst[-i-1], lst[i]
+
+lst = [1, 2, 3, 4, 5, 6]
+func(lst)
+print(sum(lst[::2]) - sum(lst[1::2]))</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">3</pre><div class="qd-sol"><p><b>풀이</b> 앞뒤를 바꿔 [6, 5, 4, 3, 2, 1]. 짝수 번째 합 6 + 4 + 2 = 12, 홀수 번째 합 5 + 3 + 1 = 9 → 3.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 3회 · 10번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">def func(value):
+    if type(value) == type(100):
+        return 100
+    elif type(value) == type(""):
+        return len(value)
+    else:
+        return 20
+
+
+a = '100.0'
+b = 100.0
+c = (100, 200)
+
+print(func(a) + func(b) + func(c))</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">45</pre><div class="qd-sol"><p><b>풀이</b> '100.0'은 str → 길이 5, 100.0은 float → 20, 튜플 → 20. 합 45.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 2회 · 6번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">def fnCalculation(x, y):
+    result = 0
+    for i in range(len(x)):
+        temp = x[i:i+len(y)]
+        if temp == y:
+            result += 1
+    return result
+
+a = "abdcabcabca"
+p1 = "ab"
+p2 = "ca"
+
+out = f"ab{fnCalculation(a, p1)}ca{fnCalculation(a, p2)}"
+print(out)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">ab3ca3</pre><div class="qd-sol"><p><b>풀이</b> "ab"는 인덱스 0, 4, 7에서 3번, "ca"는 3, 6, 9에서 3번.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2024년 1회 · 12번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a = ["Seoul", "Kyeonggi", "Incheon", "Daejun", "Daegu", "Pusan"]
+str = "S"
+
+for i in a:
+    str = str + i[1]
+
+print(str)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">Seynaau</pre><div class="qd-sol"><p><b>풀이</b> "S"에 각 단어의 두 번째 글자 e, y, n, a, a, u를 붙인다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 3회 · 14번</div><div class="qd-q"><p class="exam-prompt">입력값이 2와 3일 때 의도한 출력이 나오도록 밑줄에 들어갈 답을 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">print("파이썬 입출력에 대한 문제입니다.")
+
+num1, num2 = input()._____()
+num1 = int(num1)
+num2 = int(num2)
+print(num1, num2)
+
+num3 = num1 + num2
+print(num1 + " + " + num2 + " = " + num3)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">split</pre><div class="qd-sol"><p><b>풀이</b> 입력 "2 3"을 공백으로 나누는 메서드는 split. (마지막 줄은 정수와 문자열을 + 로 합쳐 실제로는 TypeError가 난다. 의도대로라면 str()로 감싸야 한다.)</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 2회 · 19번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a = "engineer information processing"
+b = a[:3]
+c = a[4:6]
+d = a[28:]
+e = b + c + d
+print(e)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">engneing</pre><div class="qd-sol"><p><b>풀이</b> a[:3] = "eng", a[4:6] = "ne", a[28:] = "ing".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2023년 1회 · 15번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a = {'한국', '중국', '일본'}
+a.add('베트남')
+a.add('중국')
+a.remove('일본')
+a.update({'홍콩', '한국', '태국'})
+print(a)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">{'한국', '중국', '베트남', '홍콩', '태국'}</pre><div class="qd-sol"><p><b>풀이</b> set은 중복이 없고 순서가 없다. 출력 순서는 실행마다 다를 수 있으며, 중괄호를 포함해 다섯 원소를 쓰면 된다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 3회 · 9번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">TestList = [1, 2, 3, 4, 5]
+TestList = list(map(lambda num: num + 100, TestList))
+
+print(TestList)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">[101, 102, 103, 104, 105]</pre><div class="qd-sol"><p><b>풀이</b> map으로 모든 원소에 100을 더한다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 2회 · 13번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a = "REMEMBER NOVEMBER"
+b = a[:3] + a[12:16]
+c = "R AND %s" % "STR"
+print(b + c)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">REMEMBER AND STR</pre><div class="qd-sol"><p><b>풀이</b> a[:3] = "REM", a[12:16] = "EMBE", c = "R AND STR".</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2022년 1회 · 6번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">def exam(num1, num2=2):
+    print('a=', num1, 'b=', num2)
+exam(20)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">a= 20 b= 2</pre><div class="qd-sol"><p><b>풀이</b> num2는 기본값 2. print에 값을 여러 개 주면 사이에 공백이 들어간다.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 3회 · 14번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a, b = 100, 200
+print(a == b)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">False</pre><div class="qd-sol"><p><b>풀이</b> 비교 결과는 대문자로 시작하는 False.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 2회 · 7번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a = 100
+result = 0
+for i in range(1, 3):
+    result = a &gt;&gt; i
+    result = result + 1
+print(result)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">26</pre><div class="qd-sol"><p><b>풀이</b> 반복마다 새로 대입하므로 마지막 i = 2만 남는다: 100 &gt;&gt; 2 = 25, + 1 = 26.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2021년 1회 · 5번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">class good:
+    li = ["seoul", "kyeonggi", "inchon", "daejeon", "daegu", "pusan"]
+
+g = good()
+str01 = ''
+for i in g.li:
+    str01 = str01 + i[0]
+
+print(str01)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">skiddp</pre><div class="qd-sol"><p><b>풀이</b> 각 단어의 첫 글자.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 4회 · 9번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">lol = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+print(lol[0])
+print(lol[2][1])
+for sub in lol:
+    for item in sub:
+        print(item, end='')
+    print()</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">[1, 2, 3]
+7
+123
+45
+6789</pre><div class="qd-sol"><p><b>풀이</b> lol[2][1] = 7. 안쪽 리스트마다 줄을 바꿔 붙여서 출력.</p></div></details></article>
+      <article class="qd-item exam-card"><div class="qd-no">2020년 2회 · 2번</div><div class="qd-q"><p class="exam-prompt">다음 Python 코드의 출력 결과를 쓰시오.</p><pre class="code" data-lang="Python"><code class="language-python">a = {'일본', '중국', '한국'}
+a.add('베트남')
+a.add('중국')
+a.remove('일본')
+a.update(['홍콩', '한국', '태국'])
+print(a)</code></pre></div>
+        <details class="qd-ans"><summary>정답 보기</summary><pre class="ans-out">{'중국', '한국', '베트남', '홍콩', '태국'}</pre><div class="qd-sol"><p><b>풀이</b> 중복은 무시되고 일본이 빠진다. set은 순서가 없어 출력 순서는 달라질 수 있다.</p></div></details></article>
+</section>
 
   </main>
 </div>
